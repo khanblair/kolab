@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 async function deleteWorkflowRule(id: string) {
   const response = await client["workflow-rule"][":id"].$delete({

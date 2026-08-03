@@ -5,14 +5,14 @@ description: Configure private uploads with MinIO, AWS S3, or Cloudflare R2.
 
 ## Overview
 
-Kaneo uses S3-compatible object storage for uploads in:
+Kolab uses S3-compatible object storage for uploads in:
 
 - task descriptions
 - task comments
 
 The browser uploads directly to the configured storage backend using presigned URLs.
 
-Kaneo then serves uploaded assets back through its own API.
+Kolab then serves uploaded assets back through its own API.
 
 Current behavior:
 
@@ -26,7 +26,7 @@ That means one rule matters for every backend:
 
 Do not use a Docker-internal hostname such as `http://minio:9000` for a public deployment unless the browser can actually reach it.
 
-## Required Kaneo variables
+## Required Kolab variables
 
 ```env
 S3_ENDPOINT=
@@ -52,18 +52,18 @@ MinIO is the recommended self-hosted option.
 For local development, this is fine:
 
 ```env
-MINIO_ROOT_USER=kaneo-local
+MINIO_ROOT_USER=kolab-local
 MINIO_ROOT_PASSWORD=<choose-a-local-development-password>
 
 S3_ENDPOINT=http://minio:9000
-S3_BUCKET=kaneo-uploads
-S3_ACCESS_KEY_ID=kaneo-local
+S3_BUCKET=kolab-uploads
+S3_ACCESS_KEY_ID=kolab-local
 S3_SECRET_ACCESS_KEY=<choose-a-local-development-password>
 S3_REGION=us-east-1
 S3_FORCE_PATH_STYLE=true
 ```
 
-This works when Kaneo and MinIO are on the same Docker network and your browser reaches MinIO through `localhost`.
+This works when Kolab and MinIO are on the same Docker network and your browser reaches MinIO through `localhost`.
 
 ### Public deployment
 
@@ -71,17 +71,17 @@ For a public deployment, expose MinIO on its own hostname through your reverse p
 
 Example:
 
-- Kaneo: `https://cloud.kaneo.app`
-- MinIO: `https://files.cloud.kaneo.app`
+- Kolab: `https://cloud.kolab.app`
+- MinIO: `https://files.cloud.kolab.app`
 
 This can be done with Caddy, Nginx, Traefik, or any other reverse proxy.
 
 Then use:
 
 ```env
-S3_ENDPOINT=https://files.cloud.kaneo.app
-S3_BUCKET=kaneo-uploads
-S3_ACCESS_KEY_ID=kaneo
+S3_ENDPOINT=https://files.cloud.kolab.app
+S3_BUCKET=kolab-uploads
+S3_ACCESS_KEY_ID=kolab
 S3_SECRET_ACCESS_KEY=<generate-a-strong-random-secret>
 S3_REGION=us-east-1
 S3_FORCE_PATH_STYLE=true
@@ -91,7 +91,7 @@ You also need:
 
 - a created bucket
 - a dedicated, non-root MinIO user with access limited to that bucket
-- MinIO CORS allowing your Kaneo origin
+- MinIO CORS allowing your Kolab origin
 - no anonymous bucket read policy is required
 
 <Warning>
@@ -109,7 +109,7 @@ Example:
 
 ```env
 S3_ENDPOINT=https://s3.us-east-1.amazonaws.com
-S3_BUCKET=kaneo-uploads
+S3_BUCKET=kolab-uploads
 S3_ACCESS_KEY_ID=AKIA...
 S3_SECRET_ACCESS_KEY=...
 S3_REGION=us-east-1
@@ -122,14 +122,14 @@ For another AWS region, adjust:
 
 ### Using an IAM role instead of an access key
 
-If Kaneo runs on AWS (EC2, ECS, or EKS), you can omit `S3_ACCESS_KEY_ID` and
-`S3_SECRET_ACCESS_KEY` entirely and let Kaneo authenticate with the instance's
+If Kolab runs on AWS (EC2, ECS, or EKS), you can omit `S3_ACCESS_KEY_ID` and
+`S3_SECRET_ACCESS_KEY` entirely and let Kolab authenticate with the instance's
 IAM role. Leave both unset and the AWS SDK resolves credentials from its default
 provider chain (instance profile, ECS task role, or EKS IRSA).
 
 ```env
 S3_ENDPOINT=https://s3.us-east-1.amazonaws.com
-S3_BUCKET=kaneo-uploads
+S3_BUCKET=kolab-uploads
 S3_REGION=us-east-1
 S3_FORCE_PATH_STYLE=false
 # S3_ACCESS_KEY_ID and S3_SECRET_ACCESS_KEY omitted — the IAM role is used
@@ -145,7 +145,7 @@ Recommended S3 CORS policy:
   {
     "AllowedHeaders": ["*"],
     "AllowedMethods": ["GET", "PUT", "HEAD"],
-    "AllowedOrigins": ["https://cloud.kaneo.app"],
+    "AllowedOrigins": ["https://cloud.kolab.app"],
     "ExposeHeaders": ["ETag"]
   }
 ]
@@ -161,7 +161,7 @@ Example:
 
 ```env
 S3_ENDPOINT=https://<account-id>.r2.cloudflarestorage.com
-S3_BUCKET=kaneo-uploads
+S3_BUCKET=kolab-uploads
 S3_ACCESS_KEY_ID=...
 S3_SECRET_ACCESS_KEY=...
 S3_REGION=auto
@@ -171,11 +171,11 @@ S3_FORCE_PATH_STYLE=false
 Notes:
 
 - `S3_REGION=auto` is typical for R2
-- a public bucket is not required for Kaneo's current private asset flow
+- a public bucket is not required for Kolab's current private asset flow
 
 ## One copy-paste self-hosted example
 
-This example gives you Kaneo + MinIO in one Compose file.
+This example gives you Kolab + MinIO in one Compose file.
 
 ```yml
 services:
@@ -187,13 +187,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kaneo -d kaneo"]
+      test: ["CMD-SHELL", "pg_isready -U kolab -d kolab"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   api:
-    image: ghcr.io/usekaneo/api:latest
+    image: ghcr.io/khanblair/kolab-api:latest
     env_file:
       - .env
     depends_on:
@@ -202,7 +202,7 @@ services:
     restart: unless-stopped
 
   web:
-    image: ghcr.io/usekaneo/web:latest
+    image: ghcr.io/khanblair/kolab-web:latest
     env_file:
       - .env
     depends_on:
@@ -226,14 +226,14 @@ volumes:
 Matching `.env`:
 
 ```env
-KANEO_CLIENT_URL=https://cloud.kaneo.app
-KANEO_API_URL=https://cloud.kaneo.app/api
+KOLAB_CLIENT_URL=https://cloud.kolab.app
+KOLAB_API_URL=https://cloud.kolab.app/api
 
 MINIO_ROOT_USER=<generate-a-unique-admin-user>
 MINIO_ROOT_PASSWORD=<generate-a-strong-random-secret>
 
-S3_ENDPOINT=https://files.cloud.kaneo.app
-S3_BUCKET=kaneo-uploads
+S3_ENDPOINT=https://files.cloud.kolab.app
+S3_BUCKET=kolab-uploads
 S3_ACCESS_KEY_ID=<generate-a-unique-admin-user>
 S3_SECRET_ACCESS_KEY=<generate-a-strong-random-secret>
 S3_REGION=us-east-1
@@ -242,9 +242,9 @@ S3_FORCE_PATH_STYLE=true
 
 Before testing uploads:
 
-1. Create the `kaneo-uploads` bucket.
-2. Configure MinIO CORS for your Kaneo origin.
-3. Make sure `files.cloud.kaneo.app` resolves publicly.
+1. Create the `kolab-uploads` bucket.
+2. Configure MinIO CORS for your Kolab origin.
+3. Make sure `files.cloud.kolab.app` resolves publicly.
 
 ## Troubleshooting
 

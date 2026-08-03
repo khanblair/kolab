@@ -15,7 +15,7 @@ const DIR_MODE = 0o700;
 function configDir(): string {
   const base =
     process.env.XDG_CONFIG_HOME?.trim() || path.join(homedir(), ".config");
-  return path.join(base, "kaneo-mcp");
+  return path.join(base, "kolab-mcp");
 }
 
 export function credentialsPath(): string {

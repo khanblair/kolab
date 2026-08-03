@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 type SearchParams = {
   q: string;

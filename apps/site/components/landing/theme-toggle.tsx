@@ -17,7 +17,7 @@ export function ThemeToggle() {
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => {
-    const stored = localStorage.getItem("kaneo-site-theme");
+    const stored = localStorage.getItem("kolab-site-theme");
     const initial: Theme =
       stored === "light" || stored === "dark"
         ? stored
@@ -34,7 +34,7 @@ export function ThemeToggle() {
     const nextTheme: Theme = theme === "dark" ? "light" : "dark";
     setTheme(nextTheme);
     applyTheme(nextTheme);
-    localStorage.setItem("kaneo-site-theme", nextTheme);
+    localStorage.setItem("kolab-site-theme", nextTheme);
   };
 
   return (

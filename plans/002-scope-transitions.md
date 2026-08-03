@@ -38,5 +38,5 @@
 
 ## Verification
 
-- Mechanical: `pnpm --filter @kaneo/web build`; grep confirms no `transition-all` remains in the files above.
+- Mechanical: `pnpm --filter @kolab/web build`; grep confirms no `transition-all` remains in the files above.
 - Feel: press j/k on the board — the focus ring must move with zero fade. Open a dialog — overlay fade unchanged. DevTools Performance: hovering cards paints only color/shadow layers.

@@ -5,7 +5,7 @@ alwaysApply: false
 ---
 # Deployment & DevOps Guidelines
 
-Kaneo supports multiple deployment methods: Docker Compose for development/testing and Kubernetes for production. This document outlines deployment patterns and best practices.
+Kolab supports multiple deployment methods: Docker Compose for development/testing and Kubernetes for production. This document outlines deployment patterns and best practices.
 
 ## Docker Compose
 
@@ -27,13 +27,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kaneo -d kaneo"]
+      test: ["CMD-SHELL", "pg_isready -U kolab -d kolab"]
       interval: 10s
       timeout: 5s
       retries: 5
 
   api:
-    image: ghcr.io/usekaneo/api:latest
+    image: ghcr.io/khanblair/kolab-api:latest
     ports:
       - "1337:1337"
     env_file:
@@ -44,7 +44,7 @@ services:
     restart: unless-stopped
 
   web:
-    image: ghcr.io/usekaneo/web:latest
+    image: ghcr.io/khanblair/kolab-web:latest
     ports:
       - "5173:5173"
     env_file:
@@ -72,7 +72,7 @@ services:
 
   postgres:
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kaneo -d kaneo"]
+      test: ["CMD-SHELL", "pg_isready -U kolab -d kolab"]
       interval: 10s
       timeout: 5s
       retries: 5
@@ -82,10 +82,10 @@ services:
 
 ### Chart Structure
 
-Helm charts are located in `charts/kaneo/`:
+Helm charts are located in `charts/kolab/`:
 
 ```
-charts/kaneo/
+charts/kolab/
 ├── Chart.yaml              # Chart metadata
 ├── values.yaml             # Default values
 ├── README.md               # Chart documentation
@@ -107,7 +107,7 @@ charts/kaneo/
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "kaneo.fullname" . }}-api
+  name: {{ include "kolab.fullname" . }}-api
 spec:
   replicas: {{ .Values.api.replicaCount }}
   template:
@@ -119,7 +119,7 @@ spec:
         - name: DATABASE_URL
           valueFrom:
             secretKeyRef:
-              name: {{ include "kaneo.fullname" . }}-secrets
+              name: {{ include "kolab.fullname" . }}-secrets
               key: database-url
 ```
 
@@ -129,7 +129,7 @@ spec:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: {{ include "kaneo.fullname" . }}-web
+  name: {{ include "kolab.fullname" . }}-web
 spec:
   replicas: {{ .Values.web.replicaCount }}
   template:
@@ -183,17 +183,17 @@ All environment variables in a single `.env` file at project root:
 
 ```bash
 # Database
-DATABASE_URL=postgresql://kaneo_user:kaneo_password@localhost:5432/kaneo
-POSTGRES_DB=kaneo
-POSTGRES_USER=kaneo_user
-POSTGRES_PASSWORD=kaneo_password
+DATABASE_URL=postgresql://kolab_user:kolab_password@localhost:5432/kolab
+POSTGRES_DB=kolab
+POSTGRES_USER=kolab_user
+POSTGRES_PASSWORD=kolab_password
 
 # API
-KANEO_API_URL=http://localhost:1337
+KOLAB_API_URL=http://localhost:1337
 AUTH_SECRET=your-secret-key
 
 # Web
-KANEO_CLIENT_URL=http://localhost:5173
+KOLAB_CLIENT_URL=http://localhost:5173
 VITE_API_URL=http://localhost:1337
 ```
 
@@ -206,17 +206,17 @@ Use Kubernetes Secrets and ConfigMaps:
 apiVersion: v1
 kind: Secret
 metadata:
-  name: kaneo-secrets
+  name: kolab-secrets
 type: Opaque
 stringData:
-  database-url: postgresql://user:pass@postgres:5432/kaneo
+  database-url: postgresql://user:pass@postgres:5432/kolab
   auth-secret: your-secret-key
 
 # ConfigMap for non-sensitive data
 apiVersion: v1
 kind: ConfigMap
 metadata:
-  name: kaneo-config
+  name: kolab-config
 data:
   api-url: https://api.example.com
   client-url: https://app.example.com
@@ -241,7 +241,7 @@ For production, consider running migrations separately:
 
 ```bash
 # In Kubernetes, use a Job
-kubectl run migrate-db --image=ghcr.io/usekaneo/api:latest -- \
+kubectl run migrate-db --image=ghcr.io/khanblair/kolab-api:latest -- \
   node -e "require('./dist/migrate.js')"
 ```
 
@@ -280,13 +280,13 @@ readinessProbe:
 
 ### Horizontal Pod Autoscaling
 
-Configure HPA in `charts/kaneo/templates/hpa.yaml`:
+Configure HPA in `charts/kolab/templates/hpa.yaml`:
 
 ```yaml
 apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
-  name: {{ include "kaneo.fullname" . }}-api
+  name: {{ include "kolab.fullname" . }}-api
 spec:
   minReplicas: 2
   maxReplicas: 10
@@ -309,14 +309,14 @@ Always use TLS in production:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: kaneo-ingress
+  name: kolab-ingress
   annotations:
     cert-manager.io/cluster-issuer: letsencrypt-prod
 spec:
   tls:
   - hosts:
     - app.example.com
-    secretName: kaneo-tls
+    secretName: kolab-tls
   rules:
   - host: app.example.com
     http:
@@ -325,7 +325,7 @@ spec:
         pathType: Prefix
         backend:
           service:
-            name: kaneo-web
+            name: kolab-web
             port:
               number: 80
 ```
@@ -352,10 +352,10 @@ For PostgreSQL:
 
 ```bash
 # Backup
-kubectl exec -it postgres-pod -- pg_dump -U kaneo kaneo > backup.sql
+kubectl exec -it postgres-pod -- pg_dump -U kolab kolab > backup.sql
 
 # Restore
-kubectl exec -i postgres-pod -- psql -U kaneo kaneo < backup.sql
+kubectl exec -i postgres-pod -- psql -U kolab kolab < backup.sql
 ```
 
 ### Volume Backups
@@ -388,11 +388,11 @@ Restrict pod-to-pod communication:
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: kaneo-api-policy
+  name: kolab-api-policy
 spec:
   podSelector:
     matchLabels:
-      app: kaneo-api
+      app: kolab-api
   policyTypes:
   - Ingress
   - Egress
@@ -400,7 +400,7 @@ spec:
   - from:
     - podSelector:
         matchLabels:
-          app: kaneo-web
+          app: kolab-web
     ports:
     - protocol: TCP
       port: 1337

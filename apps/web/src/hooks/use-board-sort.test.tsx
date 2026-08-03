@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { useBoardSort } from "./use-board-sort";
 
 describe("useBoardSort", () => {
-  const storageKey = "kaneo:board-sort:project-1";
+  const storageKey = "kolab:board-sort:project-1";
 
   beforeEach(() => {
     window.localStorage.clear();

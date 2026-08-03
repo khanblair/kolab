@@ -273,20 +273,20 @@ input:-webkit-autofill:active {
 }
 
 @layer components {
-  .kaneo-tiptap-shell {
+  .kolab-tiptap-shell {
     position: relative;
   }
 
-  .kaneo-tiptap-shell:focus-within {
+  .kolab-tiptap-shell:focus-within {
     outline: none;
   }
 
-  .kaneo-tiptap-shell.is-drag-active,
-  .kaneo-comment-editor-shell.is-drag-active {
+  .kolab-tiptap-shell.is-drag-active,
+  .kolab-comment-editor-shell.is-drag-active {
     z-index: 90;
   }
 
-  .kaneo-editor-quick-attach {
+  .kolab-editor-quick-attach {
     position: absolute;
     right: 0.75rem;
     bottom: 0.7rem;
@@ -308,21 +308,21 @@ input:-webkit-autofill:active {
       transform 0.15s ease;
   }
 
-  .kaneo-editor-quick-attach:hover {
+  .kolab-editor-quick-attach:hover {
     border-color: color-mix(in srgb, var(--foreground) 18%, var(--border));
     background: color-mix(in srgb, var(--accent) 72%, transparent);
     color: var(--foreground);
     transform: translateY(-1px);
   }
 
-  .kaneo-editor-quick-attach:focus-visible {
+  .kolab-editor-quick-attach:focus-visible {
     outline: none;
     box-shadow:
       0 0 0 2px color-mix(in srgb, var(--ring) 24%, transparent),
       0 4px 16px color-mix(in srgb, var(--background) 68%, transparent);
   }
 
-  .kaneo-tiptap-bubble {
+  .kolab-tiptap-bubble {
     display: inline-flex;
     align-items: center;
     gap: 0.1rem;
@@ -335,13 +335,13 @@ input:-webkit-autofill:active {
       0 1px 2px --alpha(var(--color-black) / 9%);
   }
 
-  .kaneo-tiptap-bubble-btn {
+  .kolab-tiptap-bubble-btn {
     height: 1.6rem;
     width: 1.6rem;
     padding: 0;
   }
 
-  .kaneo-tiptap-bubble-separator {
+  .kolab-tiptap-bubble-separator {
     display: block;
     width: 1px;
     height: 1rem;
@@ -349,7 +349,7 @@ input:-webkit-autofill:active {
     margin: 0 0.15rem;
   }
 
-  .kaneo-codeblock-language {
+  .kolab-codeblock-language {
     position: fixed;
     z-index: 40;
     display: inline-flex;
@@ -358,7 +358,7 @@ input:-webkit-autofill:active {
     transform: translateX(-100%);
   }
 
-  .kaneo-codeblock-language-trigger {
+  .kolab-codeblock-language-trigger {
     display: inline-flex;
     max-width: 10rem;
     align-items: center;
@@ -377,22 +377,22 @@ input:-webkit-autofill:active {
       background-color 0.12s ease;
   }
 
-  .kaneo-codeblock-language-trigger:hover {
+  .kolab-codeblock-language-trigger:hover {
     border-color: color-mix(in srgb, var(--ring) 42%, var(--border));
     color: var(--foreground);
     background: color-mix(in srgb, var(--background) 96%, transparent);
   }
 
-  .kaneo-codeblock-copy-trigger {
+  .kolab-codeblock-copy-trigger {
     min-width: 4.6rem;
     justify-content: center;
   }
 
-  .kaneo-codeblock-copy-trigger > span {
+  .kolab-codeblock-copy-trigger > span {
     line-height: 1;
   }
 
-  .kaneo-tiptap-content .ProseMirror {
+  .kolab-tiptap-content .ProseMirror {
     min-height: 1.85rem;
     padding: 0.2rem 0 2.9rem;
     font-family: var(--font-sans);
@@ -404,7 +404,7 @@ input:-webkit-autofill:active {
     outline: none;
   }
 
-  .kaneo-tiptap-slash-menu {
+  .kolab-tiptap-slash-menu {
     position: fixed;
     z-index: 50;
     min-width: 16rem;
@@ -417,13 +417,13 @@ input:-webkit-autofill:active {
       0 1px 2px --alpha(var(--color-black) / 10%);
   }
 
-  .kaneo-tiptap-slash-group + .kaneo-tiptap-slash-group {
+  .kolab-tiptap-slash-group + .kolab-tiptap-slash-group {
     margin-top: 0.2rem;
     border-top: 1px solid color-mix(in srgb, var(--border) 70%, transparent);
     padding-top: 0.2rem;
   }
 
-  .kaneo-tiptap-slash-group-title {
+  .kolab-tiptap-slash-group-title {
     padding: 0.22rem 0.42rem 0.3rem;
     font-size: 0.68rem;
     font-weight: 600;
@@ -432,7 +432,7 @@ input:-webkit-autofill:active {
     color: color-mix(in srgb, var(--foreground) 48%, transparent);
   }
 
-  .kaneo-tiptap-slash-item {
+  .kolab-tiptap-slash-item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -445,26 +445,26 @@ input:-webkit-autofill:active {
     color: color-mix(in srgb, var(--foreground) 88%, transparent);
   }
 
-  .kaneo-tiptap-slash-label {
+  .kolab-tiptap-slash-label {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
   }
 
-  .kaneo-tiptap-slash-shortcut {
+  .kolab-tiptap-slash-shortcut {
     flex-shrink: 0;
     font-size: 0.68rem;
     color: color-mix(in srgb, var(--foreground) 52%, transparent);
   }
 
-  .kaneo-tiptap-slash-item:hover,
-  .kaneo-tiptap-slash-item.is-selected {
+  .kolab-tiptap-slash-item:hover,
+  .kolab-tiptap-slash-item.is-selected {
     background: var(--accent);
     color: var(--accent-foreground);
   }
 
-  .kaneo-mention {
+  .kolab-mention {
     display: inline-flex;
     align-items: baseline;
     border-radius: 0.3rem;
@@ -475,12 +475,12 @@ input:-webkit-autofill:active {
     white-space: nowrap;
   }
 
-  .kaneo-mention-popup {
+  .kolab-mention-popup {
     position: absolute;
     z-index: 50;
   }
 
-  .kaneo-mention-list {
+  .kolab-mention-list {
     display: flex;
     flex-direction: column;
     gap: 0.1rem;
@@ -496,7 +496,7 @@ input:-webkit-autofill:active {
       0 1px 2px --alpha(var(--color-black) / 10%);
   }
 
-  .kaneo-mention-item {
+  .kolab-mention-item {
     display: flex;
     align-items: center;
     gap: 0.5rem;
@@ -508,25 +508,25 @@ input:-webkit-autofill:active {
     color: color-mix(in srgb, var(--foreground) 88%, transparent);
   }
 
-  .kaneo-mention-item:hover,
-  .kaneo-mention-item.is-active {
+  .kolab-mention-item:hover,
+  .kolab-mention-item.is-active {
     background: var(--accent);
     color: var(--accent-foreground);
   }
 
-  .kaneo-tiptap-slash-empty {
+  .kolab-tiptap-slash-empty {
     padding: 0.4rem 0.55rem;
     font-size: 0.76rem;
     color: color-mix(in srgb, var(--foreground) 56%, transparent);
   }
 
-  .kaneo-tiptap-content .ProseMirror p {
+  .kolab-tiptap-content .ProseMirror p {
     margin: 0.2rem 0;
   }
 
-  .kaneo-tiptap-content .ProseMirror h1,
-  .kaneo-tiptap-content .ProseMirror h2,
-  .kaneo-tiptap-content .ProseMirror h3 {
+  .kolab-tiptap-content .ProseMirror h1,
+  .kolab-tiptap-content .ProseMirror h2,
+  .kolab-tiptap-content .ProseMirror h3 {
     margin: 1.05rem 0 0.45rem;
     font-family: var(--font-heading);
     font-weight: 600;
@@ -535,59 +535,59 @@ input:-webkit-autofill:active {
     color: var(--foreground);
   }
 
-  .kaneo-tiptap-content .ProseMirror h1 {
+  .kolab-tiptap-content .ProseMirror h1 {
     font-size: 1.24rem;
   }
 
-  .kaneo-tiptap-content .ProseMirror h2 {
+  .kolab-tiptap-content .ProseMirror h2 {
     font-size: 1.12rem;
   }
 
-  .kaneo-tiptap-content .ProseMirror h3 {
+  .kolab-tiptap-content .ProseMirror h3 {
     font-size: 1.02rem;
   }
 
-  .kaneo-tiptap-content .ProseMirror ul,
-  .kaneo-tiptap-content .ProseMirror ol {
+  .kolab-tiptap-content .ProseMirror ul,
+  .kolab-tiptap-content .ProseMirror ol {
     margin: 0.3rem 0;
     padding-inline-start: 1.35rem;
   }
 
-  .kaneo-tiptap-content .ProseMirror ul {
+  .kolab-tiptap-content .ProseMirror ul {
     list-style-type: disc;
   }
 
-  .kaneo-tiptap-content .ProseMirror ol {
+  .kolab-tiptap-content .ProseMirror ol {
     list-style-type: decimal;
   }
 
-  .kaneo-tiptap-content .ProseMirror ul ul {
+  .kolab-tiptap-content .ProseMirror ul ul {
     list-style-type: circle;
   }
 
-  .kaneo-tiptap-content .ProseMirror ul ul ul {
+  .kolab-tiptap-content .ProseMirror ul ul ul {
     list-style-type: square;
   }
 
-  .kaneo-tiptap-content .ProseMirror ol ol {
+  .kolab-tiptap-content .ProseMirror ol ol {
     list-style-type: lower-alpha;
   }
 
-  .kaneo-tiptap-content .ProseMirror li::marker {
+  .kolab-tiptap-content .ProseMirror li::marker {
     color: color-mix(in srgb, var(--foreground) 70%, transparent);
   }
 
-  .kaneo-tiptap-content .ProseMirror li {
+  .kolab-tiptap-content .ProseMirror li {
     margin: 0.1rem 0;
   }
 
-  .kaneo-tiptap-content .ProseMirror ul[data-type="taskList"] {
+  .kolab-tiptap-content .ProseMirror ul[data-type="taskList"] {
     list-style: none;
     margin: 0.3rem 0;
     padding-inline-start: 0;
   }
 
-  .kaneo-tiptap-content .ProseMirror li[data-type="taskItem"] {
+  .kolab-tiptap-content .ProseMirror li[data-type="taskItem"] {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -596,46 +596,46 @@ input:-webkit-autofill:active {
     text-align: left;
   }
 
-  .kaneo-tiptap-content
+  .kolab-tiptap-content
     .ProseMirror
     li[data-type="taskItem"]
-    > :is(label, .kaneo-task-item-checkbox) {
+    > :is(label, .kolab-task-item-checkbox) {
     margin-top: 0.15rem;
     display: inline-flex;
     flex-shrink: 0;
     cursor: pointer;
   }
 
-  .kaneo-tiptap-content .ProseMirror li[data-type="taskItem"] > div {
+  .kolab-tiptap-content .ProseMirror li[data-type="taskItem"] > div {
     flex: 0 1 auto;
     min-width: 0;
     text-align: left;
   }
 
-  .kaneo-tiptap-content .ProseMirror li[data-type="taskItem"] > div > * {
+  .kolab-tiptap-content .ProseMirror li[data-type="taskItem"] > div > * {
     margin-inline: 0;
   }
 
-  .kaneo-tiptap-content .ProseMirror li[data-type="taskItem"] ul,
-  .kaneo-tiptap-content .ProseMirror li[data-type="taskItem"] ol {
+  .kolab-tiptap-content .ProseMirror li[data-type="taskItem"] ul,
+  .kolab-tiptap-content .ProseMirror li[data-type="taskItem"] ol {
     margin-top: 0.2rem;
   }
 
-  .kaneo-tiptap-content .ProseMirror li[data-type="taskItem"] [data-slot="checkbox"] {
+  .kolab-tiptap-content .ProseMirror li[data-type="taskItem"] [data-slot="checkbox"] {
     margin-top: 0;
   }
 
-  .kaneo-tiptap-content .ProseMirror li[data-type="taskItem"] > div p {
+  .kolab-tiptap-content .ProseMirror li[data-type="taskItem"] > div p {
     margin: 0;
     line-height: 1.45;
   }
 
-  .kaneo-tiptap-content .ProseMirror li[data-type="taskItem"][data-checked="true"] > div p {
+  .kolab-tiptap-content .ProseMirror li[data-type="taskItem"][data-checked="true"] > div p {
     color: color-mix(in srgb, var(--foreground) 62%, transparent);
     text-decoration: line-through;
   }
 
-  .kaneo-tiptap-content .ProseMirror a {
+  .kolab-tiptap-content .ProseMirror a {
     color: var(--primary);
     text-decoration-line: underline;
     text-decoration-thickness: 1px;
@@ -650,12 +650,12 @@ input:-webkit-autofill:active {
       text-decoration-color 0.12s ease;
   }
 
-  .kaneo-tiptap-content .ProseMirror a:hover {
+  .kolab-tiptap-content .ProseMirror a:hover {
     color: color-mix(in srgb, var(--primary) 84%, var(--foreground));
     text-decoration-color: currentColor;
   }
 
-  .kaneo-tiptap-content .ProseMirror :not(pre) > code {
+  .kolab-tiptap-content .ProseMirror :not(pre) > code {
     border: 1px solid var(--border);
     border-radius: 0.34rem;
     background: var(--code-highlight);
@@ -664,7 +664,7 @@ input:-webkit-autofill:active {
     padding: 0.11rem 0.32rem;
   }
 
-  .kaneo-tiptap-content .ProseMirror pre {
+  .kolab-tiptap-content .ProseMirror pre {
     margin: 0.45rem 0;
     border: 1px solid var(--border);
     border-radius: calc(var(--radius) - 3px);
@@ -672,21 +672,21 @@ input:-webkit-autofill:active {
     padding: 0.75rem 0.9rem;
   }
 
-  .kaneo-tiptap-content .ProseMirror pre code {
+  .kolab-tiptap-content .ProseMirror pre code {
     font-family: var(--font-mono);
     font-size: 0.85rem;
     color: var(--code-foreground);
   }
 
-  .kaneo-tiptap-content .ProseMirror blockquote {
+  .kolab-tiptap-content .ProseMirror blockquote {
     margin: 0.5rem 0;
     border-left: 2px solid var(--border);
     padding-left: 0.75rem;
     color: color-mix(in srgb, var(--foreground) 78%, transparent);
   }
 
-  .kaneo-tiptap-content .ProseMirror img.kaneo-editor-image,
-  .kaneo-comment-editor-prose img.kaneo-editor-image {
+  .kolab-tiptap-content .ProseMirror img.kolab-editor-image,
+  .kolab-comment-editor-prose img.kolab-editor-image {
     display: block;
     max-width: min(100%, 44rem);
     width: auto;
@@ -699,12 +699,12 @@ input:-webkit-autofill:active {
     overflow: hidden;
   }
 
-  .kaneo-create-task-modal .kaneo-comment-editor-prose img.kaneo-editor-image {
+  .kolab-create-task-modal .kolab-comment-editor-prose img.kolab-editor-image {
     max-height: min(50vh, 28rem);
     width: 100%;
   }
 
-  .kaneo-tiptap-content .ProseMirror .is-editor-empty:first-child::before {
+  .kolab-tiptap-content .ProseMirror .is-editor-empty:first-child::before {
     pointer-events: none;
     content: attr(data-placeholder);
     height: 0;
@@ -712,7 +712,7 @@ input:-webkit-autofill:active {
     color: color-mix(in srgb, var(--foreground) 40%, transparent);
   }
 
-  .kaneo-tiptap-content .ProseMirror table {
+  .kolab-tiptap-content .ProseMirror table {
     border-collapse: collapse;
     margin: 0.7rem 0;
     overflow: hidden;
@@ -722,21 +722,21 @@ input:-webkit-autofill:active {
     border-radius: calc(var(--radius) - 3px);
   }
 
-  .kaneo-tiptap-content .ProseMirror table td,
-  .kaneo-tiptap-content .ProseMirror table th {
+  .kolab-tiptap-content .ProseMirror table td,
+  .kolab-tiptap-content .ProseMirror table th {
     min-width: 1em;
     border: 1px solid color-mix(in srgb, var(--border) 84%, transparent);
     padding: 0.45rem 0.55rem;
     vertical-align: top;
   }
 
-  .kaneo-tiptap-content .ProseMirror table th {
+  .kolab-tiptap-content .ProseMirror table th {
     background: color-mix(in srgb, var(--accent) 70%, transparent);
     font-weight: 600;
     text-align: left;
   }
 
-  .kaneo-tiptap-content .ProseMirror .selectedCell:after {
+  .kolab-tiptap-content .ProseMirror .selectedCell:after {
     pointer-events: none;
     position: absolute;
     inset: 0;
@@ -745,11 +745,11 @@ input:-webkit-autofill:active {
     background: color-mix(in srgb, var(--primary) 16%, transparent);
   }
 
-  .kaneo-tiptap-content .ProseMirror .tableWrapper {
+  .kolab-tiptap-content .ProseMirror .tableWrapper {
     overflow-x: auto;
   }
 
-  .kaneo-tiptap-content .ProseMirror [data-type="kaneo-embed"] {
+  .kolab-tiptap-content .ProseMirror [data-type="kolab-embed"] {
     margin: 0.65rem 0;
     border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
     border-radius: calc(var(--radius) - 2px);
@@ -760,7 +760,7 @@ input:-webkit-autofill:active {
       box-shadow 0.12s ease;
   }
 
-  .kaneo-tiptap-content .ProseMirror [data-type="kaneo-embed"] iframe {
+  .kolab-tiptap-content .ProseMirror [data-type="kolab-embed"] iframe {
     width: 100%;
     aspect-ratio: 16 / 9;
     border: 0;
@@ -768,7 +768,7 @@ input:-webkit-autofill:active {
     background: black;
   }
 
-  .kaneo-tiptap-content .ProseMirror [data-type="kaneo-embed"] > a {
+  .kolab-tiptap-content .ProseMirror [data-type="kolab-embed"] > a {
     display: block;
     padding: 0.6rem 0.7rem;
     color: var(--foreground);
@@ -777,26 +777,26 @@ input:-webkit-autofill:active {
     word-break: break-word;
   }
 
-  .kaneo-tiptap-content .ProseMirror
-    [data-type="kaneo-embed"].ProseMirror-selectednode {
+  .kolab-tiptap-content .ProseMirror
+    [data-type="kolab-embed"].ProseMirror-selectednode {
     border-color: color-mix(in srgb, var(--ring) 82%, var(--border));
     box-shadow:
       0 0 0 2px color-mix(in srgb, var(--ring) 38%, transparent),
       0 0 0 1px color-mix(in srgb, var(--ring) 70%, transparent) inset;
   }
 
-  .kaneo-tiptap-content .ProseMirror [data-type="kaneo-embed"] .kaneo-embed-unsupported {
+  .kolab-tiptap-content .ProseMirror [data-type="kolab-embed"] .kolab-embed-unsupported {
     padding: 0.62rem 0.72rem;
     font-size: 0.78rem;
     color: color-mix(in srgb, var(--foreground) 62%, transparent);
   }
 
-  .kaneo-issue-link-node {
+  .kolab-issue-link-node {
     display: inline-flex;
     vertical-align: baseline;
   }
 
-  .kaneo-issue-link-chip {
+  .kolab-issue-link-chip {
     display: inline-flex;
     max-width: min(26rem, 85vw);
     align-items: center;
@@ -811,19 +811,19 @@ input:-webkit-autofill:active {
     transform: translateY(-0.02rem);
   }
 
-  .kaneo-issue-link-chip:hover {
+  .kolab-issue-link-chip:hover {
     border-color: color-mix(in srgb, var(--ring) 56%, var(--border));
     background: color-mix(in srgb, var(--accent) 34%, transparent);
   }
 
-  .kaneo-issue-link-key {
+  .kolab-issue-link-key {
     flex-shrink: 0;
     font-size: 0.76rem;
     font-weight: 500;
     color: color-mix(in srgb, var(--foreground) 64%, transparent);
   }
 
-  .kaneo-issue-link-title {
+  .kolab-issue-link-title {
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -833,7 +833,7 @@ input:-webkit-autofill:active {
     color: var(--foreground);
   }
 
-  .kaneo-issue-link-preview {
+  .kolab-issue-link-preview {
     display: flex;
     flex-direction: column;
     align-items: stretch;
@@ -843,7 +843,7 @@ input:-webkit-autofill:active {
     text-wrap: pretty;
   }
 
-  .kaneo-issue-link-preview-top {
+  .kolab-issue-link-preview-top {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -852,12 +852,12 @@ input:-webkit-autofill:active {
     color: color-mix(in srgb, var(--foreground) 68%, transparent);
   }
 
-  .kaneo-issue-link-preview-key {
+  .kolab-issue-link-preview-key {
     font-weight: 500;
     letter-spacing: 0.01em;
   }
 
-  .kaneo-issue-link-preview-title {
+  .kolab-issue-link-preview-title {
     margin-top: 0.45rem;
     font-size: 0.9rem;
     line-height: 1.35;
@@ -865,7 +865,7 @@ input:-webkit-autofill:active {
     color: var(--foreground);
   }
 
-  .kaneo-issue-link-preview-meta {
+  .kolab-issue-link-preview-meta {
     margin-top: 0.55rem;
     display: flex;
     align-items: center;
@@ -876,14 +876,14 @@ input:-webkit-autofill:active {
     color: color-mix(in srgb, var(--foreground) 72%, transparent);
   }
 
-  .kaneo-attachment-node {
+  .kolab-attachment-node {
     display: inline-flex;
     max-width: 100%;
     vertical-align: middle;
     margin: 0.35rem 0;
   }
 
-  .kaneo-attachment-card {
+  .kolab-attachment-card {
     display: inline-flex;
     align-items: center;
     gap: 0.75rem;
@@ -904,7 +904,7 @@ input:-webkit-autofill:active {
       transform 0.18s ease;
   }
 
-  .kaneo-attachment-card:hover {
+  .kolab-attachment-card:hover {
     border-color: color-mix(in srgb, var(--foreground) 18%, var(--border));
     background: linear-gradient(
       180deg,
@@ -914,7 +914,7 @@ input:-webkit-autofill:active {
     transform: translateY(-1px);
   }
 
-  .kaneo-attachment-card-icon {
+  .kolab-attachment-card-icon {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -926,13 +926,13 @@ input:-webkit-autofill:active {
     flex-shrink: 0;
   }
 
-  .kaneo-attachment-card-content {
+  .kolab-attachment-card-content {
     display: flex;
     min-width: 0;
     flex-direction: column;
   }
 
-  .kaneo-attachment-card-title {
+  .kolab-attachment-card-title {
     color: var(--foreground);
     font-size: 0.96rem;
     font-weight: 600;
@@ -942,7 +942,7 @@ input:-webkit-autofill:active {
     text-overflow: ellipsis;
   }
 
-  .kaneo-attachment-card-meta {
+  .kolab-attachment-card-meta {
     margin-top: 0.18rem;
     color: color-mix(in srgb, var(--foreground) 58%, transparent);
     font-size: 0.76rem;
@@ -952,12 +952,12 @@ input:-webkit-autofill:active {
     text-overflow: ellipsis;
   }
 
-  .kaneo-tiptap-content .ProseMirror [data-type="kaneo-embed"]:focus-within {
+  .kolab-tiptap-content .ProseMirror [data-type="kolab-embed"]:focus-within {
     border-color: color-mix(in srgb, var(--ring) 80%, var(--border));
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 34%, transparent);
   }
 
-  .kaneo-embed-composer {
+  .kolab-embed-composer {
     position: fixed;
     z-index: 60;
     width: min(16.5rem, calc(100vw - 2rem));
@@ -970,20 +970,20 @@ input:-webkit-autofill:active {
       0 1px 2px --alpha(var(--color-black) / 10%);
   }
 
-  .kaneo-embed-composer-form {
+  .kolab-embed-composer-form {
     display: flex;
     flex-direction: column;
     gap: 0.45rem;
   }
 
-  .kaneo-embed-choice-menu {
+  .kolab-embed-choice-menu {
     display: flex;
     min-width: 0;
     flex-direction: column;
     gap: 0.2rem;
   }
 
-  .kaneo-embed-choice-item {
+  .kolab-embed-choice-item {
     display: flex;
     width: 100%;
     align-items: center;
@@ -996,31 +996,31 @@ input:-webkit-autofill:active {
     color: color-mix(in srgb, var(--foreground) 90%, transparent);
   }
 
-  .kaneo-embed-choice-item:hover,
-  .kaneo-embed-choice-item.is-primary {
+  .kolab-embed-choice-item:hover,
+  .kolab-embed-choice-item.is-primary {
     background: var(--accent);
     color: var(--accent-foreground);
   }
 
-  .kaneo-embed-choice-hint {
+  .kolab-embed-choice-hint {
     flex-shrink: 0;
     font-size: 0.68rem;
     color: color-mix(in srgb, currentColor 62%, transparent);
   }
 
-  .kaneo-embed-composer-actions {
+  .kolab-embed-composer-actions {
     display: flex;
     align-items: center;
     gap: 0.35rem;
     justify-content: flex-end;
   }
 
-  .kaneo-embed-composer-error {
+  .kolab-embed-composer-error {
     font-size: 0.72rem;
     color: var(--destructive);
   }
 
-  .kaneo-comment-composer {
+  .kolab-comment-composer {
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     border-radius: 0.62rem;
     background: color-mix(in srgb, var(--background) 96%, transparent);
@@ -1029,12 +1029,12 @@ input:-webkit-autofill:active {
       box-shadow 0.14s ease;
   }
 
-  .kaneo-comment-composer:focus-within {
+  .kolab-comment-composer:focus-within {
     border-color: color-mix(in srgb, var(--ring) 64%, var(--border));
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 20%, transparent);
   }
 
-  .kaneo-comment-card-body {
+  .kolab-comment-card-body {
     border: 1px solid color-mix(in srgb, var(--border) 78%, transparent);
     border-radius: 0.6rem;
     background: color-mix(in srgb, var(--card) 82%, transparent);
@@ -1042,17 +1042,17 @@ input:-webkit-autofill:active {
     position: relative;
   }
 
-  .kaneo-comment-editor-shell {
+  .kolab-comment-editor-shell {
     position: relative;
     isolation: isolate;
     z-index: 1;
   }
 
-  .kaneo-comment-editor-shell:focus-within {
+  .kolab-comment-editor-shell:focus-within {
     z-index: 80;
   }
 
-  .kaneo-editor-drop-indicator {
+  .kolab-editor-drop-indicator {
     pointer-events: none;
     position: absolute;
     left: 0.75rem;
@@ -1065,15 +1065,15 @@ input:-webkit-autofill:active {
     box-shadow: 0 0 0 1px color-mix(in srgb, var(--background) 88%, transparent);
   }
 
-  .kaneo-editor-drop-indicator span {
+  .kolab-editor-drop-indicator span {
     display: none;
   }
 
-  .kaneo-comment-editor-shell-readonly {
+  .kolab-comment-editor-shell-readonly {
     pointer-events: auto;
   }
 
-  .kaneo-comment-editor-content .ProseMirror {
+  .kolab-comment-editor-content .ProseMirror {
     min-height: 2.2rem;
     max-height: 18rem;
     overflow-y: auto;
@@ -1087,71 +1087,71 @@ input:-webkit-autofill:active {
     outline: none;
   }
 
-  .kaneo-comment-editor-shell-readonly .kaneo-comment-editor-content .ProseMirror {
+  .kolab-comment-editor-shell-readonly .kolab-comment-editor-content .ProseMirror {
     min-height: 0;
     max-height: none;
     overflow: visible;
     padding: 0.62rem 0.75rem;
   }
 
-  .kaneo-comment-viewer .kaneo-comment-editor-content .ProseMirror {
+  .kolab-comment-viewer .kolab-comment-editor-content .ProseMirror {
     max-height: none;
     overflow: visible;
     padding-bottom: 0.8rem;
   }
 
-  .kaneo-comment-editor-prose p {
+  .kolab-comment-editor-prose p {
     margin: 0;
   }
 
-  .kaneo-comment-editor-prose h1,
-  .kaneo-comment-editor-prose h2,
-  .kaneo-comment-editor-prose h3 {
+  .kolab-comment-editor-prose h1,
+  .kolab-comment-editor-prose h2,
+  .kolab-comment-editor-prose h3 {
     margin: 0.12rem 0 0;
     line-height: 1.32;
   }
 
-  .kaneo-comment-editor-prose ul,
-  .kaneo-comment-editor-prose ol {
+  .kolab-comment-editor-prose ul,
+  .kolab-comment-editor-prose ol {
     margin: 0.12rem 0 0;
     padding-inline-start: 1.2rem;
   }
 
-  .kaneo-comment-editor-prose ul {
+  .kolab-comment-editor-prose ul {
     list-style-type: disc;
   }
 
-  .kaneo-comment-editor-prose ol {
+  .kolab-comment-editor-prose ol {
     list-style-type: decimal;
   }
 
-  .kaneo-comment-editor-prose ul ul {
+  .kolab-comment-editor-prose ul ul {
     list-style-type: circle;
   }
 
-  .kaneo-comment-editor-prose ul ul ul {
+  .kolab-comment-editor-prose ul ul ul {
     list-style-type: square;
   }
 
-  .kaneo-comment-editor-prose ol ol {
+  .kolab-comment-editor-prose ol ol {
     list-style-type: lower-alpha;
   }
 
-  .kaneo-comment-editor-prose li::marker {
+  .kolab-comment-editor-prose li::marker {
     color: color-mix(in srgb, var(--foreground) 70%, transparent);
   }
 
-  .kaneo-comment-editor-prose li {
+  .kolab-comment-editor-prose li {
     margin: 0.08rem 0;
   }
 
-  .kaneo-comment-editor-prose ul[data-type="taskList"] {
+  .kolab-comment-editor-prose ul[data-type="taskList"] {
     list-style: none;
     margin: 0.12rem 0 0;
     padding-inline-start: 0;
   }
 
-  .kaneo-comment-editor-prose li[data-type="taskItem"] {
+  .kolab-comment-editor-prose li[data-type="taskItem"] {
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -1160,46 +1160,46 @@ input:-webkit-autofill:active {
     text-align: left;
   }
 
-  .kaneo-comment-editor-prose
+  .kolab-comment-editor-prose
     li[data-type="taskItem"]
-    > :is(label, .kaneo-task-item-checkbox) {
+    > :is(label, .kolab-task-item-checkbox) {
     margin-top: 0.15rem;
     display: inline-flex;
     flex-shrink: 0;
     cursor: pointer;
   }
 
-  .kaneo-comment-editor-prose li[data-type="taskItem"] > div {
+  .kolab-comment-editor-prose li[data-type="taskItem"] > div {
     flex: 0 1 auto;
     min-width: 0;
     text-align: left;
   }
 
-  .kaneo-comment-editor-prose li[data-type="taskItem"] > div > * {
+  .kolab-comment-editor-prose li[data-type="taskItem"] > div > * {
     margin-inline: 0;
   }
 
-  .kaneo-comment-editor-prose li[data-type="taskItem"] ul,
-  .kaneo-comment-editor-prose li[data-type="taskItem"] ol {
+  .kolab-comment-editor-prose li[data-type="taskItem"] ul,
+  .kolab-comment-editor-prose li[data-type="taskItem"] ol {
     margin-top: 0.16rem;
   }
 
-  .kaneo-comment-editor-prose li[data-type="taskItem"] [data-slot="checkbox"] {
+  .kolab-comment-editor-prose li[data-type="taskItem"] [data-slot="checkbox"] {
     margin-top: 0;
   }
 
-  .kaneo-comment-editor-prose li[data-type="taskItem"] > div p {
+  .kolab-comment-editor-prose li[data-type="taskItem"] > div p {
     margin: 0;
     line-height: 1.45;
   }
 
-  .kaneo-comment-editor-prose li[data-type="taskItem"][data-checked="true"] > div p {
+  .kolab-comment-editor-prose li[data-type="taskItem"][data-checked="true"] > div p {
     color: color-mix(in srgb, var(--foreground) 62%, transparent);
     text-decoration: line-through;
   }
 
-  .kaneo-comment-editor-prose a,
-  .kaneo-tiptap-prose a {
+  .kolab-comment-editor-prose a,
+  .kolab-tiptap-prose a {
     color: color-mix(in srgb, var(--foreground) 88%, #4c9aff 12%);
     cursor: pointer;
     text-decoration: underline;
@@ -1207,7 +1207,7 @@ input:-webkit-autofill:active {
     text-underline-offset: 2px;
   }
 
-  .kaneo-comment-editor-prose :not(pre) > code {
+  .kolab-comment-editor-prose :not(pre) > code {
     border: 1px solid color-mix(in srgb, var(--border) 86%, transparent);
     border-radius: 0.34rem;
     background: color-mix(in srgb, var(--accent) 40%, transparent);
@@ -1216,7 +1216,7 @@ input:-webkit-autofill:active {
     font-family: var(--font-mono);
   }
 
-  .kaneo-comment-editor-prose pre {
+  .kolab-comment-editor-prose pre {
     margin: 0.12rem 0 0;
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     border-radius: 0.45rem;
@@ -1228,7 +1228,7 @@ input:-webkit-autofill:active {
     line-height: 1.55;
   }
 
-  .kaneo-comment-editor-prose [data-type="kaneo-embed"] {
+  .kolab-comment-editor-prose [data-type="kolab-embed"] {
     margin: 0.12rem 0 0;
     border: 1px solid color-mix(in srgb, var(--border) 76%, transparent);
     border-radius: calc(var(--radius) - 2px);
@@ -1239,7 +1239,7 @@ input:-webkit-autofill:active {
       box-shadow 0.12s ease;
   }
 
-  .kaneo-comment-editor-prose [data-type="kaneo-embed"] iframe {
+  .kolab-comment-editor-prose [data-type="kolab-embed"] iframe {
     width: 100%;
     aspect-ratio: 16 / 9;
     border: 0;
@@ -1247,7 +1247,7 @@ input:-webkit-autofill:active {
     background: black;
   }
 
-  .kaneo-comment-editor-prose [data-type="kaneo-embed"] > a {
+  .kolab-comment-editor-prose [data-type="kolab-embed"] > a {
     display: block;
     padding: 0.6rem 0.7rem;
     color: var(--foreground);
@@ -1256,20 +1256,20 @@ input:-webkit-autofill:active {
     word-break: break-word;
   }
 
-  .kaneo-comment-editor-prose
-    [data-type="kaneo-embed"].ProseMirror-selectednode {
+  .kolab-comment-editor-prose
+    [data-type="kolab-embed"].ProseMirror-selectednode {
     border-color: color-mix(in srgb, var(--ring) 82%, var(--border));
     box-shadow:
       0 0 0 2px color-mix(in srgb, var(--ring) 38%, transparent),
       0 0 0 1px color-mix(in srgb, var(--ring) 70%, transparent) inset;
   }
 
-  .kaneo-comment-editor-prose [data-type="kaneo-embed"]:focus-within {
+  .kolab-comment-editor-prose [data-type="kolab-embed"]:focus-within {
     border-color: color-mix(in srgb, var(--ring) 80%, var(--border));
     box-shadow: 0 0 0 2px color-mix(in srgb, var(--ring) 34%, transparent);
   }
 
-  .kaneo-comment-editor-prose table {
+  .kolab-comment-editor-prose table {
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
@@ -1279,25 +1279,25 @@ input:-webkit-autofill:active {
     overflow: hidden;
   }
 
-  .kaneo-comment-editor-prose table td,
-  .kaneo-comment-editor-prose table th {
+  .kolab-comment-editor-prose table td,
+  .kolab-comment-editor-prose table th {
     min-width: 1em;
     border: 1px solid color-mix(in srgb, var(--border) 82%, transparent);
     padding: 0.4rem 0.5rem;
     vertical-align: top;
   }
 
-  .kaneo-comment-editor-prose table th {
+  .kolab-comment-editor-prose table th {
     background: color-mix(in srgb, var(--accent) 65%, transparent);
     font-weight: 600;
     text-align: left;
   }
 
-  .kaneo-comment-editor-prose .tableWrapper {
+  .kolab-comment-editor-prose .tableWrapper {
     overflow-x: auto;
   }
 
-  .kaneo-comment-editor-prose .is-editor-empty:first-child::before {
+  .kolab-comment-editor-prose .is-editor-empty:first-child::before {
     content: attr(data-placeholder);
     color: color-mix(in srgb, var(--foreground) 42%, transparent);
     pointer-events: none;
@@ -1305,11 +1305,11 @@ input:-webkit-autofill:active {
     height: 0;
   }
 
-  .kaneo-comment-editor-prose p > .ProseMirror-trailingBreak {
+  .kolab-comment-editor-prose p > .ProseMirror-trailingBreak {
     line-height: 1;
   }
 
-  .kaneo-comment-editor-bubble {
+  .kolab-comment-editor-bubble {
     display: inline-flex;
     align-items: center;
     gap: 0.12rem;
@@ -1322,13 +1322,13 @@ input:-webkit-autofill:active {
       0 1px 2px --alpha(var(--color-black) / 9%);
   }
 
-  .kaneo-comment-editor-bubble-btn {
+  .kolab-comment-editor-bubble-btn {
     height: 1.58rem;
     width: 1.58rem;
     padding: 0;
   }
 
-  .kaneo-comment-editor-shell .kaneo-tiptap-slash-menu {
+  .kolab-comment-editor-shell .kolab-tiptap-slash-menu {
     position: absolute;
     z-index: 120;
     opacity: 1;
@@ -1337,7 +1337,7 @@ input:-webkit-autofill:active {
     backdrop-filter: none;
   }
 
-  .kaneo-tiptap-content .ProseMirror ::selection {
+  .kolab-tiptap-content .ProseMirror ::selection {
     background: color-mix(in srgb, var(--primary) 18%, transparent);
   }
 

@@ -1,9 +1,9 @@
 ---
 title: Discord
-description: Send task notifications from Kaneo to a Discord channel using incoming webhooks.
+description: Send task notifications from Kolab to a Discord channel using incoming webhooks.
 ---
 
-Kaneo can post task activity to a Discord channel whenever events occur in a project. This uses Discord's incoming webhook feature — no bot or OAuth setup required.
+Kolab can post task activity to a Discord channel whenever events occur in a project. This uses Discord's incoming webhook feature — no bot or OAuth setup required.
 
 ## Create a Discord webhook
 
@@ -11,7 +11,7 @@ Kaneo can post task activity to a Discord channel whenever events occur in a pro
 2. Click the gear icon to open **Channel Settings**.
 3. Go to **Integrations** then **Webhooks**.
 4. Click **New Webhook**.
-5. Give the webhook a name (e.g. "Kaneo") and optionally set an avatar.
+5. Give the webhook a name (e.g. "Kolab") and optionally set an avatar.
 6. Click **Copy Webhook URL**. It will look like:
 
 ```
@@ -22,7 +22,7 @@ https://discord.com/api/webhooks/000000000000000000/xxxxxxxxxxxxxxxxxxxxxxxxxxxx
 URLs using `discordapp.com` are also accepted.
 </Info>
 
-## Connect Discord in Kaneo
+## Connect Discord in Kolab
 
 1. Open **Settings** in the sidebar.
 2. Under **Projects**, select the project you want to connect.
@@ -50,14 +50,14 @@ You can toggle any combination of these events in the integration settings at an
 
 ## Message format
 
-Kaneo sends Discord embed messages with:
+Kolab sends Discord embed messages with:
 
 - A title describing the event (e.g. "Task Status Changed")
-- Task name with a clickable link to the task in Kaneo
+- Task name with a clickable link to the task in Kolab
 - Fields for project, status, and priority
 - The name of the user who triggered the event
 
-Make sure [`KANEO_CLIENT_URL`](/core/installation/environment-variables) is set to your public Kaneo URL so task links work correctly.
+Make sure [`KOLAB_CLIENT_URL`](/core/installation/environment-variables) is set to your public Kolab URL so task links work correctly.
 
 ## Updating the webhook
 

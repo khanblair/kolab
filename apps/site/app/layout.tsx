@@ -10,15 +10,15 @@ export const viewport: Viewport = {
 };
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://kaneo.app"),
+  metadataBase: new URL("https://kolab.app"),
   title: {
-    default: "Kaneo - All you need. Nothing you don't.",
-    template: "%s | Kaneo",
+    default: "Kolab - All you need. Nothing you don't.",
+    template: "%s | Kolab",
   },
   description:
     "All you need. Nothing you don't. Open source project management that works for you, not against you.",
   keywords: [
-    "kaneo",
+    "kolab",
     "project management",
     "open source",
     "kanban",
@@ -26,15 +26,15 @@ export const metadata: Metadata = {
     "self-hosted",
     "team collaboration",
   ],
-  applicationName: "Kaneo",
+  applicationName: "Kolab",
   alternates: {
     canonical: "/",
   },
   openGraph: {
     type: "website",
-    url: "https://kaneo.app",
-    siteName: "Kaneo",
-    title: "Kaneo - All you need. Nothing you don't.",
+    url: "https://kolab.app",
+    siteName: "Kolab",
+    title: "Kolab - All you need. Nothing you don't.",
     description:
       "Open source project management that works for you, not against you. Self-hosted, simple, and powerful.",
     images: [
@@ -42,13 +42,13 @@ export const metadata: Metadata = {
         url: "/images/hero.png",
         width: 1200,
         height: 630,
-        alt: "Kaneo",
+        alt: "Kolab",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Kaneo - All you need. Nothing you don't.",
+    title: "Kolab - All you need. Nothing you don't.",
     description:
       "Open source project management that works for you, not against you. Self-hosted, simple, and powerful.",
     images: ["/images/hero.png"],
@@ -63,37 +63,37 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   category: "productivity",
-  creator: "Kaneo",
-  publisher: "Kaneo",
+  creator: "Kolab",
+  publisher: "Kolab",
 };
 
 const jsonLd = [
   {
     "@context": "https://schema.org",
     "@type": "Organization",
-    name: "Kaneo",
-    url: "https://kaneo.app",
-    logo: "https://kaneo.app/logo-512.png",
-    sameAs: ["https://github.com/usekaneo/kaneo"],
+    name: "Kolab",
+    url: "https://kolab.app",
+    logo: "https://kolab.app/logo-512.png",
+    sameAs: ["https://github.com/khanblair/kolab"],
   },
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: "Kaneo",
-    url: "https://kaneo.app",
+    name: "Kolab",
+    url: "https://kolab.app",
     inLanguage: "en",
   },
   {
     "@context": "https://schema.org",
     "@type": "SoftwareApplication",
-    name: "Kaneo",
+    name: "Kolab",
     applicationCategory: "BusinessApplication",
     operatingSystem: "Web, Linux, macOS, Windows",
     description:
       "Open source project management that works for you, not against you. Self-hosted, simple, and powerful.",
-    url: "https://kaneo.app",
-    image: "https://kaneo.app/images/hero.png",
-    license: "https://github.com/usekaneo/kaneo/blob/main/LICENSE",
+    url: "https://kolab.app",
+    image: "https://kolab.app/images/hero.png",
+    license: "https://github.com/khanblair/kolab/blob/main/LICENSE",
   },
 ];
 
@@ -133,8 +133,8 @@ export default function RootLayout({
         />
         <Script
           defer
-          data-domain="kaneo.app"
-          src="https://plausible.kaneo.app/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"
+          data-domain="kolab.app"
+          src="https://plausible.kolab.app/js/script.file-downloads.hash.outbound-links.pageview-props.revenue.tagged-events.js"
           strategy="afterInteractive"
         />
         <Script id="plausible-init" strategy="afterInteractive">

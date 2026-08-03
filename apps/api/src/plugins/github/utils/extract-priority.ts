@@ -8,7 +8,7 @@ export type ValidStatus = string;
 
 /**
  * Extract priority from GitHub issue labels.
- * Returns null if no valid priority label found (lets Kaneo use its defaults).
+ * Returns null if no valid priority label found (lets Kolab use its defaults).
  */
 export function extractIssuePriority(
   labels: GitHubLabel[] | undefined,
@@ -30,7 +30,7 @@ export function extractIssuePriority(
 
 /**
  * Extract status from GitHub issue labels.
- * Returns null if no valid status label found (lets Kaneo use its defaults).
+ * Returns null if no valid status label found (lets Kolab use its defaults).
  */
 export function extractIssueStatus(
   labels: GitHubLabel[] | undefined,

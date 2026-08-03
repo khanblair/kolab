@@ -18,7 +18,7 @@ export async function postToGenericWebhook(
   };
 
   if (secret) {
-    headers["X-Kaneo-Signature"] = createHmac("sha256", secret)
+    headers["X-Kolab-Signature"] = createHmac("sha256", secret)
       .update(body)
       .digest("hex");
   }

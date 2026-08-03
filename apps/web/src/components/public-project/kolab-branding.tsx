@@ -1,11 +1,11 @@
 import { useTranslation } from "react-i18next";
 
-export function KaneoBranding() {
+export function KolabBranding() {
   const { t } = useTranslation();
 
   return (
     <a
-      href="https://kaneo.app"
+      href="https://kolab.app"
       target="_blank"
       rel="noopener noreferrer"
       className="hover:text-foreground transition-colors"

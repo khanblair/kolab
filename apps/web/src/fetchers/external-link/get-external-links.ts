@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 async function getExternalLinks(taskId: string) {
   const response = await client["external-link"].task[":taskId"].$get({

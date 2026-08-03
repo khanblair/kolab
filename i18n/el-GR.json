@@ -1,6 +1,6 @@
 {
 	"common": {
-		"appName": "Kaneo",
+		"appName": "Kolab",
 		"actions": {
 			"cancel": "Ακύρωση",
 			"close": "Κλείσιμο",
@@ -75,7 +75,7 @@
 				"errorToast": "Αποτυχία δημιουργίας έργου"
 			},
 			"createWorkspace": {
-				"breadcrumbKaneo": "KANEO",
+				"breadcrumbKolab": "KOLAB",
 				"title": "Δημιουργία νέου χώρου εργασίας",
 				"description": "Δημιουργήστε έναν νέο χώρο εργασίας ορίζοντας ένα όνομα.",
 				"namePlaceholder": "Όνομα χώρου εργασίας",
@@ -245,7 +245,7 @@
 			"workspaceLabel": "Χώρος εργασίας: {{workspaceName}}",
 			"joinWorkspace": "Συμμετοχή στο {{workspaceName}}",
 			"inviteBodySignedIn": "Ο/Η <inviter>{{inviterName}}</inviter> σας προσκάλεσε να συμμετάσχετε στον χώρο εργασίας του/της.",
-			"inviteBodySignedOut": "Ο/Η <inviter>{{inviterName}}</inviter> σας προσκάλεσε να συμμετάσχετε στον χώρο εργασίας του/της στο Kaneo.",
+			"inviteBodySignedOut": "Ο/Η <inviter>{{inviterName}}</inviter> σας προσκάλεσε να συμμετάσχετε στον χώρο εργασίας του/της στο Kolab.",
 			"signInToAccept": "Συνδεθείτε για να αποδεχτείτε αυτήν την πρόσκληση.",
 			"accepting": "Γίνεται αποδοχή...",
 			"acceptInvitation": "Αποδοχή πρόσκλησης",
@@ -260,7 +260,7 @@
 			}
 		},
 		"onboarding": {
-			"pageTitle": "Καλώς ήρθατε στο Kaneo",
+			"pageTitle": "Καλώς ήρθατε στο Kolab",
 			"workspacePageTitle": "Δημιουργία χώρου εργασίας",
 			"createWorkspaceTitle": "Δημιουργία χώρου εργασίας",
 			"createWorkspaceSubtitle": "Ρυθμίστε τον χώρο εργασίας σας για να ξεκινήσετε τη διαχείριση έργων",
@@ -329,7 +329,7 @@
 		"notificationsPage": {
 			"pageTitle": "Notifications",
 			"title": "Notifications",
-			"subtitle": "Choose how Kaneo delivers your account notifications and which channels to use.",
+			"subtitle": "Choose how Kolab delivers your account notifications and which channels to use.",
 			"statusConnected": "Connected",
 			"statusPaused": "Paused",
 			"emailTitle": "Email",
@@ -362,10 +362,10 @@
 			"webhookDescription": "Send account notifications to your own endpoint as JSON.",
 			"endpointUrl": "Endpoint URL",
 			"signingSecret": "Signing secret",
-			"webhookUrlPlaceholder": "https://example.com/webhooks/kaneo",
+			"webhookUrlPlaceholder": "https://example.com/webhooks/kolab",
 			"webhookSecretPlaceholder": "Optional shared secret",
 			"webhookSecretHintConfigured": "A signing secret is already configured ({{masked}}). Enter a new one to replace it.",
-			"webhookSecretHintOptional": "Optional. Kaneo signs the request body when a secret is set.",
+			"webhookSecretHintOptional": "Optional. Kolab signs the request body when a secret is set.",
 			"connectWebhook": "Connect webhook",
 			"workspaceRulesTitle": "Workspace delivery rules",
 			"workspaceRulesDescription": "Reuse your global channels, then decide which workspaces and projects are allowed to send account notifications.",
@@ -416,7 +416,7 @@
 		},
 		"preferencesPage": {
 			"title": "Προτιμήσεις",
-			"subtitle": "Προσαρμόστε την εμπειρία σας στο Kaneo.",
+			"subtitle": "Προσαρμόστε την εμπειρία σας στο Kolab.",
 			"appearanceTitle": "Εμφάνιση",
 			"appearanceSubtitle": "Οπτικές ρυθμίσεις και προτιμήσεις διάταξης.",
 			"theme": "Θέμα",
@@ -460,7 +460,7 @@
 			"title": "Ρυθμίσεις προγραμματιστή",
 			"subtitle": "Διαχειριστείτε τα API keys και τους πόρους προγραμματιστή.",
 			"apiKeysCardTitle": "Κλειδιά API",
-			"apiKeysCardDescription": "Δημιουργήστε και διαχειριστείτε κλειδιά API για προγραμματιστική πρόσβαση στο Kaneo.",
+			"apiKeysCardDescription": "Δημιουργήστε και διαχειριστείτε κλειδιά API για προγραμματιστική πρόσβαση στο Kolab.",
 			"createApiKey": "Δημιουργία κλειδιού API",
 			"unnamedKey": "Κλειδί χωρίς όνομα"
 		},
@@ -499,7 +499,7 @@
 			},
 			"createDialog": {
 				"title": "Δημιουργία κλειδιού API",
-				"description": "Δημιουργήστε ένα νέο κλειδί API για πρόσβαση στο Kaneo API προγραμματιστικά.",
+				"description": "Δημιουργήστε ένα νέο κλειδί API για πρόσβαση στο Kolab API προγραμματιστικά.",
 				"nameLabel": "Όνομα",
 				"namePlaceholder": "Το κλειδί API μου",
 				"nameDescription": "Ένα περιγραφικό όνομα για αυτό το κλειδί API",
@@ -678,7 +678,7 @@
 				"removeError": "Αποτυχία αφαίρεσης ενσωμάτωσης GitHub",
 				"issuesImported": "Τα issues εισήχθησαν με επιτυχία",
 				"importError": "Αποτυχία εισαγωγής issues",
-				"commentOnEnabled": "Το Kaneo θα δημοσιεύει σχόλιο με σύνδεσμο εργασίας στα νέα issues",
+				"commentOnEnabled": "Το Kolab θα δημοσιεύει σχόλιο με σύνδεσμο εργασίας στα νέα issues",
 				"commentOnDisabled": "Τα σχόλια με σύνδεσμο εργασίας στα νέα issues είναι απενεργοποιημένα",
 				"settingsUpdateError": "Αποτυχία ενημέρωσης ενσωμάτωσης GitHub"
 			},
@@ -689,8 +689,8 @@
 			"badgeNotConnected": "Μη συνδεδεμένο",
 			"repository": "Αποθετήριο",
 			"repositoryHint": "Συνδεδεμένο αποθετήριο GitHub",
-			"commentTaskLinkTitle": "Σχολιασμός με σύνδεσμο Kaneo σε νέα issues",
-			"commentTaskLinkHint": "Όταν είναι ενεργό, το Kaneo δημοσιεύει σχόλιο σε κάθε νέο GitHub issue με σύνδεσμο προς την εργασία.",
+			"commentTaskLinkTitle": "Σχολιασμός με σύνδεσμο Kolab σε νέα issues",
+			"commentTaskLinkHint": "Όταν είναι ενεργό, το Kolab δημοσιεύει σχόλιο σε κάθε νέο GitHub issue με σύνδεσμο προς την εργασία.",
 			"appStatusTitle": "Κατάσταση εφαρμογής GitHub",
 			"appStatusHint": "Κατάσταση εγκατάστασης και δικαιωμάτων",
 			"statusProperlyConfigured": "Σωστά ρυθμισμένο",
@@ -741,7 +741,7 @@
 				"removeError": "Failed to remove Gitea integration",
 				"issuesImported": "Issues imported successfully",
 				"importError": "Failed to import issues",
-				"commentOnEnabled": "Kaneo will comment with a task link on new issues",
+				"commentOnEnabled": "Kolab will comment with a task link on new issues",
 				"commentOnDisabled": "Task link comments on new issues are turned off",
 				"settingsUpdateError": "Failed to update Gitea integration",
 				"secretCopied": "Copied",
@@ -757,8 +757,8 @@
 			"badgeNotConnected": "Not connected",
 			"repository": "Repository",
 			"repositoryHint": "Linked Gitea repository",
-			"commentTaskLinkTitle": "Comment Kaneo link on new issues",
-			"commentTaskLinkHint": "When enabled, Kaneo posts a comment on each new issue with a link to the task.",
+			"commentTaskLinkTitle": "Comment Kolab link on new issues",
+			"commentTaskLinkHint": "When enabled, Kolab posts a comment on each new issue with a link to the task.",
 			"webhookTitle": "Webhook",
 			"webhookHint": "In your Gitea repository, add a webhook with this URL and secret. Enable push, pull request, issues, issue comments, and create (for labels).",
 			"webhookSecretLabel": "Secret (must match the webhook secret in Gitea)",
@@ -871,7 +871,7 @@
 		"genericWebhookIntegration": {
 			"connect": "Σύνδεση webhook",
 			"connected": "Συνδεδεμένο",
-			"connectionHint": "Στείλτε γεγονότα εργασιών στο δικό σας endpoint ως JSON. Περιλαμβάνεται υπογεγραμμένη κεφαλίδα X-Kaneo-Signature όταν έχει ρυθμιστεί μυστικό.",
+			"connectionHint": "Στείλτε γεγονότα εργασιών στο δικό σας endpoint ως JSON. Περιλαμβάνεται υπογεγραμμένη κεφαλίδα X-Kolab-Signature όταν έχει ρυθμιστεί μυστικό.",
 			"connectionTitle": "Σύνδεση εξερχόμενου webhook",
 			"disconnect": "Αποσύνδεση",
 			"events": {
@@ -891,7 +891,7 @@
 			"eventsTitle": "Ειδοποιήσεις γεγονότων",
 			"paused": "Σε παύση",
 			"saveChanges": "Αποθήκευση αλλαγών",
-			"secretHint": "Προαιρετικό. Αν δοθεί, το Kaneo υπογράφει το σώμα του αιτήματος και στέλνει το hex digest στην κεφαλίδα X-Kaneo-Signature.",
+			"secretHint": "Προαιρετικό. Αν δοθεί, το Kolab υπογράφει το σώμα του αιτήματος και στέλνει το hex digest στην κεφαλίδα X-Kolab-Signature.",
 			"secretHintConfigured": "Έχει ήδη ρυθμιστεί ένα μυστικό υπογραφής ({{secret}}). Εισαγάγετε ένα νέο για να το αντικαταστήσετε.",
 			"secretLabel": "Μυστικό υπογραφής",
 			"secretPlaceholder": "Προαιρετικό κοινόχρηστο μυστικό",
@@ -907,9 +907,9 @@
 			"validation": {
 				"webhookInvalid": "Εισαγάγετε ένα έγκυρο URL webhook"
 			},
-			"webhookHint": "Το Kaneo στέλνει αιτήματα POST με JSON payload για κάθε ενεργοποιημένο γεγονός.",
+			"webhookHint": "Το Kolab στέλνει αιτήματα POST με JSON payload για κάθε ενεργοποιημένο γεγονός.",
 			"webhookLabel": "URL endpoint",
-			"webhookPlaceholder": "https://example.com/webhooks/kaneo"
+			"webhookPlaceholder": "https://example.com/webhooks/kolab"
 		},
 		"telegramIntegration": {
 			"validation": {
@@ -942,7 +942,7 @@
 			"threadIdHint": "Προαιρετικό. Χρησιμοποιήστε το για θέματα forum μέσα σε ομάδες Telegram.",
 			"chatLabelLabel": "Ετικέτα συνομιλίας",
 			"chatLabelPlaceholder": "Engineering Updates",
-			"chatLabelHint": "Προαιρετική ετικέτα για δική σας αναφορά μέσα στο Kaneo.",
+			"chatLabelHint": "Προαιρετική ετικέτα για δική σας αναφορά μέσα στο Kolab.",
 			"eventsTitle": "Ειδοποιήσεις συμβάντων",
 			"eventsHint": "Επιλέξτε ποιες αλλαγές έργου θα δημοσιεύονται στο Telegram.",
 			"events": {
@@ -1662,14 +1662,14 @@
 	},
 	"invitations": {
 		"email": {
-			"subject": "{{inviterName}} invited you to join {{workspaceName}} on Kaneo",
-			"preview": "You're invited to {{workspaceName}} on Kaneo",
+			"subject": "{{inviterName}} invited you to join {{workspaceName}} on Kolab",
+			"preview": "You're invited to {{workspaceName}} on Kolab",
 			"title": "Join {{workspaceName}}",
-			"subtitle": "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kaneo.",
+			"subtitle": "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kolab.",
 			"cta": "Accept invitation",
 			"sameEmail": "You can accept with the same email that received this message.",
 			"ignore": "If this wasn't expected, you can safely ignore this email.",
-			"footer": "Kaneo workspace invitation"
+			"footer": "Kolab workspace invitation"
 		},
 		"pageTitle": "Προσκλήσεις",
 		"pendingInvitations": "Εκκρεμείς προσκλήσεις",

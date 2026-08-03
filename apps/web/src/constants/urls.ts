@@ -1,1 +1,1 @@
-export const isDemoMode = window.location.hostname === "demo.kaneo.app";
+export const isDemoMode = window.location.hostname === "demo.kolab.app";

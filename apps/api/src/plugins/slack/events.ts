@@ -88,7 +88,7 @@ async function getSlackEventData(
         .limit(1)
     : [];
 
-  const clientUrl = process.env.KANEO_CLIENT_URL || "http://localhost:5173";
+  const clientUrl = process.env.KOLAB_CLIENT_URL || "http://localhost:5173";
   const taskUrl = `${clientUrl}/dashboard/workspace/${taskRow.workspaceId}/project/${taskRow.projectId}/task/${taskId}`;
 
   return {
@@ -153,7 +153,7 @@ async function sendSlackMessage(
             type: "mrkdwn",
             text: data.actorName
               ? `Triggered by ${escapeSlack(data.actorName)}`
-              : "Triggered by Kaneo",
+              : "Triggered by Kolab",
           },
         ],
       },

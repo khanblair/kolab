@@ -1,4 +1,4 @@
-import { type BuiltInRoleName, builtInRoles } from "@kaneo/permissions";
+import { type BuiltInRoleName, builtInRoles } from "@kolab/permissions";
 import { and, eq } from "drizzle-orm";
 import type { Context, Next } from "hono";
 import { HTTPException } from "hono/http-exception";

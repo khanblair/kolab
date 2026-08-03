@@ -5,7 +5,7 @@ import { Navbar } from "@/components/landing/navbar";
 
 export const metadata: Metadata = {
   title: "Terms of Service",
-  description: "The terms that govern your use of Kaneo Cloud.",
+  description: "The terms that govern your use of Kolab Cloud.",
   alternates: {
     canonical: "/terms",
   },
@@ -38,10 +38,10 @@ export default function TermsPage() {
                 Last updated: July 28, 2026
               </p>
               <p className="mt-5 text-foreground/85 text-base leading-relaxed">
-                These terms govern your use of the managed Kaneo Cloud service
-                at cloud.kaneo.app, operated by Andrej Acevski (sole proprietor,
+                These terms govern your use of the managed Kolab Cloud service
+                at cloud.kolab.app, operated by Andrej Acevski (sole proprietor,
                 North Macedonia), referred to as “we” or “us”. By creating an
-                account you agree to these terms. The open-source Kaneo software
+                account you agree to these terms. The open-source Kolab software
                 itself is separately licensed under the MIT license, and
                 self-hosted installations are not covered by these terms.
               </p>
@@ -49,7 +49,7 @@ export default function TermsPage() {
 
             <Section title="1. The service">
               <p>
-                Kaneo Cloud is a hosted version of the open-source Kaneo project
+                Kolab Cloud is a hosted version of the open-source Kolab project
                 management application. We operate the infrastructure, apply
                 updates, and maintain backups so you don’t have to. We may
                 improve or modify the service over time; we will not materially
@@ -93,7 +93,7 @@ export default function TermsPage() {
 
             <Section title="4. Your content">
               <p>
-                Content you create in Kaneo Cloud belongs to you. You grant us
+                Content you create in Kolab Cloud belongs to you. You grant us
                 only the rights needed to host, back up, and display it to you
                 and the people you share it with. You can export your data at
                 any time, including for migration to a self-hosted installation.
@@ -116,9 +116,9 @@ export default function TermsPage() {
                 guarantee (SLA). Support is provided by email at{" "}
                 <a
                   className="text-foreground underline underline-offset-4 hover:no-underline"
-                  href="mailto:support@kaneo.app"
+                  href="mailto:support@kolab.app"
                 >
-                  support@kaneo.app
+                  support@kolab.app
                 </a>
                 .
               </p>
@@ -141,7 +141,7 @@ export default function TermsPage() {
                 suspend accounts that violate these terms. If we ever
                 discontinue the service, we will give at least 6 months notice
                 and provide a data export path. The open-source, self-hosted
-                edition of Kaneo will always remain available.
+                edition of Kolab will always remain available.
               </p>
             </Section>
 

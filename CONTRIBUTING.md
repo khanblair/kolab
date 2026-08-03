@@ -1,6 +1,6 @@
-# Contributing to Kaneo
+# Contributing to Kolab
 
-Thanks for wanting to contribute to Kaneo! Whether you're fixing bugs, adding features, or improving docs, we appreciate your help.
+Thanks for wanting to contribute to Kolab! Whether you're fixing bugs, adding features, or improving docs, we appreciate your help.
 
 ## Table of Contents
 
@@ -35,8 +35,8 @@ We want everyone to feel welcome here. Please be respectful and follow our [Code
 
 1. **Fork and clone the repo**:
 ```bash
-git clone https://github.com/yourusername/kaneo.git
-cd kaneo
+git clone https://github.com/yourusername/kolab.git
+cd kolab
 ```
 
 2. **Install dependencies**:
@@ -62,7 +62,7 @@ This starts both the API (port 1337) and web app (port 5173). Both will automati
 
 ### Finding Something to Work On
 
-- **Browse [open issues](https://github.com/usekaneo/kaneo/issues)** - look for "good first issue" labels
+- **Browse [open issues](https://github.com/khanblair/kolab/issues)** - look for "good first issue" labels
 - **Check our [Discord](https://discord.gg/rU4tSyhXXU)** - we often discuss features and bugs there
 - **Found a bug?** Feel free to fix it and open a PR
 
@@ -116,7 +116,7 @@ We use [conventional commits](https://www.conventionalcommits.org/) to keep our 
 
 ### Localization (i18n)
 
-Kaneo uses [i18next](https://www.i18next.com/) with [react-i18next](https://react.i18next.com/) in the web app. We want user-facing copy to stay consistent, translatable, and easy to maintain.
+Kolab uses [i18next](https://www.i18next.com/) with [react-i18next](https://react.i18next.com/) in the web app. We want user-facing copy to stay consistent, translatable, and easy to maintain.
 
 #### Approach
 
@@ -182,7 +182,7 @@ t("projects:greeting", { name: userName });
 ### Project Structure
 
 ```
-kaneo/
+kolab/
 ├── apps/
 │   ├── api/          # Backend API (Node.js/Hono)
 │   ├── docs/         # Documentation site (Next.js)
@@ -194,15 +194,15 @@ kaneo/
 ## Need Help?
 
 - **Discord**: Join our [Discord server](https://discord.gg/rU4tSyhXXU) for real-time help
-- **Issues**: Open a [GitHub issue](https://github.com/usekaneo/kaneo/issues) for bugs or feature requests
+- **Issues**: Open a [GitHub issue](https://github.com/khanblair/kolab/issues) for bugs or feature requests
 - **Discussions**: Use GitHub Discussions for questions about contributing
 
 ## Types of Contributions We Love
 
 - **Bug fixes** - Found something broken? Fix it!
 - **New features** - Have an idea? Let's discuss it first
-- **Documentation** - Help others understand how to use Kaneo
+- **Documentation** - Help others understand how to use Kolab
 - **Performance improvements** - Make things faster
-- **Accessibility** - Help make Kaneo usable for everyone
+- **Accessibility** - Help make Kolab usable for everyone
 
-Thanks for contributing to Kaneo! 🚀
+Thanks for contributing to Kolab! 🚀

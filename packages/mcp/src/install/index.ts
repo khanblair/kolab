@@ -36,7 +36,7 @@ export type ParsedInstallArgs = {
 export function parseInstallArgs(argv: string[]): ParsedInstallArgs {
   let target: string | undefined;
   let output: string | undefined;
-  let name = "kaneo";
+  let name = "kolab";
   let yes = false;
   let apiUrl: string | undefined;
   let projectDir = process.cwd();
@@ -225,7 +225,7 @@ export async function runInstall(argv: string[]): Promise<void> {
   const entryPath = resolvePackageEntryPath();
   const env =
     parsed.apiUrl !== undefined && parsed.apiUrl.length > 0
-      ? { KANEO_API_URL: parsed.apiUrl }
+      ? { KOLAB_API_URL: parsed.apiUrl }
       : undefined;
 
   const serverConfig: McpServerEntry = {
@@ -324,10 +324,10 @@ export async function runInstall(argv: string[]): Promise<void> {
 }
 
 function printInstallHelp(): void {
-  console.log(`kaneo-mcp install — register Kaneo in an MCP client config
+  console.log(`kolab-mcp install — register Kolab in an MCP client config
 
 Usage:
-  kaneo-mcp install [options]
+  kolab-mcp install [options]
 
 Without options, runs interactively (pick Cursor / Claude / custom path).
 
@@ -335,16 +335,16 @@ Options:
   --target <id>       ${VALID_TARGETS.join(" | ")}
   --output <path>     Required for --target custom (absolute path to JSON file)
   --project-dir <dir> Base directory for cursor-project (default: current dir)
-  --name <string>     MCP server key under mcpServers (default: kaneo)
-  --api-url <url>     Set KANEO_API_URL in the generated entry (optional)
+  --name <string>     MCP server key under mcpServers (default: kolab)
+  --api-url <url>     Set KOLAB_API_URL in the generated entry (optional)
   -y, --yes           Overwrite existing entry without prompting
   -h, --help          Show this help
 
 Examples:
-  npm install -g @kaneo/mcp
-  kaneo-mcp install
+  npm install -g @kolab/mcp
+  kolab-mcp install
 
-  kaneo-mcp install --target cursor-user -y
-  kaneo-mcp install --target custom --output /path/to/mcp.json -y
+  kolab-mcp install --target cursor-user -y
+  kolab-mcp install --target custom --output /path/to/mcp.json -y
 `);
 }

@@ -3,13 +3,13 @@ name: Build & publish Helm chart to GHCR
 on:
   pull_request:
     paths:
-      - "charts/kaneo/**"
+      - "charts/kolab/**"
       - ".github/workflows/helm-chart.yml"
   push:
     tags:
-      - "kaneo-*"
+      - "kolab-*"
     paths:
-      - "charts/kaneo/**"
+      - "charts/kolab/**"
       - ".github/workflows/helm-chart.yml"
   workflow_dispatch:
     inputs:
@@ -19,7 +19,7 @@ on:
         type: string
 
 env:
-  CHART_PATH: charts/kaneo
+  CHART_PATH: charts/kolab
   REGISTRY: ghcr.io
 
 jobs:
@@ -33,34 +33,34 @@ jobs:
         include:
           - name: default
             args: >-
-              --set kaneo.env.authSecret=secure-auth-secret-at-least-32-characters
+              --set kolab.env.authSecret=secure-auth-secret-at-least-32-characters
           - name: ingress
             args: >-
               --set ingress.enabled=true
-              --set kaneo.env.authSecret=secure-auth-secret-at-least-32-characters
+              --set kolab.env.authSecret=secure-auth-secret-at-least-32-characters
               --set postgresql.auth.password=secure-db-password
           - name: gateway
             args: >-
               --set gateway.enabled=true
               --set gateway.parentRefs[0].name=gateway
-              --set kaneo.env.authSecret=secure-auth-secret-at-least-32-characters
+              --set kolab.env.authSecret=secure-auth-secret-at-least-32-characters
               --set postgresql.auth.password=secure-db-password
           - name: autoscaling
             args: >-
               --set autoscaling.enabled=true
-              --set kaneo.resources.requests.cpu=100m
-              --set kaneo.env.authSecret=secure-auth-secret-at-least-32-characters
+              --set kolab.resources.requests.cpu=100m
+              --set kolab.env.authSecret=secure-auth-secret-at-least-32-characters
           - name: external-database
             args: >-
               --set postgresql.enabled=false
-              --set kaneo.env.database.external.enabled=true
-              --set kaneo.env.database.external.host=db.example.com
-              --set kaneo.env.database.external.password=secure-db-password
-              --set kaneo.env.authSecret=secure-auth-secret-at-least-32-characters
+              --set kolab.env.database.external.enabled=true
+              --set kolab.env.database.external.host=db.example.com
+              --set kolab.env.database.external.password=secure-db-password
+              --set kolab.env.authSecret=secure-auth-secret-at-least-32-characters
           - name: bundled-postgresql-secret
             args: >-
-              --set postgresql.auth.existingSecret=kaneo-secrets
-              --set kaneo.env.authSecret=secure-auth-secret-at-least-32-characters
+              --set postgresql.auth.existingSecret=kolab-secrets
+              --set kolab.env.authSecret=secure-auth-secret-at-least-32-characters
 
     steps:
       - name: Checkout repository
@@ -75,7 +75,7 @@ jobs:
         run: helm lint "$CHART_PATH"
 
       - name: Render chart (${{ matrix.name }})
-        run: helm template kaneo "$CHART_PATH" ${{ matrix.args }}
+        run: helm template kolab "$CHART_PATH" ${{ matrix.args }}
 
   publish:
     if: github.event_name != 'pull_request'
@@ -98,8 +98,8 @@ jobs:
         env:
           INPUT_VERSION: ${{ github.event.inputs.version }}
         run: |
-          if [[ $GITHUB_REF == refs/tags/kaneo-* ]]; then
-            echo "CHART_VERSION=${GITHUB_REF#refs/tags/kaneo-}" >> $GITHUB_ENV
+          if [[ $GITHUB_REF == refs/tags/kolab-* ]]; then
+            echo "CHART_VERSION=${GITHUB_REF#refs/tags/kolab-}" >> $GITHUB_ENV
           else
             echo "CHART_VERSION=$INPUT_VERSION" >> $GITHUB_ENV
           fi
@@ -118,11 +118,11 @@ jobs:
       - name: Publish chart
         run: |
           OWNER="${GITHUB_REPOSITORY_OWNER,,}"
-          CHART_REF="oci://$REGISTRY/$OWNER/charts/kaneo"
+          CHART_REF="oci://$REGISTRY/$OWNER/charts/kolab"
 
           if helm show chart "$CHART_REF" --version "$CHART_VERSION" >/dev/null 2>&1; then
             echo "Chart $CHART_REF:$CHART_VERSION already exists; skipping publish."
             exit 0
           fi
 
-          helm push dist/kaneo-"$CHART_VERSION".tgz "oci://$REGISTRY/$OWNER/charts"
+          helm push dist/kolab-"$CHART_VERSION".tgz "oci://$REGISTRY/$OWNER/charts"

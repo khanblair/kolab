@@ -24,7 +24,7 @@ describe("isDisposableEmail", () => {
   it("allows real provider domains", () => {
     expect(isDisposableEmail("foo@gmail.com")).toBe(false);
     expect(isDisposableEmail("foo@outlook.com")).toBe(false);
-    expect(isDisposableEmail("foo@kaneo.app")).toBe(false);
+    expect(isDisposableEmail("foo@kolab.app")).toBe(false);
     expect(isDisposableEmail("foo@zus.pl")).toBe(false);
   });
 

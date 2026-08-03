@@ -28,7 +28,7 @@ function parseTaskRouteFromUrl(url: string) {
   }
 }
 
-function KaneoIssueLinkView({ node }: NodeViewProps) {
+function KolabIssueLinkView({ node }: NodeViewProps) {
   const { t } = useTranslation();
   const issueKey = String(node.attrs.issueKey || "");
   const taskIdAttr = String(node.attrs.taskId || "");
@@ -37,7 +37,7 @@ function KaneoIssueLinkView({ node }: NodeViewProps) {
   const taskId = taskIdAttr || taskRoute?.taskId || "";
 
   const { data: task } = useQuery({
-    queryKey: ["task", taskId, "kaneo-issue-link"],
+    queryKey: ["task", taskId, "kolab-issue-link"],
     queryFn: () => getTask(taskId),
     enabled: Boolean(taskId),
     staleTime: 1000 * 60,
@@ -47,7 +47,7 @@ function KaneoIssueLinkView({ node }: NodeViewProps) {
       "projects",
       taskRoute?.workspaceId,
       taskRoute?.projectId,
-      "kaneo-issue-link",
+      "kolab-issue-link",
     ],
     queryFn: () =>
       getProject({
@@ -77,37 +77,37 @@ function KaneoIssueLinkView({ node }: NodeViewProps) {
   const isInternal = href.startsWith("/");
 
   return (
-    <NodeViewWrapper as="span" className="kaneo-issue-link-node">
+    <NodeViewWrapper as="span" className="kolab-issue-link-node">
       <HoverCard openDelay={160} closeDelay={120}>
         <HoverCardTrigger asChild>
           <a
             href={href}
             target={isInternal ? undefined : "_blank"}
             rel={isInternal ? undefined : "noopener noreferrer"}
-            className="kaneo-issue-link-chip"
+            className="kolab-issue-link-chip"
           >
             {resolvedIssueKey ? (
-              <span className="kaneo-issue-link-key">{resolvedIssueKey}</span>
+              <span className="kolab-issue-link-key">{resolvedIssueKey}</span>
             ) : null}
-            <span className="kaneo-issue-link-title">{title}</span>
+            <span className="kolab-issue-link-title">{title}</span>
           </a>
         </HoverCardTrigger>
         <HoverCardContent
           side="top"
           align="start"
           sideOffset={8}
-          className="kaneo-issue-link-preview"
+          className="kolab-issue-link-preview"
         >
-          <div className="kaneo-issue-link-preview-top">
-            <span className="kaneo-issue-link-preview-key">
+          <div className="kolab-issue-link-preview-top">
+            <span className="kolab-issue-link-preview-key">
               {resolvedIssueKey || t("tasks:entity.task")}
             </span>
-            <span className="kaneo-issue-link-preview-assignee">
+            <span className="kolab-issue-link-preview-assignee">
               {assignee}
             </span>
           </div>
-          <p className="kaneo-issue-link-preview-title">{title}</p>
-          <div className="kaneo-issue-link-preview-meta">
+          <p className="kolab-issue-link-preview-title">{title}</p>
+          <div className="kolab-issue-link-preview-meta">
             <span>{status}</span>
             <span>·</span>
             <span>{priority}</span>
@@ -118,8 +118,8 @@ function KaneoIssueLinkView({ node }: NodeViewProps) {
   );
 }
 
-export const KaneoIssueLink = Node.create({
-  name: "kaneoIssueLink",
+export const KolabIssueLink = Node.create({
+  name: "kolabIssueLink",
   group: "inline",
   inline: true,
   atom: true,
@@ -135,16 +135,16 @@ export const KaneoIssueLink = Node.create({
 
   parseHTML() {
     return [
-      { tag: "kaneo-issue-link[url]" },
-      { tag: "span[data-type='kaneo-issue-link'][data-url]" },
+      { tag: "kolab-issue-link[url]" },
+      { tag: "span[data-type='kolab-issue-link'][data-url]" },
     ];
   },
 
   renderHTML({ HTMLAttributes }) {
     return [
-      "kaneo-issue-link",
+      "kolab-issue-link",
       mergeAttributes(HTMLAttributes, {
-        "data-type": "kaneo-issue-link",
+        "data-type": "kolab-issue-link",
         "data-url": HTMLAttributes.url,
         "data-issue-key": HTMLAttributes.issueKey,
         "data-task-id": HTMLAttributes.taskId,
@@ -156,7 +156,7 @@ export const KaneoIssueLink = Node.create({
   },
 
   addNodeView() {
-    return ReactNodeViewRenderer(KaneoIssueLinkView);
+    return ReactNodeViewRenderer(KolabIssueLinkView);
   },
 
   renderMarkdown(
@@ -168,6 +168,6 @@ export const KaneoIssueLink = Node.create({
     const issueKey = String(node.attrs?.issueKey || "");
     const taskId = String(node.attrs?.taskId || "");
     if (!url) return "";
-    return `\n<kaneo-issue-link url="${url}" issue-key="${issueKey}" task-id="${taskId}" />\n`;
+    return `\n<kolab-issue-link url="${url}" issue-key="${issueKey}" task-id="${taskId}" />\n`;
   },
 });

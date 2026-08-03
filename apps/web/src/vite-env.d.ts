@@ -4,7 +4,7 @@
 declare const __APP_VERSION__: string;
 
 type ImportMetaEnv = {
-  readonly KANEO_API_URL: string;
+  readonly KOLAB_API_URL: string;
 };
 
 type ImportMeta = {

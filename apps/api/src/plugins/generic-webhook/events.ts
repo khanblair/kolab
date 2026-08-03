@@ -79,7 +79,7 @@ async function getTaskData(
     return null;
   }
 
-  const clientUrl = process.env.KANEO_CLIENT_URL || "http://localhost:5173";
+  const clientUrl = process.env.KOLAB_CLIENT_URL || "http://localhost:5173";
 
   return {
     ...taskRow,

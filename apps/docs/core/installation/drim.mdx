@@ -1,11 +1,11 @@
 ---
 title: Deploy with drim CLI
-description: One-click deployment tool for self-hosted Kaneo instances
+description: One-click deployment tool for self-hosted Kolab instances
 ---
 
 ## What is drim?
 
-[drim](https://github.com/usekaneo/drim) is a CLI tool for deploying your Kaneo instances. It's designed for fairly straightforward setups where you want to get Kaneo up and running quickly without manual configuration.
+[drim](https://github.com/khanblair/drim) is a CLI tool for deploying your Kolab instances. It's designed for fairly straightforward setups where you want to get Kolab up and running quickly without manual configuration.
 
 drim handles:
 - Docker Compose file generation
@@ -19,10 +19,10 @@ drim handles:
 Install drim with a single command:
 
 ```bash
-curl -fsSL https://assets.kaneo.app/install.sh | sh
+curl -fsSL https://assets.kolab.app/install.sh | sh
 ```
 
-Or download the binary manually from [releases](https://github.com/usekaneo/drim/releases/latest).
+Or download the binary manually from [releases](https://github.com/khanblair/drim/releases/latest).
 
 ## Quick Start
 
@@ -42,7 +42,7 @@ For production with automatic HTTPS:
 
 ```bash
 drim setup
-# Enter your domain when prompted (e.g., kaneo.example.com)
+# Enter your domain when prompted (e.g., kolab.example.com)
 # Access at https://your-domain.com
 ```
 
@@ -52,17 +52,17 @@ Make sure your domain's DNS A record points to your server before running setup.
 
 ## Commands
 
-drim provides several commands to manage your Kaneo instance:
+drim provides several commands to manage your Kolab instance:
 
 ```bash
-drim setup        # Deploy Kaneo
+drim setup        # Deploy Kolab
 drim start        # Start services
 drim stop         # Stop services
 drim restart      # Restart services
-drim upgrade      # Update Kaneo to latest version
+drim upgrade      # Update Kolab to latest version
 drim update       # Update drim CLI to latest version
 drim configure    # Edit configuration
-drim uninstall    # Remove Kaneo
+drim uninstall    # Remove Kolab
 ```
 
 ## What Gets Installed
@@ -70,7 +70,7 @@ drim uninstall    # Remove Kaneo
 When you run `drim setup`, the following services are deployed:
 
 - **PostgreSQL 16** - Database
-- **Kaneo** - Combined API and web frontend in a single container
+- **Kolab** - Combined API and web frontend in a single container
 - **Caddy** - Reverse proxy with automatic HTTPS
 
 All services run in Docker containers with proper networking and health checks.
@@ -107,6 +107,6 @@ drim is ideal for:
 - Quick local development setups
 - Simple production deployments with a single domain
 - Teams that want automatic HTTPS without manual configuration
-- Anyone who wants to get Kaneo running with minimal effort
+- Anyone who wants to get Kolab running with minimal effort
 
 For more complex setups (multiple domains, custom networking, Kubernetes, etc.), see the [manual Docker Compose installation](/core/installation/docker-compose).

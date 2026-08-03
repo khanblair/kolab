@@ -18,7 +18,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      "@kaneo/email": resolve(
+      "@kolab/email": resolve(
         __dirname,
         "../../tests/api-integration/mocks/email.ts",
       ),

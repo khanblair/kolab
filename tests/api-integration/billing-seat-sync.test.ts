@@ -24,7 +24,7 @@ import { resetTestDatabase } from "./helpers/database";
 import { createWorkspaceMember } from "./helpers/fixtures";
 
 const CLOUD_ENV = {
-  KANEO_CLOUD: "true",
+  KOLAB_CLOUD: "true",
   CREEM_API_KEY: "creem_test_dummy",
   CREEM_WEBHOOK_SECRET: "whsec_dummy",
 };

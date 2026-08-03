@@ -3,7 +3,7 @@
 import { Check } from "lucide-react";
 import { useState } from "react";
 
-const APP_URL = "https://cloud.kaneo.app";
+const APP_URL = "https://cloud.kolab.app";
 
 type Interval = "monthly" | "annual";
 

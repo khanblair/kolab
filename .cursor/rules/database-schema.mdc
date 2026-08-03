@@ -5,7 +5,7 @@ alwaysApply: false
 ---
 # Database Schema Guidelines
 
-Kaneo uses Drizzle ORM with PostgreSQL. This document outlines schema conventions and best practices.
+Kolab uses Drizzle ORM with PostgreSQL. This document outlines schema conventions and best practices.
 
 ## Schema Definition
 
@@ -250,7 +250,7 @@ createdAt: timestamp("created_at", { mode: "date" }).defaultNow().notNull(),
 After schema changes:
 
 ```bash
-pnpm --filter @kaneo/api db:generate
+pnpm --filter @kolab/api db:generate
 ```
 
 This creates migration files in `apps/api/drizzle/`.

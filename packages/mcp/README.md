@@ -1,75 +1,75 @@
-# Kaneo MCP server
+# Kolab MCP server
 
-`@kaneo/mcp` is a local stdio MCP server for Kaneo.
+`@kolab/mcp` is a local stdio MCP server for Kolab.
 
-It runs over stdio, signs in with Kaneo's device flow, and then calls the Kaneo API with a bearer token. The package lives in `packages/mcp` in this monorepo and exposes the `kaneo-mcp` CLI.
+It runs over stdio, signs in with Kolab's device flow, and then calls the Kolab API with a bearer token. The package lives in `packages/mcp` in this monorepo and exposes the `kolab-mcp` CLI.
 
-> **Tip:** Every Kaneo instance also ships a built-in HTTP MCP endpoint at `/api/mcp`. If your MCP client supports Streamable HTTP transport (e.g. Claude Code), you can connect directly without this package. See the [MCP docs](https://docs.kaneo.app/core/integrations/mcp) for details.
+> **Tip:** Every Kolab instance also ships a built-in HTTP MCP endpoint at `/api/mcp`. If your MCP client supports Streamable HTTP transport (e.g. Claude Code), you can connect directly without this package. See the [MCP docs](https://docs.kolab.app/core/integrations/mcp) for details.
 
 ## Prerequisites
 
 - Node.js 20+
-- A running Kaneo API (for example `http://localhost:1337`) and web app (for device approval UI).
+- A running Kolab API (for example `http://localhost:1337`) and web app (for device approval UI).
 
-Kaneo allows `kaneo-cli` and `kaneo-mcp` by default, so you usually do not need extra server configuration.
+Kolab allows `kolab-cli` and `kolab-mcp` by default, so you usually do not need extra server configuration.
 
-If you want to run this server with a different client ID, allow it on the Kaneo server:
+If you want to run this server with a different client ID, allow it on the Kolab server:
 
 ```bash
-DEVICE_AUTH_CLIENT_IDS=kaneo-cli,kaneo-mcp,your-client-id
+DEVICE_AUTH_CLIENT_IDS=kolab-cli,kolab-mcp,your-client-id
 ```
 
 ## Environment
 
 | Variable | Description |
 |----------|-------------|
-| `KANEO_API_URL` | Kaneo API origin (default `http://localhost:1337`). Do not include `/api`. |
-| `KANEO_MCP_CLIENT_ID` | Device-flow client id (default `kaneo-mcp`). Must match `DEVICE_AUTH_CLIENT_IDS` on the server. |
-| `KANEO_API_KEY` | **Optional.** A Kaneo API key (create one under Settings → Account → Developer). When set, the server authenticates with it as a Bearer token and skips the interactive device flow — use this for headless/Docker setups. |
+| `KOLAB_API_URL` | Kolab API origin (default `http://localhost:1337`). Do not include `/api`. |
+| `KOLAB_MCP_CLIENT_ID` | Device-flow client id (default `kolab-mcp`). Must match `DEVICE_AUTH_CLIENT_IDS` on the server. |
+| `KOLAB_API_KEY` | **Optional.** A Kolab API key (create one under Settings → Account → Developer). When set, the server authenticates with it as a Bearer token and skips the interactive device flow — use this for headless/Docker setups. |
 
 ## Install
 
 **Recommended (no global install):** run the interactive installer with npx:
 
 ```bash
-npx @kaneo/mcp
+npx @kolab/mcp
 ```
 
 npm downloads the package, then an **interactive menu** (arrow keys + Enter) asks **where** to register the server (Cursor user-wide, Cursor project, Claude Desktop, or a custom JSON path). It then merges a `mcpServers` entry that points at this package’s `dist/index.js` with your current Node binary.
 
-In a normal terminal, `npx @kaneo/mcp` and `kaneo-mcp` with no subcommand both start the installer. When the process is **not** attached to a TTY (for example when Cursor launches the MCP server with a pipe), the same entry runs the stdio MCP server instead.
+In a normal terminal, `npx @kolab/mcp` and `kolab-mcp` with no subcommand both start the installer. When the process is **not** attached to a TTY (for example when Cursor launches the MCP server with a pipe), the same entry runs the stdio MCP server instead.
 
 To run the server manually from a shell (for example to debug stdio), use:
 
 ```bash
-npx @kaneo/mcp serve
+npx @kolab/mcp serve
 ```
 
 If you prefer a global install:
 
 ```bash
-npm install -g @kaneo/mcp
-kaneo-mcp
+npm install -g @kolab/mcp
+kolab-mcp
 ```
 
-(`kaneo-mcp install` is the same installer with an explicit subcommand.)
+(`kolab-mcp install` is the same installer with an explicit subcommand.)
 
 Non-interactive example (Cursor user config, skip overwrite prompts):
 
 ```bash
-kaneo-mcp install --target cursor-user -y
+kolab-mcp install --target cursor-user -y
 ```
 
 Point at a self-hosted API when generating the config:
 
 ```bash
-kaneo-mcp install --target cursor-user -y --api-url https://kaneo.example.com
+kolab-mcp install --target cursor-user -y --api-url https://kolab.example.com
 ```
 
 See all options:
 
 ```bash
-kaneo-mcp install --help
+kolab-mcp install --help
 ```
 
 If you are currently inside the local `packages/mcp` package directory, npm may resolve the local workspace package instead of the published one and fail to expose the bin. In that case, either run `npx` from outside `packages/mcp`, or use a local build:
@@ -86,9 +86,9 @@ From the repo root:
 
 ```bash
 pnpm install
-pnpm --filter @kaneo/mcp run build
-pnpm --filter @kaneo/mcp run start
-pnpm --filter @kaneo/mcp run test
+pnpm --filter @kolab/mcp run build
+pnpm --filter @kolab/mcp run start
+pnpm --filter @kolab/mcp run test
 ```
 
 Or run it from the package directory:
@@ -97,21 +97,21 @@ Or run it from the package directory:
 pnpm -C packages/mcp run build
 ```
 
-The CLI entry points to `./dist/index.js`. Use `npx @kaneo/mcp` or `kaneo-mcp` after a global install so your IDE config points at the resolved path.
+The CLI entry points to `./dist/index.js`. Use `npx @kolab/mcp` or `kolab-mcp` after a global install so your IDE config points at the resolved path.
 
 ## Authentication
 
-On the first tool call that needs Kaneo, the server:
+On the first tool call that needs Kolab, the server:
 
 1. Requests a device code from `POST /api/auth/device/code`
 2. Prints the verification URL and user code to `stderr`
 3. Tries to open the browser
 4. Polls `POST /api/auth/device/token` until approved
-5. Stores the access token at `~/.config/kaneo-mcp/credentials.json` with mode `0600`
+5. Stores the access token at `~/.config/kolab-mcp/credentials.json` with mode `0600`
 
 ### Non-interactive (API key)
 
-For headless or sandboxed environments where opening a browser is impractical, set `KANEO_API_KEY` to a key created under Settings → Account → Developer. The server sends it as a Bearer token on every request and skips the device flow entirely, so no token is cached to disk.
+For headless or sandboxed environments where opening a browser is impractical, set `KOLAB_API_KEY` to a key created under Settings → Account → Developer. The server sends it as a Bearer token on every request and skips the device flow entirely, so no token is cached to disk.
 
 ## Tools
 

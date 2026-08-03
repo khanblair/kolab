@@ -137,7 +137,7 @@ async function getTelegramEventData(
     taskNumber: taskRow.number,
     projectName: taskRow.projectName,
     taskUrl: getTaskUrl(
-      process.env.KANEO_CLIENT_URL,
+      process.env.KOLAB_CLIENT_URL,
       taskRow.workspaceId,
       taskRow.projectId,
       taskId,
@@ -170,7 +170,7 @@ async function sendTelegramMessage(
     `<b>Project:</b> ${escapeHtml(data.projectName)}`,
     `<b>Status:</b> ${escapeHtml(toSentenceCase(data.status))}`,
     `<b>Priority:</b> ${escapeHtml(toSentenceCase(data.priority))}`,
-    `<b>Triggered by:</b> ${escapeHtml(data.actorName ?? "Kaneo")}`,
+    `<b>Triggered by:</b> ${escapeHtml(data.actorName ?? "Kolab")}`,
   ];
 
   try {

@@ -1,14 +1,14 @@
 {
   "openapi": "3.0.3",
   "info": {
-    "title": "Kaneo API",
-    "description": "Kaneo Project Management API - Manage projects, tasks, labels, and more",
+    "title": "Kolab API",
+    "description": "Kolab Project Management API - Manage projects, tasks, labels, and more",
     "version": "1.0.0"
   },
   "servers": [
     {
-      "url": "https://cloud.kaneo.app/api",
-      "description": "Kaneo API Server"
+      "url": "https://cloud.kolab.app/api",
+      "description": "Kolab API Server"
     }
   ],
   "components": {

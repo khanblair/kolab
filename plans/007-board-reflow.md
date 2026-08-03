@@ -26,5 +26,5 @@ Wrap the three map sites in `<AnimatePresence initial={false} mode="popLayout">`
 
 ## Verification
 
-- Mechanical: `pnpm --filter @kaneo/web build`.
+- Mechanical: `pnpm --filter @kolab/web build`.
 - Feel: create a task — the card settles in (subtle scale+fade). Delete/move via status popover — the card fades out and the list closes up without a hard jump. Drag cards between columns — dnd-kit behavior unchanged (no double transforms, no offset jumps). Load a 50-card board — no entrance storm.

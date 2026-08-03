@@ -1,4 +1,4 @@
-const LOCAL_FALLBACK_CONNECTION_STRING = "postgresql://localhost:5432/kaneo";
+const LOCAL_FALLBACK_CONNECTION_STRING = "postgresql://localhost:5432/kolab";
 
 type DatabaseConfigSource = "DATABASE_URL" | "POSTGRES_ENV" | "LOCAL_FALLBACK";
 
@@ -59,11 +59,11 @@ export function resolveDatabaseConfig(): ResolvedDatabaseConfig {
       );
     }
 
-    const username = process.env.POSTGRES_USER || "kaneo";
+    const username = process.env.POSTGRES_USER || "kolab";
     const password = encodeURIComponent(process.env.POSTGRES_PASSWORD);
     const host = process.env.POSTGRES_HOST || "postgres";
     const port = process.env.POSTGRES_PORT || "5432";
-    const database = process.env.POSTGRES_DB || "kaneo";
+    const database = process.env.POSTGRES_DB || "kolab";
 
     return toResolvedConfig(
       `postgresql://${encodeURIComponent(username)}:${password}@${host}:${port}/${database}`,

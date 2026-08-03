@@ -25,7 +25,7 @@ describe("requestDeviceCode", () => {
 
     const result = await requestDeviceCode(
       "https://api.example.com",
-      "kaneo-mcp",
+      "kolab-mcp",
     );
 
     expect(result.device_code).toBe("device-code");
@@ -34,7 +34,7 @@ describe("requestDeviceCode", () => {
       expect.objectContaining({
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ client_id: "kaneo-mcp" }),
+        body: JSON.stringify({ client_id: "kolab-mcp" }),
         signal: expect.any(AbortSignal),
       }),
     );
@@ -48,7 +48,7 @@ describe("requestDeviceCode", () => {
     ) as typeof fetch;
 
     await expect(
-      requestDeviceCode("https://api.example.com", "kaneo-mcp"),
+      requestDeviceCode("https://api.example.com", "kolab-mcp"),
     ).rejects.toThrow(/unexpected response/);
   });
 });
@@ -84,7 +84,7 @@ describe("pollDeviceAccessToken", () => {
 
     const promise = pollDeviceAccessToken(
       "https://api.example.com",
-      "kaneo-mcp",
+      "kolab-mcp",
       "device-code",
       1,
       { log },
@@ -115,7 +115,7 @@ describe("pollDeviceAccessToken", () => {
 
     const promise = pollDeviceAccessToken(
       "https://api.example.com",
-      "kaneo-mcp",
+      "kolab-mcp",
       "device-code",
       1,
     );
@@ -136,7 +136,7 @@ describe("pollDeviceAccessToken", () => {
     await expect(
       pollDeviceAccessToken(
         "https://api.example.com",
-        "kaneo-mcp",
+        "kolab-mcp",
         "device-code",
         1,
       ),

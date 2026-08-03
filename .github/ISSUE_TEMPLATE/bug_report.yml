@@ -1,5 +1,5 @@
 name: "Bug Report"
-description: Create a report to help us improve Kaneo
+description: Create a report to help us improve Kolab
 title: "[Bug]: "
 labels: ["bug"]
 body:
@@ -57,7 +57,7 @@ body:
       label: "Environment"
       placeholder: |
         Example:
-        - Kaneo Version: [e.g., 1.0.0]
+        - Kolab Version: [e.g., 1.0.0]
         - Deployment Method: [e.g., Docker, Kubernetes, etc.]
         - Browser: [e.g., Chrome 120, Firefox 119]
         - OS: [e.g., Windows 11, macOS Sonoma, Ubuntu 22.04]

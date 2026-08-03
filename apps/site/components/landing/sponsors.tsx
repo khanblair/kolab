@@ -32,7 +32,7 @@ export function Sponsors() {
         </FadeIn>
         <FadeIn delay={80}>
           <p className="mt-6 text-lg text-muted-foreground leading-relaxed">
-            Kaneo is{" "}
+            Kolab is{" "}
             <strong className="font-medium text-foreground">
               free and open source
             </strong>
@@ -46,7 +46,7 @@ export function Sponsors() {
               target="_blank"
               rel="noreferrer"
             >
-              sponsor Kaneo
+              sponsor Kolab
             </a>
             .
           </p>

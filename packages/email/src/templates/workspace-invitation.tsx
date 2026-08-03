@@ -63,18 +63,18 @@ WorkspaceInvitationEmail.PreviewProps = {
   workspaceName: "Acme Inc",
   inviterName: "John Doe",
   inviterEmail: "john@acme.com",
-  invitationLink: "https://kaneo.app/invite/abc123",
+  invitationLink: "https://kolab.app/invite/abc123",
   to: "invitee@example.com",
   copy: {
-    subject: "{{inviterName}} invited you to join {{workspaceName}} on Kaneo",
-    preview: "You're invited to {{workspaceName}} on Kaneo",
+    subject: "{{inviterName}} invited you to join {{workspaceName}} on Kolab",
+    preview: "You're invited to {{workspaceName}} on Kolab",
     title: "Join {{workspaceName}}",
     subtitle:
-      "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kaneo.",
+      "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kolab.",
     cta: "Accept invitation",
     sameEmail: "You can accept with the same email that received this message.",
     ignore: "If this wasn't expected, you can safely ignore this email.",
-    footer: "Kaneo workspace invitation",
+    footer: "Kolab workspace invitation",
   },
 } as WorkspaceInvitationEmailProps;
 

@@ -1,17 +1,17 @@
 {
-	"name": "@kaneo/mcp",
+	"name": "@kolab/mcp",
 	"version": "0.1.6",
-	"description": "Model Context Protocol (stdio) server for Kaneo — tasks, projects, labels, and device authorization",
+	"description": "Model Context Protocol (stdio) server for Kolab — tasks, projects, labels, and device authorization",
 	"license": "MIT",
-	"homepage": "https://github.com/usekaneo/kaneo/",
+	"homepage": "https://github.com/khanblair/kolab/",
 	"repository": {
 		"type": "git",
-		"url": "https://github.com/usekaneo/kaneo/",
+		"url": "https://github.com/khanblair/kolab/",
 		"directory": "packages/mcp"
 	},
 	"type": "module",
 	"bin": {
-		"kaneo-mcp": "dist/index.js"
+		"kolab-mcp": "dist/index.js"
 	},
 	"exports": {
 		".": {
@@ -30,7 +30,7 @@
 	"keywords": [
 		"mcp",
 		"model-context-protocol",
-		"kaneo",
+		"kolab",
 		"stdio"
 	],
 	"scripts": {
@@ -49,7 +49,7 @@
 		"zod": "^4.4.3"
 	},
 	"devDependencies": {
-		"@kaneo/typescript-config": "workspace:*",
+		"@kolab/typescript-config": "workspace:*",
 		"@types/node": "^25.3.5",
 		"@types/prompts": "^2.4.9",
 		"tsx": "^4.23.1",

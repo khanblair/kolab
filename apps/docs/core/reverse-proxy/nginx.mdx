@@ -5,7 +5,7 @@ description: Nginx is a web server that can be used as a reverse proxy.
 
 ## Overview
 
-This guide explains how to deploy Kaneo using Nginx as a reverse proxy. This setup is ideal for production environments where you want to expose Kaneo through a domain name with HTTPS.
+This guide explains how to deploy Kolab using Nginx as a reverse proxy. This setup is ideal for production environments where you want to expose Kolab through a domain name with HTTPS.
 
 ## Prerequisites
 
@@ -24,14 +24,14 @@ sudo apt install nginx
 
 ## Configuration
 
-The next step is to configure Nginx to proxy requests to the Kaneo services. We will create two servers, one for the web application and one for the API.
+The next step is to configure Nginx to proxy requests to the Kolab services. We will create two servers, one for the web application and one for the API.
 
-1. Create a new file in the `/etc/nginx/sites-available/kaneo.conf` directory.
+1. Create a new file in the `/etc/nginx/sites-available/kolab.conf` directory.
 
-```nginx title="kaneo.conf"
+```nginx title="kolab.conf"
 server {
   listen 80;
-  server_name kaneo.your-domain.com;
+  server_name kolab.your-domain.com;
  
   location / {
     proxy_pass http://localhost:5173;
@@ -43,7 +43,7 @@ server {
  
 server {
   listen 80;
-  server_name kaneo-api.your-domain.com;
+  server_name kolab-api.your-domain.com;
  
   location / {
     proxy_pass http://localhost:1337;
@@ -57,7 +57,7 @@ server {
 2. Enable the configuration by creating a symlink to the `sites-enabled` directory.
 
 ```bash
-sudo ln -s /etc/nginx/sites-available/kaneo.conf /etc/nginx/sites-enabled/
+sudo ln -s /etc/nginx/sites-available/kolab.conf /etc/nginx/sites-enabled/
 ```
 
 3. Test the configuration.

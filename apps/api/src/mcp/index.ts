@@ -23,7 +23,7 @@ import {
 } from "./schemas";
 import { registerMcpTools } from "./tools";
 
-const apiUrl = (process.env.KANEO_API_URL || "http://localhost:1337").replace(
+const apiUrl = (process.env.KOLAB_API_URL || "http://localhost:1337").replace(
   /\/api\/?$/,
   "",
 );
@@ -32,7 +32,7 @@ const sessions = new Map<string, WebStandardStreamableHTTPServerTransport>();
 
 function createMcpServerForUser(token: string): McpServer {
   const server = new McpServer({
-    name: "kaneo-mcp",
+    name: "kolab-mcp",
     version: "1.0.0",
   });
   registerMcpTools(server, apiUrl, token);
@@ -94,7 +94,7 @@ mcp.get(
     description: "Start an explicit MCP OAuth consent request",
     security: [],
     responses: {
-      302: { description: "Redirect to the Kaneo consent page" },
+      302: { description: "Redirect to the Kolab consent page" },
       400: {
         description: "Invalid authorization request",
         content: {

@@ -1,6 +1,6 @@
 {
 	"common": {
-		"appName": "Kaneo",
+		"appName": "Kolab",
 		"actions": {
 			"cancel": "Откажи",
 			"close": "Затвори",
@@ -75,7 +75,7 @@
 				"errorToast": "Неуспешно креирање на проект"
 			},
 			"createWorkspace": {
-				"breadcrumbKaneo": "KANEO",
+				"breadcrumbKolab": "KOLAB",
 				"title": "Креирај нов работен простор",
 				"description": "Креирај нов работен простор со внесување на име.",
 				"namePlaceholder": "Име на работен простор",
@@ -245,7 +245,7 @@
 			"workspaceLabel": "Работен простор: {{workspaceName}}",
 			"joinWorkspace": "Приклучи се на {{workspaceName}}",
 			"inviteBodySignedIn": "<inviter>{{inviterName}}</inviter> те покани да се приклучиш на нивниот работен простор.",
-			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> те покани да се приклучиш на нивниот работен простор на Kaneo.",
+			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> те покани да се приклучиш на нивниот работен простор на Kolab.",
 			"signInToAccept": "Најави се за да ја прифатиш поканата.",
 			"accepting": "Се прифаќа...",
 			"acceptInvitation": "Прифати покана",
@@ -260,7 +260,7 @@
 			}
 		},
 		"onboarding": {
-			"pageTitle": "Добредојде на Kaneo",
+			"pageTitle": "Добредојде на Kolab",
 			"workspacePageTitle": "Креирај работен простор",
 			"createWorkspaceTitle": "Креирај работен простор",
 			"createWorkspaceSubtitle": "Постави го твојот работен простор за да почнеш со управување на проекти",
@@ -329,7 +329,7 @@
 		"notificationsPage": {
 			"pageTitle": "Notifications",
 			"title": "Notifications",
-			"subtitle": "Choose how Kaneo delivers your account notifications and which channels to use.",
+			"subtitle": "Choose how Kolab delivers your account notifications and which channels to use.",
 			"statusConnected": "Connected",
 			"statusPaused": "Paused",
 			"emailTitle": "Email",
@@ -362,10 +362,10 @@
 			"webhookDescription": "Send account notifications to your own endpoint as JSON.",
 			"endpointUrl": "Endpoint URL",
 			"signingSecret": "Signing secret",
-			"webhookUrlPlaceholder": "https://example.com/webhooks/kaneo",
+			"webhookUrlPlaceholder": "https://example.com/webhooks/kolab",
 			"webhookSecretPlaceholder": "Optional shared secret",
 			"webhookSecretHintConfigured": "A signing secret is already configured ({{masked}}). Enter a new one to replace it.",
-			"webhookSecretHintOptional": "Optional. Kaneo signs the request body when a secret is set.",
+			"webhookSecretHintOptional": "Optional. Kolab signs the request body when a secret is set.",
 			"connectWebhook": "Connect webhook",
 			"workspaceRulesTitle": "Workspace delivery rules",
 			"workspaceRulesDescription": "Reuse your global channels, then decide which workspaces and projects are allowed to send account notifications.",
@@ -416,7 +416,7 @@
 		},
 		"preferencesPage": {
 			"title": "Преференции",
-			"subtitle": "Прилагоди го твоето Kaneo искуство.",
+			"subtitle": "Прилагоди го твоето Kolab искуство.",
 			"appearanceTitle": "Изглед",
 			"appearanceSubtitle": "Визуелни поставки и преференции за распоред.",
 			"theme": "Тема",
@@ -460,7 +460,7 @@
 			"title": "Програмерски поставки",
 			"subtitle": "Управувај со твоите API клучеви и програмерски ресурси.",
 			"apiKeysCardTitle": "API клучеви",
-			"apiKeysCardDescription": "Креирај и управувај со API клучеви за програмски пристап до Kaneo.",
+			"apiKeysCardDescription": "Креирај и управувај со API клучеви за програмски пристап до Kolab.",
 			"createApiKey": "Креирај API клуч",
 			"unnamedKey": "Неименуван клуч"
 		},
@@ -499,7 +499,7 @@
 			},
 			"createDialog": {
 				"title": "Креирај API клуч",
-				"description": "Креирај нов API клуч за програмски пристап до Kaneo API.",
+				"description": "Креирај нов API клуч за програмски пристап до Kolab API.",
 				"nameLabel": "Име",
 				"namePlaceholder": "Мојот API клуч",
 				"nameDescription": "Описно име за овој API клуч",
@@ -678,7 +678,7 @@
 				"removeError": "Неуспешно отстранување на GitHub интеграцијата",
 				"issuesImported": "Issues се успешно увезени",
 				"importError": "Неуспешен увоз на issues",
-				"commentOnEnabled": "Kaneo ќе коментира со линк до задачата на новите issues",
+				"commentOnEnabled": "Kolab ќе коментира со линк до задачата на новите issues",
 				"commentOnDisabled": "Коментарите со линк до задачата на новите issues се исклучени",
 				"settingsUpdateError": "Неуспешно ажурирање на GitHub интеграцијата"
 			},
@@ -689,8 +689,8 @@
 			"badgeNotConnected": "Неповрзан",
 			"repository": "Репозиториум",
 			"repositoryHint": "Поврзан GitHub репозиториум",
-			"commentTaskLinkTitle": "Коментирај Kaneo линк на нови issues",
-			"commentTaskLinkHint": "Кога е вклучено, Kaneo објавува коментар на секој нов GitHub issue со линк до задачата.",
+			"commentTaskLinkTitle": "Коментирај Kolab линк на нови issues",
+			"commentTaskLinkHint": "Кога е вклучено, Kolab објавува коментар на секој нов GitHub issue со линк до задачата.",
 			"appStatusTitle": "Статус на GitHub апликација",
 			"appStatusHint": "Статус на инсталација и дозволи",
 			"statusProperlyConfigured": "Правилно конфигуриран",
@@ -741,7 +741,7 @@
 				"removeError": "Failed to remove Gitea integration",
 				"issuesImported": "Issues imported successfully",
 				"importError": "Failed to import issues",
-				"commentOnEnabled": "Kaneo will comment with a task link on new issues",
+				"commentOnEnabled": "Kolab will comment with a task link on new issues",
 				"commentOnDisabled": "Task link comments on new issues are turned off",
 				"settingsUpdateError": "Failed to update Gitea integration",
 				"secretCopied": "Copied",
@@ -757,8 +757,8 @@
 			"badgeNotConnected": "Not connected",
 			"repository": "Repository",
 			"repositoryHint": "Linked Gitea repository",
-			"commentTaskLinkTitle": "Comment Kaneo link on new issues",
-			"commentTaskLinkHint": "When enabled, Kaneo posts a comment on each new issue with a link to the task.",
+			"commentTaskLinkTitle": "Comment Kolab link on new issues",
+			"commentTaskLinkHint": "When enabled, Kolab posts a comment on each new issue with a link to the task.",
 			"webhookTitle": "Webhook",
 			"webhookHint": "In your Gitea repository, add a webhook with this URL and secret. Enable push, pull request, issues, issue comments, and create (for labels).",
 			"webhookSecretLabel": "Secret (must match the webhook secret in Gitea)",
@@ -882,15 +882,15 @@
 				"removeError": "Не успеа отстранувањето на општиот webhook"
 			},
 			"connectionTitle": "Излезен webhook",
-			"connectionHint": "Испрати настани за задачи како JSON до твојот endpoint. Кога е поставена тајна, се испраќа потпис X-Kaneo-Signature.",
+			"connectionHint": "Испрати настани за задачи како JSON до твојот endpoint. Кога е поставена тајна, се испраќа потпис X-Kolab-Signature.",
 			"connected": "Поврзано",
 			"paused": "Паузирано",
 			"webhookLabel": "URL на endpoint",
-			"webhookPlaceholder": "https://example.com/webhooks/kaneo",
-			"webhookHint": "Kaneo испраќа POST барања со JSON за секој овозможен настан.",
+			"webhookPlaceholder": "https://example.com/webhooks/kolab",
+			"webhookHint": "Kolab испраќа POST барања со JSON за секој овозможен настан.",
 			"secretLabel": "Тајна за потпис",
 			"secretPlaceholder": "Опционална заедничка тајна",
-			"secretHint": "Опционално. Ако е поставена, Kaneo го потпишува телото на барањето и го испраќа hex-от во X-Kaneo-Signature.",
+			"secretHint": "Опционално. Ако е поставена, Kolab го потпишува телото на барањето и го испраќа hex-от во X-Kolab-Signature.",
 			"secretHintConfigured": "Тајна за потпис веќе е конфигурирана ({{secret}}). Внеси нова за да ја замениш.",
 			"eventsTitle": "Известувања за настани",
 			"eventsHint": "Избери кои промени на проектот да го активираат излезниот webhook.",
@@ -942,7 +942,7 @@
 			"threadIdHint": "Опционално. Користи го ова за forum теми во Telegram групи.",
 			"chatLabelLabel": "Ознака за разговор",
 			"chatLabelPlaceholder": "Engineering Updates",
-			"chatLabelHint": "Опционална ознака за твоја референца во Kaneo.",
+			"chatLabelHint": "Опционална ознака за твоја референца во Kolab.",
 			"eventsTitle": "Известувања за настани",
 			"eventsHint": "Избери кои промени во проектот треба да се објавуваат во Telegram.",
 			"events": {
@@ -1662,14 +1662,14 @@
 	},
 	"invitations": {
 		"email": {
-			"subject": "{{inviterName}} invited you to join {{workspaceName}} on Kaneo",
-			"preview": "You're invited to {{workspaceName}} on Kaneo",
+			"subject": "{{inviterName}} invited you to join {{workspaceName}} on Kolab",
+			"preview": "You're invited to {{workspaceName}} on Kolab",
 			"title": "Join {{workspaceName}}",
-			"subtitle": "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kaneo.",
+			"subtitle": "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kolab.",
 			"cta": "Accept invitation",
 			"sameEmail": "You can accept with the same email that received this message.",
 			"ignore": "If this wasn't expected, you can safely ignore this email.",
-			"footer": "Kaneo workspace invitation"
+			"footer": "Kolab workspace invitation"
 		},
 		"pageTitle": "Покани",
 		"pendingInvitations": "Покани на чекање",

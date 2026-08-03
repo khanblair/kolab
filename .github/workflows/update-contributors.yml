@@ -30,7 +30,7 @@ jobs:
           avatarSize: 42
 
       - name: Generate Sponsors Section
-        if: ${{ github.repository_owner == 'usekaneo' }}
+        if: ${{ github.repository_owner == 'khanblair' }}
         uses: JamesIves/github-sponsors-readme-action@v1
         with:
           token: ${{ secrets.GH_ANDREJ }}
@@ -39,7 +39,7 @@ jobs:
           marker: sponsors
 
       - name: Sync Site Sponsors
-        if: ${{ github.repository_owner == 'usekaneo' }}
+        if: ${{ github.repository_owner == 'khanblair' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GH_ANDREJ }}
         run: node apps/site/scripts/sync-sponsors.mjs

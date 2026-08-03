@@ -93,10 +93,10 @@ importers:
       '@hono/standard-validator':
         specifier: ^0.3.0
         version: 0.3.0(@standard-schema/spec@1.1.0)(hono@4.12.31)
-      '@kaneo/email':
+      '@kolab/email':
         specifier: workspace:*
         version: link:../../packages/email
-      '@kaneo/permissions':
+      '@kolab/permissions':
         specifier: workspace:*
         version: link:../../packages/permissions
       '@modelcontextprotocol/sdk':
@@ -501,10 +501,10 @@ importers:
         specifier: ^5.0.14
         version: 5.0.14(@types/react@19.2.17)(immer@11.1.15)(react@19.2.7)(use-sync-external-store@1.6.0(react@19.2.7))
     devDependencies:
-      '@kaneo/libs':
+      '@kolab/libs':
         specifier: workspace:*
         version: link:../../packages/libs
-      '@kaneo/permissions':
+      '@kolab/permissions':
         specifier: workspace:*
         version: link:../../packages/permissions
       '@tailwindcss/postcss':
@@ -589,10 +589,10 @@ importers:
 
   packages/libs:
     devDependencies:
-      '@kaneo/api':
+      '@kolab/api':
         specifier: workspace:*
         version: link:../../apps/api
-      '@kaneo/typescript-config':
+      '@kolab/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@types/react':
@@ -632,7 +632,7 @@ importers:
         specifier: ^4.4.3
         version: 4.4.3
     devDependencies:
-      '@kaneo/typescript-config':
+      '@kolab/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       '@types/node':
@@ -657,7 +657,7 @@ importers:
         specifier: 1.6.23
         version: 1.6.23(@opentelemetry/api@1.9.1)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@5.9.3))(typescript@5.9.3))(drizzle-kit@0.31.10)(drizzle-orm@0.45.2(@electric-sql/pglite@0.3.15)(@opentelemetry/api@1.9.1)(@prisma/client@7.4.2(prisma@7.4.2(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@5.9.3))(typescript@5.9.3))(@types/pg@8.20.0)(kysely@0.29.3)(mysql2@3.15.3)(pg@8.22.0)(postgres@3.4.7)(prisma@7.4.2(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@5.9.3)))(mongodb@7.1.0)(mysql2@3.15.3)(next@15.5.18(@opentelemetry/api@1.9.1)(react-dom@19.2.7(react@19.2.7))(react@19.2.7))(pg@8.22.0)(prisma@7.4.2(@types/react@19.2.17)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(typescript@5.9.3))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(solid-js@1.9.10)(vitest@4.1.10)
     devDependencies:
-      '@kaneo/typescript-config':
+      '@kolab/typescript-config':
         specifier: workspace:*
         version: link:../typescript-config
       typescript:

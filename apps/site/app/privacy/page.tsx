@@ -5,7 +5,7 @@ import { Navbar } from "@/components/landing/navbar";
 
 export const metadata: Metadata = {
   title: "Privacy Policy",
-  description: "How Kaneo Cloud collects, uses, and protects your data.",
+  description: "How Kolab Cloud collects, uses, and protects your data.",
   alternates: {
     canonical: "/privacy",
   },
@@ -38,11 +38,11 @@ export default function PrivacyPage() {
                 Last updated: July 28, 2026
               </p>
               <p className="mt-5 text-foreground/85 text-base leading-relaxed">
-                This policy describes how the Kaneo website (kaneo.app) and the
-                managed Kaneo Cloud service (cloud.kaneo.app) handle your data.
+                This policy describes how the Kolab website (kolab.app) and the
+                managed Kolab Cloud service (cloud.kolab.app) handle your data.
                 The service is operated by Andrej Acevski (sole proprietor,
                 North Macedonia), referred to as “we” below. If you self-host
-                Kaneo, this policy does not apply: your instance is under your
+                Kolab, this policy does not apply: your instance is under your
                 control and we receive no data from it.
               </p>
             </div>
@@ -52,7 +52,7 @@ export default function PrivacyPage() {
                 <strong className="font-medium text-foreground">
                   Account data.
                 </strong>{" "}
-                When you create a Kaneo Cloud account we store your name, email
+                When you create a Kolab Cloud account we store your name, email
                 address, and, if you sign in with GitHub, Google, or Discord,
                 the basic profile information those providers share (such as
                 your avatar). We never receive your passwords for those
@@ -70,7 +70,7 @@ export default function PrivacyPage() {
                 <strong className="font-medium text-foreground">
                   Payment data.
                 </strong>{" "}
-                Payments for Kaneo Cloud are processed by Creem (creem.io)
+                Payments for Kolab Cloud are processed by Creem (creem.io)
                 acting as merchant of record. Creem collects and processes your
                 payment details under its own privacy policy; we never see or
                 store your card number. We receive only what is needed to manage
@@ -109,7 +109,7 @@ export default function PrivacyPage() {
 
             <Section title="Where data lives">
               <p>
-                Kaneo Cloud runs on servers in the European Union (Hetzner,
+                Kolab Cloud runs on servers in the European Union (Hetzner,
                 Germany and Finland). Encrypted backups are stored with
                 Cloudflare (R2). The following subprocessors help us run the
                 service:
@@ -137,9 +137,9 @@ export default function PrivacyPage() {
                 anything else, email{" "}
                 <a
                   className="text-foreground underline underline-offset-4 hover:no-underline"
-                  href="mailto:support@kaneo.app"
+                  href="mailto:support@kolab.app"
                 >
-                  support@kaneo.app
+                  support@kolab.app
                 </a>{" "}
                 and we will respond within 30 days. If you are in the EU/EEA,
                 these rights are guaranteed by the GDPR, and you may also lodge
@@ -159,7 +159,7 @@ export default function PrivacyPage() {
 
             <Section title="Cookies">
               <p>
-                The marketing website sets no cookies. Kaneo Cloud uses only
+                The marketing website sets no cookies. Kolab Cloud uses only
                 essential cookies required to keep you signed in. There are no
                 advertising or cross-site tracking cookies.
               </p>
@@ -172,9 +172,9 @@ export default function PrivacyPage() {
                 Contact{" "}
                 <a
                   className="text-foreground underline underline-offset-4 hover:no-underline"
-                  href="mailto:support@kaneo.app"
+                  href="mailto:support@kolab.app"
                 >
-                  support@kaneo.app
+                  support@kolab.app
                 </a>
                 .
               </p>

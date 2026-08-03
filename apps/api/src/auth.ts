@@ -3,13 +3,13 @@ import {
   sendMagicLinkEmail,
   sendOtpEmail,
   sendWorkspaceInvitationEmail,
-} from "@kaneo/email";
+} from "@kolab/email";
 import {
   ac,
   DEFAULT_ROLE_NAMES,
   defaultRolePayloads,
   owner,
-} from "@kaneo/permissions";
+} from "@kolab/permissions";
 import bcrypt from "bcryptjs";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";
@@ -67,8 +67,8 @@ function normalizeInvitationId(value: unknown): string | undefined {
   return normalized;
 }
 
-const apiUrl = process.env.KANEO_API_URL || "http://localhost:1337";
-const clientUrl = process.env.KANEO_CLIENT_URL || "http://localhost:5173";
+const apiUrl = process.env.KOLAB_API_URL || "http://localhost:1337";
+const clientUrl = process.env.KOLAB_CLIENT_URL || "http://localhost:5173";
 const isHttps = apiUrl.startsWith("https://");
 const isCrossSubdomain = (() => {
   try {
@@ -126,12 +126,12 @@ function getLocaleKey(locale?: string | null) {
 function getAuthEmailCopy(locale?: string | null) {
   return getLocaleKey(locale) === "de"
     ? {
-        magicLinkSubject: "Anmeldelink fuer Kaneo",
-        otpSubject: "Bestaetigungscode fuer Kaneo",
+        magicLinkSubject: "Anmeldelink fuer Kolab",
+        otpSubject: "Bestaetigungscode fuer Kolab",
       }
     : {
-        magicLinkSubject: "Login for Kaneo",
-        otpSubject: "Authentication code for Kaneo",
+        magicLinkSubject: "Login for Kolab",
+        otpSubject: "Authentication code for Kolab",
       };
 }
 
@@ -145,7 +145,7 @@ function getDeviceAuthClientIds(): Set<string> {
         .filter(Boolean),
     );
   }
-  return new Set(["kaneo-cli", "kaneo-mcp"]);
+  return new Set(["kolab-cli", "kolab-mcp"]);
 }
 
 function getDeviceAuthVerificationUri(): string {
@@ -231,7 +231,7 @@ export const auth = betterAuth({
       ? [
           anonymous({
             generateName: async () => generateDemoName(),
-            emailDomainName: "kaneo.app",
+            emailDomainName: "kolab.app",
           }),
         ]
       : []),
@@ -329,7 +329,7 @@ export const auth = betterAuth({
       },
       allowUserToCreateOrganization: true,
       // Better Auth defaults this to `true`, which blocks any user whose email
-      // is not verified from accepting/rejecting an invitation. Kaneo does not
+      // is not verified from accepting/rejecting an invitation. Kolab does not
       // verify emails on signup (and guest/anonymous users are unverified by
       // design), so leaving the default on breaks invitation acceptance for
       // everyone. The invitation link id is the actual secret here, so gate on
@@ -345,7 +345,7 @@ export const auth = betterAuth({
         afterCreateOrganization: async ({ organization, user }) => {
           // Seed the editable default roles for this workspace. Each
           // role's permissions are derived from the compiled-in defaults
-          // in `@kaneo/permissions`; admins can later replace them in the
+          // in `@kolab/permissions`; admins can later replace them in the
           // Roles UI. We skip names that somehow already exist (this hook
           // is best-effort idempotent — the boot-time backfill is the
           // belt-and-braces path).
@@ -401,7 +401,7 @@ export const auth = betterAuth({
         },
       },
       async sendInvitationEmail(data) {
-        const inviteLink = `${process.env.KANEO_CLIENT_URL}/invitation/accept/${data.id}`;
+        const inviteLink = `${process.env.KOLAB_CLIENT_URL}/invitation/accept/${data.id}`;
         const locale = await getUserLocale(data.email);
         const copy = getWorkspaceInvitationEmailCopy(locale);
 
@@ -481,7 +481,7 @@ export const auth = betterAuth({
     },
   },
   rateLimit: {
-    // Enable in cloud; self-hosted instances opt in by setting KANEO_CLOUD.
+    // Enable in cloud; self-hosted instances opt in by setting KOLAB_CLOUD.
     // Default better-auth rate-limit only kicks in for production; we keep the
     // global limits conservative and tighten signup/invite via customRules.
     enabled: isCloud(),
@@ -645,7 +645,7 @@ export const auth = betterAuth({
         }
 
         // Cloud-only abuse gates on password signup. Self-hosted instances
-        // leave KANEO_CLOUD/TURNSTILE_SECRET_KEY unset and skip both.
+        // leave KOLAB_CLOUD/TURNSTILE_SECRET_KEY unset and skip both.
         if (isCloud() && !isInstanceAdminSetup) {
           const signupEmail = (ctx.body?.email as string | undefined) ?? "";
           if (signupEmail && isDisposableEmail(signupEmail)) {

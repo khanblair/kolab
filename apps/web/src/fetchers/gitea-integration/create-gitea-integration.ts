@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 export type CreateGiteaIntegrationRequest = {
   baseUrl: string;

@@ -44,8 +44,8 @@ jobs:
 
       - name: Run MCP checks
         run: |
-          pnpm --filter @kaneo/mcp test
-          pnpm --filter @kaneo/mcp build
+          pnpm --filter @kolab/mcp test
+          pnpm --filter @kolab/mcp build
 
       - name: Validate MCP release tag
         if: ${{ github.event_name == 'release' }}
@@ -63,19 +63,19 @@ jobs:
             exit 1
           fi
 
-      - name: Check whether @kaneo/mcp version is already published
+      - name: Check whether @kolab/mcp version is already published
         id: version_check
         run: |
           PACKAGE_VERSION=$(node -p "require('./packages/mcp/package.json').version")
 
-          if npm view "@kaneo/mcp@${PACKAGE_VERSION}" version >/dev/null 2>&1; then
+          if npm view "@kolab/mcp@${PACKAGE_VERSION}" version >/dev/null 2>&1; then
             echo "already_published=true" >> "$GITHUB_OUTPUT"
-            echo "@kaneo/mcp@${PACKAGE_VERSION} is already published; skipping publish."
+            echo "@kolab/mcp@${PACKAGE_VERSION} is already published; skipping publish."
           else
             echo "already_published=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Publish @kaneo/mcp
+      - name: Publish @kolab/mcp
         if: ${{ steps.version_check.outputs.already_published == 'false' }}
         run: |
           cd packages/mcp
@@ -95,8 +95,8 @@ jobs:
 
           gh release create "mcp-v${PACKAGE_VERSION}" \
             --target "${GITHUB_SHA}" \
-            --title "@kaneo/mcp v${PACKAGE_VERSION}" \
-            --notes "Published [@kaneo/mcp@${PACKAGE_VERSION}](https://www.npmjs.com/package/@kaneo/mcp/v/${PACKAGE_VERSION}) to npm." \
+            --title "@kolab/mcp v${PACKAGE_VERSION}" \
+            --notes "Published [@kolab/mcp@${PACKAGE_VERSION}](https://www.npmjs.com/package/@kolab/mcp/v/${PACKAGE_VERSION}) to npm." \
             --latest=false
         env:
           GH_TOKEN: ${{ github.token }}

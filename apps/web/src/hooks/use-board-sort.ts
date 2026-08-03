@@ -49,7 +49,7 @@ function normalizeSort(value: unknown): SortConfig {
 }
 
 export function useBoardSort(projectId: string | undefined) {
-  const storageKey = projectId ? `kaneo:board-sort:${projectId}` : null;
+  const storageKey = projectId ? `kolab:board-sort:${projectId}` : null;
   const [sort, setSort] = useState<SortConfig>(DEFAULT_SORT);
 
   useEffect(() => {

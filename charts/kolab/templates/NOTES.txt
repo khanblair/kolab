@@ -29,7 +29,7 @@ Attach the route by setting .Values.gateway.parentRefs to your Gateway listener 
 
 To access the application, set up port forwarding:
 
-$ kubectl port-forward svc/{{ include "kaneo.fullname" . }}-kaneo 5173:{{ .Values.kaneo.service.port }} -n {{ .Release.Namespace }}
+$ kubectl port-forward svc/{{ include "kolab.fullname" . }}-kolab 5173:{{ .Values.kolab.service.port }} -n {{ .Release.Namespace }}
 
 Then access the application at http://localhost:5173
 
@@ -38,7 +38,7 @@ or Gateway API by setting .Values.gateway.enabled=true
 {{- end }}
 
 NOTES:
-1. Kaneo is configured with PostgreSQL database for persistence.
+1. Kolab is configured with PostgreSQL database for persistence.
    {{- if .Values.postgresql.enabled }}
      {{- if .Values.postgresql.persistence.enabled }}
    A PersistentVolumeClaim is used to store the PostgreSQL database files.
@@ -52,10 +52,10 @@ NOTES:
 
 2. Important environment variables:
    - AUTH_SECRET: Secret key for Better Auth
-   - KANEO_CLIENT_URL: Public URL of this instance (currently set to: "{{ .Values.kaneo.env.clientUrl }}")
-   - DATABASE_URL: Derived from postgresql.auth values unless kaneo.env.database.external.enabled=true
+   - KOLAB_CLIENT_URL: Public URL of this instance (currently set to: "{{ .Values.kolab.env.clientUrl }}")
+   - DATABASE_URL: Derived from postgresql.auth values unless kolab.env.database.external.enabled=true
 
    You can customize these values in your values.yaml file.
 
-3. The kaneo image combines the API and web frontend in a single container.
+3. The kolab image combines the API and web frontend in a single container.
    nginx runs on port 5173 and proxies /api/ requests to the internal Node API.

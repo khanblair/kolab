@@ -1,6 +1,6 @@
 {
 	"common": {
-		"appName": "Kaneo",
+		"appName": "Kolab",
 		"actions": {
 			"cancel": "Скасувати",
 			"close": "Закрити",
@@ -75,7 +75,7 @@
 				"errorToast": "Не вдалося створити проєкт"
 			},
 			"createWorkspace": {
-				"breadcrumbKaneo": "KANEO",
+				"breadcrumbKolab": "KOLAB",
 				"title": "Створити новий робочий простір",
 				"description": "Створіть новий робочий простір, вказавши його назву.",
 				"namePlaceholder": "Назва робочого простору",
@@ -245,7 +245,7 @@
 			"workspaceLabel": "Робочий простір: {{workspaceName}}",
 			"joinWorkspace": "Приєднатися до {{workspaceName}}",
 			"inviteBodySignedIn": "<inviter>{{inviterName}}</inviter> запросив вас приєднатися до свого робочого простору.",
-			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> запросив вас приєднатися до свого робочого простору в Kaneo.",
+			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> запросив вас приєднатися до свого робочого простору в Kolab.",
 			"signInToAccept": "Увійдіть, щоб прийняти це запрошення.",
 			"accepting": "Приймається...",
 			"acceptInvitation": "Прийняти запрошення",
@@ -260,7 +260,7 @@
 			}
 		},
 		"onboarding": {
-			"pageTitle": "Ласкаво просимо до Kaneo",
+			"pageTitle": "Ласкаво просимо до Kolab",
 			"workspacePageTitle": "Створення робочого простору",
 			"createWorkspaceTitle": "Створити робочий простір",
 			"createWorkspaceSubtitle": "Налаштуйте робочий простір, щоб почати керувати проєктами",
@@ -329,7 +329,7 @@
 		"notificationsPage": {
 			"pageTitle": "Сповіщення",
 			"title": "Сповіщення",
-			"subtitle": "Оберіть, як Kaneo надсилатиме сповіщення вашого облікового запису та які канали використовувати.",
+			"subtitle": "Оберіть, як Kolab надсилатиме сповіщення вашого облікового запису та які канали використовувати.",
 			"statusConnected": "Підключено",
 			"statusPaused": "Призупинено",
 			"emailTitle": "Електронна пошта",
@@ -362,10 +362,10 @@
 			"webhookDescription": "Надсилайте сповіщення облікового запису на вашу кінцеву точку у форматі JSON.",
 			"endpointUrl": "URL кінцевої точки",
 			"signingSecret": "Секрет підпису",
-			"webhookUrlPlaceholder": "https://example.com/webhooks/kaneo",
+			"webhookUrlPlaceholder": "https://example.com/webhooks/kolab",
 			"webhookSecretPlaceholder": "Необов'язковий спільний секрет",
 			"webhookSecretHintConfigured": "Секрет підпису вже налаштовано ({{masked}}). Введіть новий, щоб замінити його.",
-			"webhookSecretHintOptional": "Необов'язково. Kaneo підписує тіло запиту, коли секрет встановлено.",
+			"webhookSecretHintOptional": "Необов'язково. Kolab підписує тіло запиту, коли секрет встановлено.",
 			"connectWebhook": "Підключити вебхук",
 			"workspaceRulesTitle": "Правила доставки по робочих просторах",
 			"workspaceRulesDescription": "Використовуйте ваші глобальні канали, а потім визначте, які робочі простори та проєкти можуть надсилати сповіщення облікового запису.",
@@ -416,7 +416,7 @@
 		},
 		"preferencesPage": {
 			"title": "Налаштування",
-			"subtitle": "Налаштуйте Kaneo під себе.",
+			"subtitle": "Налаштуйте Kolab під себе.",
 			"appearanceTitle": "Вигляд",
 			"appearanceSubtitle": "Візуальні налаштування та налаштування макета.",
 			"theme": "Тема",
@@ -460,7 +460,7 @@
 			"title": "Налаштування розробника",
 			"subtitle": "Керуйте вашими API-ключами та ресурсами для розробників.",
 			"apiKeysCardTitle": "API-ключі",
-			"apiKeysCardDescription": "Створюйте та керуйте API-ключами для програмного доступу до Kaneo.",
+			"apiKeysCardDescription": "Створюйте та керуйте API-ключами для програмного доступу до Kolab.",
 			"createApiKey": "Створити API-ключ",
 			"unnamedKey": "Ключ без назви"
 		},
@@ -499,7 +499,7 @@
 			},
 			"createDialog": {
 				"title": "Створити API-ключ",
-				"description": "Створіть новий API-ключ для програмного доступу до Kaneo API.",
+				"description": "Створіть новий API-ключ для програмного доступу до Kolab API.",
 				"nameLabel": "Назва",
 				"namePlaceholder": "Мій API-ключ",
 				"nameDescription": "Описова назва для цього API-ключа",
@@ -676,7 +676,7 @@
 				"removeError": "Не вдалося видалити інтеґрацію з GitHub",
 				"issuesImported": "Issues успішно імпортовано",
 				"importError": "Не вдалося імпортувати issues",
-				"commentOnEnabled": "Kaneo коментуватиме посилання на завдання в нових issues",
+				"commentOnEnabled": "Kolab коментуватиме посилання на завдання в нових issues",
 				"commentOnDisabled": "Коментарі з посиланнями на завдання в нових issues вимкнено",
 				"settingsUpdateError": "Не вдалося оновити інтеґрацію з GitHub"
 			},
@@ -687,8 +687,8 @@
 			"badgeNotConnected": "Не підключено",
 			"repository": "Репозиторій",
 			"repositoryHint": "Підключений репозиторій GitHub",
-			"commentTaskLinkTitle": "Коментувати посилання Kaneo в нових issues",
-			"commentTaskLinkHint": "Коли увімкнено, Kaneo публікує коментар у кожному новому GitHub issue з посиланням на завдання.",
+			"commentTaskLinkTitle": "Коментувати посилання Kolab в нових issues",
+			"commentTaskLinkHint": "Коли увімкнено, Kolab публікує коментар у кожному новому GitHub issue з посиланням на завдання.",
 			"appStatusTitle": "Статус GitHub App",
 			"appStatusHint": "Статус встановлення та дозволів",
 			"statusProperlyConfigured": "Налаштовано правильно",
@@ -739,7 +739,7 @@
 				"removeError": "Не вдалося видалити інтеґрацію з Gitea",
 				"issuesImported": "Issues успішно імпортовано",
 				"importError": "Не вдалося імпортувати issues",
-				"commentOnEnabled": "Kaneo коментуватиме посилання на завдання в нових issues",
+				"commentOnEnabled": "Kolab коментуватиме посилання на завдання в нових issues",
 				"commentOnDisabled": "Коментарі з посиланнями на завдання в нових issues вимкнено",
 				"settingsUpdateError": "Не вдалося оновити інтеґрацію з Gitea",
 				"secretCopied": "Скопійовано",
@@ -755,8 +755,8 @@
 			"badgeNotConnected": "Не підключено",
 			"repository": "Репозиторій",
 			"repositoryHint": "Пов'язаний Gitea-репозиторій",
-			"commentTaskLinkTitle": "Коментувати посилання Kaneo в нових issues",
-			"commentTaskLinkHint": "Коли увімкнено, Kaneo публікує коментар у кожному новому issue з посиланням на завдання.",
+			"commentTaskLinkTitle": "Коментувати посилання Kolab в нових issues",
+			"commentTaskLinkHint": "Коли увімкнено, Kolab публікує коментар у кожному новому issue з посиланням на завдання.",
 			"webhookTitle": "Вебхук",
 			"webhookHint": "У вашому Gitea-репозиторії додайте вебхук із цією URL-адресою та секретом. Увімкніть push, pull request, issues, коментарі до issues та create (для міток).",
 			"webhookSecretLabel": "Секрет (має збігатися з секретом вебхука в Gitea)",
@@ -880,15 +880,15 @@
 				"removeError": "Не вдалося видалити загальний вебхук"
 			},
 			"connectionTitle": "Підключення вихідного вебхука",
-			"connectionHint": "Надсилайте події завдань на вашу кінцеву точку у форматі JSON. Підписаний заголовок X-Kaneo-Signature включається, коли секрет налаштовано.",
+			"connectionHint": "Надсилайте події завдань на вашу кінцеву точку у форматі JSON. Підписаний заголовок X-Kolab-Signature включається, коли секрет налаштовано.",
 			"connected": "Підключено",
 			"paused": "Призупинено",
 			"webhookLabel": "URL кінцевої точки",
-			"webhookPlaceholder": "https://example.com/webhooks/kaneo",
-			"webhookHint": "Kaneo надсилає POST-запити з JSON-тілом для кожної увімкненої події.",
+			"webhookPlaceholder": "https://example.com/webhooks/kolab",
+			"webhookHint": "Kolab надсилає POST-запити з JSON-тілом для кожної увімкненої події.",
 			"secretLabel": "Секрет підпису",
 			"secretPlaceholder": "Необов'язковий спільний секрет",
-			"secretHint": "Необов'язково. Якщо вказано, Kaneo підписує тіло запиту та надсилає hex-дайджест у заголовку X-Kaneo-Signature.",
+			"secretHint": "Необов'язково. Якщо вказано, Kolab підписує тіло запиту та надсилає hex-дайджест у заголовку X-Kolab-Signature.",
 			"secretHintConfigured": "Секрет підпису вже налаштовано ({{secret}}). Введіть новий, щоб замінити його.",
 			"eventsTitle": "Сповіщення про події",
 			"eventsHint": "Оберіть, які зміни в проєкті мають ініціювати вихідні вебхуки.",
@@ -940,7 +940,7 @@
 			"threadIdHint": "Необов'язково. Використовуйте для тем форуму всередині груп Telegram.",
 			"chatLabelLabel": "Підпис чату",
 			"chatLabelPlaceholder": "Оновлення розробки",
-			"chatLabelHint": "Необов'язковий підпис для зручності всередині Kaneo.",
+			"chatLabelHint": "Необов'язковий підпис для зручності всередині Kolab.",
 			"eventsTitle": "Сповіщення про події",
 			"eventsHint": "Оберіть, які зміни в проєкті мають публікуватися в Telegram.",
 			"events": {
@@ -1661,14 +1661,14 @@
 	},
 	"invitations": {
 		"email": {
-			"subject": "{{inviterName}} invited you to join {{workspaceName}} on Kaneo",
-			"preview": "You're invited to {{workspaceName}} on Kaneo",
+			"subject": "{{inviterName}} invited you to join {{workspaceName}} on Kolab",
+			"preview": "You're invited to {{workspaceName}} on Kolab",
 			"title": "Join {{workspaceName}}",
-			"subtitle": "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kaneo.",
+			"subtitle": "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kolab.",
 			"cta": "Accept invitation",
 			"sameEmail": "You can accept with the same email that received this message.",
 			"ignore": "If this wasn't expected, you can safely ignore this email.",
-			"footer": "Kaneo workspace invitation"
+			"footer": "Kolab workspace invitation"
 		},
 		"pageTitle": "Запрошення",
 		"pendingInvitations": "Очікуючі запрошення",

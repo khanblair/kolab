@@ -1,5 +1,5 @@
 /**
- * Kaneo API base URL without trailing slash and without `/api` suffix.
+ * Kolab API base URL without trailing slash and without `/api` suffix.
  */
 export function normalizeBaseUrl(raw: string): string {
   const trimmed = raw.trim().replace(/\/+$/, "");

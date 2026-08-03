@@ -6,7 +6,7 @@ description: The environment variables are used to configure the application.
 ## Set up the file
 
 The environment variables are used to configure the application. We will use a `.env` file to store the variables.
-For the sample environment file, see the [example .env file](https://github.com/usekaneo/kaneo/blob/main/.env.sample).
+For the sample environment file, see the [example .env file](https://github.com/khanblair/kolab/blob/main/.env.sample).
 
 The variables are split up into the following sections:
 
@@ -31,8 +31,8 @@ This section will cover all the variables related to the general URLs.
 
 Name | Description |
 --- | --- |
-| `KANEO_CLIENT_URL` | The URL of the web application.
-| `KANEO_API_URL` | The URL of the API.
+| `KOLAB_CLIENT_URL` | The URL of the web application.
+| `KOLAB_API_URL` | The URL of the API.
 
 ### Database
 
@@ -40,9 +40,9 @@ This section will cover all the variables related to the database.
 
 Name | Description |
 --- | --- |
-| `DATABASE_URL` | The full PostgreSQL connection string, in the format `postgresql://[user]:[password]@[host]:[port]/[database]`. Example: `postgresql://kaneo:kaneo@localhost:5432/kaneo`. The user/password/database must match the `POSTGRES_*` values below.
-| `POSTGRES_DB` | The name of the PostgreSQL database. Example: `kaneo`.
-| `POSTGRES_USER` | The username for the PostgreSQL database. Example: `kaneo`.
+| `DATABASE_URL` | The full PostgreSQL connection string, in the format `postgresql://[user]:[password]@[host]:[port]/[database]`. Example: `postgresql://kolab:kolab@localhost:5432/kolab`. The user/password/database must match the `POSTGRES_*` values below.
+| `POSTGRES_DB` | The name of the PostgreSQL database. Example: `kolab`.
+| `POSTGRES_USER` | The username for the PostgreSQL database. Example: `kolab`.
 | `POSTGRES_PASSWORD` | The password for the PostgreSQL database. Use a strong value in production.
 
 ### Authentication
@@ -52,28 +52,28 @@ This section will cover all the variables related to the authentication.
 Name | Description |
 --- | --- |
 | `AUTH_SECRET` | The secret key for the JWT token. **Must be at least 32 characters long**, use a long, random value in production. Example: use `openssl rand -base64 32` to generate a secure key in Linux/macOS.
-| `DEVICE_AUTH_CLIENT_IDS` | **Optional.** Comma-separated list of allowed device authorization client IDs. When unset, Kaneo implicitly allows `kaneo-cli` and `kaneo-mcp` by default, so no extra configuration is required for the CLI or MCP. Override only when you need additional trusted clients, for example `kaneo-cli,kaneo-mcp,my-desktop-app`. |
+| `DEVICE_AUTH_CLIENT_IDS` | **Optional.** Comma-separated list of allowed device authorization client IDs. When unset, Kolab implicitly allows `kolab-cli` and `kolab-mcp` by default, so no extra configuration is required for the CLI or MCP. Override only when you need additional trusted clients, for example `kolab-cli,kolab-mcp,my-desktop-app`. |
 
 
 ## Optional variables
 
 ### Object Storage
 
-Kaneo uses S3-compatible object storage for private uploads in task descriptions and task comments.
+Kolab uses S3-compatible object storage for private uploads in task descriptions and task comments.
 
 MinIO is the easiest local option and the primary tested target. You can also use other S3-compatible storage backends such as AWS S3, Cloudflare R2, or [`fs`](https://github.com/ferdzo/fs).
 
 Name | Description | Default |
 --- | --- | --- |
-| `S3_ENDPOINT` | The S3-compatible API endpoint used by the Kaneo API for presigned uploads. Example: `http://minio:9000`. |  |
-| `S3_BUCKET` | The bucket Kaneo will use for uploaded files. |  |
-| `S3_ACCESS_KEY_ID` | Access key used by the Kaneo API to create presigned upload URLs. Optional — leave unset (together with `S3_SECRET_ACCESS_KEY`) to use the default AWS credential provider chain (IAM role / IRSA / instance profile). |  |
-| `S3_SECRET_ACCESS_KEY` | Secret key used by the Kaneo API to create presigned upload URLs. Must be set together with `S3_ACCESS_KEY_ID`, or left unset for IAM-role-based access. |  |
+| `S3_ENDPOINT` | The S3-compatible API endpoint used by the Kolab API for presigned uploads. Example: `http://minio:9000`. |  |
+| `S3_BUCKET` | The bucket Kolab will use for uploaded files. |  |
+| `S3_ACCESS_KEY_ID` | Access key used by the Kolab API to create presigned upload URLs. Optional — leave unset (together with `S3_SECRET_ACCESS_KEY`) to use the default AWS credential provider chain (IAM role / IRSA / instance profile). |  |
+| `S3_SECRET_ACCESS_KEY` | Secret key used by the Kolab API to create presigned upload URLs. Must be set together with `S3_ACCESS_KEY_ID`, or left unset for IAM-role-based access. |  |
 | `S3_REGION` | The storage region used for request signing. | `us-east-1` |
-| `S3_PUBLIC_BASE_URL` | Optional public base URL for uploaded assets. Kaneo does not require this for the current private asset flow. |  |
+| `S3_PUBLIC_BASE_URL` | Optional public base URL for uploaded assets. Kolab does not require this for the current private asset flow. |  |
 | `S3_FORCE_PATH_STYLE` | Use path-style S3 URLs. This should usually be `true` for MinIO and `fs`. | `true` |
 | `S3_MAX_IMAGE_UPLOAD_BYTES` | Maximum allowed upload size in bytes for images and other uploaded files. | `10485760` |
-| `S3_KEY_PREFIX` | Optional prefix prepended to all S3 object keys. Useful for sharing a single bucket across multiple environments (e.g. `staging/`, `prod/kaneo/`). Trailing slashes are trimmed automatically. |  |
+| `S3_KEY_PREFIX` | Optional prefix prepended to all S3 object keys. Useful for sharing a single bucket across multiple environments (e.g. `staging/`, `prod/kolab/`). Trailing slashes are trimmed automatically. |  |
 | `S3_PRESIGN_TTL_SECONDS` | How long presigned upload URLs remain valid. | `300` |
 
 ### Access Control
@@ -88,14 +88,14 @@ Name | Description | Default |
 | `CUSTOM_OAUTH_AUTO_LOGIN` | Automatically redirect to the custom OAuth/OIDC provider instead of showing the sign-in page. When set to `true`, users are immediately redirected to your identity provider without seeing the login page. Requires a custom OAuth provider to be configured. | `false` |
 
 <Warning>
-  Before enabling SSO-only access with `DISABLE_LOGIN_FORM=true` or `CUSTOM_OAUTH_AUTO_LOGIN=true` on an existing installation, make sure existing local accounts have verified email addresses. OAuth/OIDC identities cannot be linked to an unverified local account, and affected users will receive `error=account_not_linked`. Keep the login form available until those users have signed in with an email OTP or magic link. If SSO-only access is already enabled, temporarily set both options to `false`, restart Kaneo, and let affected users complete an email sign-in before restoring the SSO-only settings.
+  Before enabling SSO-only access with `DISABLE_LOGIN_FORM=true` or `CUSTOM_OAUTH_AUTO_LOGIN=true` on an existing installation, make sure existing local accounts have verified email addresses. OAuth/OIDC identities cannot be linked to an unverified local account, and affected users will receive `error=account_not_linked`. Keep the login form available until those users have signed in with an email OTP or magic link. If SSO-only access is already enabled, temporarily set both options to `false`, restart Kolab, and let affected users complete an email sign-in before restoring the SSO-only settings.
 </Warning>
 
 ### Notifications
 
 Name | Description | Default |
 --- | --- | --- |
-| `KANEO_ALLOW_PRIVATE_WEBHOOK_DESTINATIONS` | Allow outbound notification destinations (ntfy, Gotify, generic webhooks) that resolve to private or non-routable addresses. Off by default to prevent SSRF; the `http`/`https` requirement still applies. Only enable on a trusted, isolated deployment. | `false` |
+| `KOLAB_ALLOW_PRIVATE_WEBHOOK_DESTINATIONS` | Allow outbound notification destinations (ntfy, Gotify, generic webhooks) that resolve to private or non-routable addresses. Off by default to prevent SSRF; the `http`/`https` requirement still applies. Only enable on a trusted, isolated deployment. | `false` |
 
 ### GitHub SSO
 
@@ -151,7 +151,7 @@ Name | Description |
 
 ### Redis
 
-Kaneo supports Redis for horizontal scaling of WebSocket broadcasts. When any Redis mode is configured, multiple API instances can relay real-time updates via Redis Pub/Sub. When none are set, an in-memory adapter is used (single-instance only).
+Kolab supports Redis for horizontal scaling of WebSocket broadcasts. When any Redis mode is configured, multiple API instances can relay real-time updates via Redis Pub/Sub. When none are set, an in-memory adapter is used (single-instance only).
 
 Three deployment modes are supported: **Standalone**, **Sentinel**, and **Cluster**. Only one mode should be configured at a time. If multiple are set, the priority is: Cluster > Sentinel > Standalone.
 
@@ -203,4 +203,4 @@ Name | Description |
 - If you enable Discord SSO, you need to set up the Discord application which is used to authenticate users in the [Discord Developer Portal](https://discord.com/developers/applications). See the [Discord SSO guide](/core/social-providers/discord).
 - If you enable Custom OAuth/OIDC, you need to configure your identity provider with the appropriate redirect URI. See the [Custom OAuth/OIDC guide](/core/social-providers/custom-oauth).
 - If you have enabled SMTP, sign-in uses email verification codes by default. Set `DISABLE_EMAIL_OTP_SIGN_IN=true` to use email/password sign-in instead.
-- If you need device authorization for clients beyond the defaults (`kaneo-cli`, `kaneo-mcp` when `DEVICE_AUTH_CLIENT_IDS` is unset), set `DEVICE_AUTH_CLIENT_IDS` to the full comma-separated list of trusted client IDs for your deployment.
+- If you need device authorization for clients beyond the defaults (`kolab-cli`, `kolab-mcp` when `DEVICE_AUTH_CLIENT_IDS` is unset), set `DEVICE_AUTH_CLIENT_IDS` to the full comma-separated list of trusted client IDs for your deployment.

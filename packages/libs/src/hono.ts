@@ -1,6 +1,6 @@
 /// <reference types="vite/types/importMeta.d.ts" />
 
-import type { AppType } from "@kaneo/api";
+import type { AppType } from "@kolab/api";
 import { hc } from "hono/client";
 import { resolveApiBaseUrl } from "./api-url";
 
@@ -16,7 +16,7 @@ export const client = hc<AppType>(apiUrl, {
       headers: {
         ...init?.headers,
         "Content-Type": "application/json",
-        "X-Kaneo-Window-Id": windowId,
+        "X-Kolab-Window-Id": windowId,
       },
       credentials: "include",
     }).catch((error) => {

@@ -70,7 +70,7 @@ export async function handleTaskCreated(
       title: createdIssue.data.title,
       metadata: {
         state: createdIssue.data.state,
-        createdFrom: "kaneo",
+        createdFrom: "kolab",
       },
     });
   } catch (error) {

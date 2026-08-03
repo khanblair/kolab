@@ -5,7 +5,7 @@ alwaysApply: false
 ---
 # Backend API Guidelines
 
-The Kaneo API is built with Hono, Drizzle ORM, PostgreSQL, and Better Auth. This document outlines conventions and patterns for backend development.
+The Kolab API is built with Hono, Drizzle ORM, PostgreSQL, and Better Auth. This document outlines conventions and patterns for backend development.
 
 ## Framework: Hono
 
@@ -128,7 +128,7 @@ export const taskTable = pgTable(
 
 ### Migrations
 
-1. **Generate migrations**: `pnpm --filter @kaneo/api db:generate`
+1. **Generate migrations**: `pnpm --filter @kolab/api db:generate`
 2. **Run migrations**: Automatically on API startup (see `apps/api/src/index.ts`)
 3. **Migration files**: Stored in `apps/api/drizzle/`
 

@@ -1,3 +1,3 @@
 export function isCloud(): boolean {
-  return process.env.KANEO_CLOUD === "true";
+  return process.env.KOLAB_CLOUD === "true";
 }

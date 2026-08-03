@@ -54,7 +54,7 @@ describe("AuthService", () => {
     loadCredentialsMock.mockResolvedValue({
       version: 1,
       baseUrl: "https://api.example.com",
-      clientId: "kaneo-mcp",
+      clientId: "kolab-mcp",
       accessToken: "cached-token",
     });
     const fetchMock = vi.fn().mockResolvedValue(
@@ -66,7 +66,7 @@ describe("AuthService", () => {
 
     const service = new AuthService({
       baseUrl: "https://api.example.com",
-      clientId: "kaneo-mcp",
+      clientId: "kolab-mcp",
     });
 
     await expect(service.getAccessToken()).resolves.toBe("cached-token");
@@ -84,7 +84,7 @@ describe("AuthService", () => {
     loadCredentialsMock.mockResolvedValue({
       version: 1,
       baseUrl: "https://api.example.com",
-      clientId: "kaneo-mcp",
+      clientId: "kolab-mcp",
       accessToken: "cached-token",
     });
     globalThis.fetch = vi
@@ -95,7 +95,7 @@ describe("AuthService", () => {
 
     const service = new AuthService({
       baseUrl: "https://api.example.com",
-      clientId: "kaneo-mcp",
+      clientId: "kolab-mcp",
     });
 
     await expect(service.getAccessToken()).resolves.toBe("cached-token");
@@ -107,7 +107,7 @@ describe("AuthService", () => {
     loadCredentialsMock.mockResolvedValue({
       version: 1,
       baseUrl: "https://api.example.com",
-      clientId: "kaneo-mcp",
+      clientId: "kolab-mcp",
       accessToken: "expired-token",
     });
     globalThis.fetch = vi.fn().mockResolvedValue(
@@ -125,19 +125,19 @@ describe("AuthService", () => {
 
     const service = new AuthService({
       baseUrl: "https://api.example.com",
-      clientId: "kaneo-mcp",
+      clientId: "kolab-mcp",
     });
 
     await expect(service.getAccessToken()).resolves.toBe("fresh-token");
     expect(clearCredentialsMock).toHaveBeenCalledTimes(1);
     expect(requestDeviceCodeMock).toHaveBeenCalledWith(
       "https://api.example.com",
-      "kaneo-mcp",
+      "kolab-mcp",
     );
     expect(saveCredentialsMock).toHaveBeenCalledWith({
       version: 1,
       baseUrl: "https://api.example.com",
-      clientId: "kaneo-mcp",
+      clientId: "kolab-mcp",
       accessToken: "fresh-token",
     });
   });

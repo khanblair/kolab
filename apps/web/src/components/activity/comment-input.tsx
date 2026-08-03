@@ -67,7 +67,7 @@ export default function CommentInput({ taskId }: CommentInputProps) {
           uploadSurface="comment"
           showQuickAttachButton={false}
           onAttachActionChange={handleAttachActionChange}
-          className="[&_.kaneo-comment-editor-content_.ProseMirror]:min-h-[3rem] [&_.kaneo-comment-editor-content_.ProseMirror]:max-h-none [&_.kaneo-comment-editor-content_.ProseMirror]:overflow-visible [&_.kaneo-comment-editor-content_.ProseMirror]:px-3 [&_.kaneo-comment-editor-content_.ProseMirror]:pt-3 [&_.kaneo-comment-editor-content_.ProseMirror]:pb-2"
+          className="[&_.kolab-comment-editor-content_.ProseMirror]:min-h-[3rem] [&_.kolab-comment-editor-content_.ProseMirror]:max-h-none [&_.kolab-comment-editor-content_.ProseMirror]:overflow-visible [&_.kolab-comment-editor-content_.ProseMirror]:px-3 [&_.kolab-comment-editor-content_.ProseMirror]:pt-3 [&_.kolab-comment-editor-content_.ProseMirror]:pb-2"
           onSubmitShortcut={handleSubmit}
         />
         <div className="flex items-center justify-end gap-2 border-border/70 border-t px-2 py-2">

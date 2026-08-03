@@ -110,7 +110,7 @@ export async function handleTaskDescriptionChanged(
           ...(metadata.lastSync ?? {}),
           description: {
             timestamp: new Date().toISOString(),
-            source: "kaneo",
+            source: "kolab",
             value: newDescNormalized,
           },
         },

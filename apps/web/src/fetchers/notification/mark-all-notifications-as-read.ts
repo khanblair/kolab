@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 async function markAllNotificationsAsRead() {
   const response = await client.notification["read-all"].$patch();

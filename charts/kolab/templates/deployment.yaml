@@ -1,0 +1,111 @@
+{{- $corsOrigins := .Values.kolab.env.corsOrigins -}}
+{{- $corsOriginsValue := "" -}}
+{{- if kindIs "slice" $corsOrigins -}}
+  {{- $corsOriginsValue = join "," $corsOrigins -}}
+{{- else if $corsOrigins -}}
+  {{- $corsOriginsValue = $corsOrigins -}}
+{{- else if .Values.kolab.env.clientUrl -}}
+  {{- $corsOriginsValue = .Values.kolab.env.clientUrl -}}
+{{- end }}
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "kolab.fullname" . }}
+  labels:
+    {{- include "kolab.labels" . | nindent 4 }}
+spec:
+  {{- if not .Values.autoscaling.enabled }}
+  replicas: {{ .Values.replicaCount }}
+  {{- end }}
+  selector:
+    matchLabels:
+      {{- include "kolab.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      {{- with .Values.podAnnotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      labels:
+        {{- include "kolab.selectorLabels" . | nindent 8 }}
+        app.kubernetes.io/component: kolab
+    spec:
+      serviceAccountName: {{ include "kolab.serviceAccountName" . }}
+      securityContext:
+        {{- toYaml .Values.podSecurityContext | nindent 8 }}
+      containers:
+        - name: kolab
+          securityContext:
+            {{- toYaml .Values.kolab.securityContext | nindent 12 }}
+          image: "{{ .Values.kolab.image.repository }}:{{ .Values.kolab.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.kolab.image.pullPolicy }}
+          ports:
+            - name: kolab
+              containerPort: {{ .Values.kolab.service.targetPort }}
+              protocol: TCP
+          env:
+            - name: KOLAB_CLIENT_URL
+              value: "{{ .Values.kolab.env.clientUrl }}"
+            - name: CORS_ORIGINS
+              value: {{ $corsOriginsValue | quote }}
+            - name: AUTH_SECRET
+              {{- if .Values.kolab.env.existingSecret.enabled }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.kolab.env.existingSecret.name }}
+                  key: {{ .Values.kolab.env.existingSecret.key }}
+              {{- else }}
+              value: {{ .Values.kolab.env.authSecret | quote }}
+              {{- end }}
+            {{- if and (not .Values.kolab.env.database.external.enabled) .Values.postgresql.auth.existingSecret }}
+            - name: KOLAB_POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.postgresql.auth.existingSecret }}
+                  key: {{ .Values.postgresql.auth.secretKeys.userPasswordKey }}
+            {{- end }}
+            - name: DATABASE_URL
+              {{- if .Values.kolab.env.database.external.enabled }}
+              {{- if .Values.kolab.env.database.external.existingSecret.enabled }}
+              valueFrom:
+                secretKeyRef:
+                  name: {{ .Values.kolab.env.database.external.existingSecret.name }}
+                  key: {{ .Values.kolab.env.database.external.existingSecret.passwordKey }}
+              {{- else }}
+              value: "postgresql://{{ include "kolab.urlencodeUserinfo" .Values.kolab.env.database.external.username }}:{{ include "kolab.urlencodeUserinfo" .Values.kolab.env.database.external.password }}@{{ .Values.kolab.env.database.external.host }}:{{ .Values.kolab.env.database.external.port }}/{{ .Values.kolab.env.database.external.database }}"
+              {{- end }}
+              {{- else }}
+              {{- if .Values.postgresql.auth.existingSecret }}
+              value: "postgresql://{{ include "kolab.urlencodeUserinfo" .Values.postgresql.auth.username }}:$(KOLAB_POSTGRES_PASSWORD)@{{ include "kolab.fullname" . }}-postgresql:{{ .Values.postgresql.service.port }}/{{ .Values.postgresql.auth.database }}"
+              {{- else }}
+              value: "postgresql://{{ include "kolab.urlencodeUserinfo" .Values.postgresql.auth.username }}:{{ include "kolab.urlencodeUserinfo" .Values.postgresql.auth.password }}@{{ include "kolab.fullname" . }}-postgresql:{{ .Values.postgresql.service.port }}/{{ .Values.postgresql.auth.database }}"
+              {{- end }}
+              {{- end }}
+            - name: DISABLE_REGISTRATION
+              value: {{ .Values.kolab.env.disableRegistration | quote }}
+            - name: DISABLE_PASSWORD_REGISTRATION
+              value: {{ .Values.kolab.env.disablePasswordRegistration | quote }}
+            - name: DISABLE_EMAIL_OTP_SIGN_IN
+              value: {{ .Values.kolab.env.disableEmailOtpSignIn | quote }}
+            {{- with .Values.kolab.extraEnv }}
+            {{- toYaml . | nindent 12 }}
+            {{- end }}
+          livenessProbe:
+            {{- toYaml .Values.kolab.livenessProbe | nindent 12 }}
+          readinessProbe:
+            {{- toYaml .Values.kolab.readinessProbe | nindent 12 }}
+          resources:
+            {{- toYaml .Values.kolab.resources | nindent 12 }}
+
+      {{- with .Values.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}

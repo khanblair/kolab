@@ -23,7 +23,7 @@ In `apps/web/src/index.css` inside the existing `@theme` block, override Tailwin
 - Sidebar + layout collapse: `ease-linear` → `ease-in-out` (on-screen morph).
 - `kanban-board/index.tsx:114` dnd-kit easing string → `"cubic-bezier(0.23, 1, 0.32, 1)"`.
 - `theme-toggle-dropdown.tsx:21` hand-typed curve → `var(--ease-out)` (or the same literal if a CSS var cannot be used in that position).
-- Remove the three plugin packages from `apps/web/package.json` via `pnpm remove tailwind-animate tailwindcss-animate tw-animate-css --filter @kaneo/web`.
+- Remove the three plugin packages from `apps/web/package.json` via `pnpm remove tailwind-animate tailwindcss-animate tw-animate-css --filter @kolab/web`.
 
 ## Repo conventions to follow
 
@@ -38,5 +38,5 @@ In `apps/web/src/index.css` inside the existing `@theme` block, override Tailwin
 
 ## Verification
 
-- Mechanical: `pnpm --filter @kaneo/web build` passes; `grep -rn "tailwindcss-animate\|tw-animate-css\|\"tailwind-animate\"" apps/web` returns nothing.
+- Mechanical: `pnpm --filter @kolab/web build` passes; `grep -rn "tailwindcss-animate\|tw-animate-css\|\"tailwind-animate\"" apps/web` returns nothing.
 - Feel: open the create-task dialog — it should arrive fast and settle (no slow start). Collapse the sidebar — motion eases, no constant-speed feel.

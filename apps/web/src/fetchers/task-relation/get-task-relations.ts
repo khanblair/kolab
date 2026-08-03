@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 async function getTaskRelations(taskId: string) {
   const response = await client["task-relation"][":taskId"].$get({

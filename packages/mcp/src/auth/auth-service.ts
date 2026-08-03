@@ -28,7 +28,7 @@ export class AuthService {
   }
 
   /**
-   * True when a pre-created Kaneo API key is used instead of the interactive
+   * True when a pre-created Kolab API key is used instead of the interactive
    * device flow. Callers use this to avoid clearing/retrying auth on a 401.
    */
   get usingApiKey(): boolean {
@@ -66,14 +66,14 @@ export class AuthService {
   }
 
   private log(msg: string): void {
-    console.error(`[kaneo-mcp] ${msg}`);
+    console.error(`[kolab-mcp] ${msg}`);
   }
 
   /**
    * Returns a valid access token, running the device authorization flow if needed.
    */
   async getAccessToken(): Promise<string> {
-    // Non-interactive auth: a pre-created Kaneo API key (KANEO_API_KEY) is sent
+    // Non-interactive auth: a pre-created Kolab API key (KOLAB_API_KEY) is sent
     // as a Bearer token, which the REST API already accepts. This skips the
     // device flow so the MCP server works in headless/Docker environments.
     if (this.apiKey) {

@@ -19,7 +19,7 @@ export function Hero() {
           </FadeIn>
           <FadeIn delay={80}>
             <p className="mt-5 text-balance text-lg text-muted-foreground leading-relaxed md:text-xl">
-              Kaneo gives you clean planning, focused execution, and full
+              Kolab gives you clean planning, focused execution, and full
               ownership of your workflow from backlog to release.
             </p>
           </FadeIn>
@@ -30,7 +30,7 @@ export function Hero() {
                 size="lg"
                 className="gap-2"
                 onClick={() => {
-                  window.location.href = "https://cloud.kaneo.app";
+                  window.location.href = "https://cloud.kolab.app";
                 }}
               >
                 Cloud
@@ -50,7 +50,7 @@ export function Hero() {
                 size="lg"
                 className="gap-2"
                 onClick={() => {
-                  window.location.href = "https://github.com/usekaneo/kaneo";
+                  window.location.href = "https://github.com/khanblair/kolab";
                 }}
               >
                 <Github className="h-4 w-4" />
@@ -70,7 +70,7 @@ export function Hero() {
           </FadeIn>
         </div>
 
-        {/* ── App preview — interactive mock of the real Kaneo UI ── */}
+        {/* ── App preview — interactive mock of the real Kolab UI ── */}
         <FadeIn delay={240} distance={32}>
           <AppPreview />
         </FadeIn>

@@ -5,16 +5,16 @@ description: Configure S3-compatible storage for private images and attachments 
 
 ## Overview
 
-Kaneo supports private uploads in task descriptions and task comments.
+Kolab supports private uploads in task descriptions and task comments.
 
 Uploads use an S3-compatible object storage backend:
 
-- the Kaneo API creates presigned upload URLs
+- the Kolab API creates presigned upload URLs
 - the browser uploads files directly to the storage backend
-- Kaneo finalizes uploads into private asset records
-- Kaneo serves uploaded files back through its own API
+- Kolab finalizes uploads into private asset records
+- Kolab serves uploaded files back through its own API
 
-This means Kaneo can work with multiple backends as long as they expose a compatible S3-style API.
+This means Kolab can work with multiple backends as long as they expose a compatible S3-style API.
 
 Current behavior:
 
@@ -38,12 +38,12 @@ It gives you:
 Example `.env` values:
 
 ```env
-MINIO_ROOT_USER=kaneo-local
+MINIO_ROOT_USER=kolab-local
 MINIO_ROOT_PASSWORD=<choose-a-local-development-password>
 
 S3_ENDPOINT=http://minio:9000
-S3_BUCKET=kaneo-uploads
-S3_ACCESS_KEY_ID=kaneo-local
+S3_BUCKET=kolab-uploads
+S3_ACCESS_KEY_ID=kolab-local
 S3_SECRET_ACCESS_KEY=<choose-a-local-development-password>
 S3_REGION=us-east-1
 S3_FORCE_PATH_STYLE=true
@@ -55,7 +55,7 @@ You do not need to make the bucket public.
 
 ## Important: internal Docker URLs are not enough in production
 
-When Kaneo generates a presigned upload URL, the browser uploads directly to your storage backend.
+When Kolab generates a presigned upload URL, the browser uploads directly to your storage backend.
 
 That means `S3_ENDPOINT` must be reachable by the browser, not just by Docker containers.
 
@@ -64,14 +64,14 @@ For example:
 - `http://minio:9000` works only inside Docker
 - `https://files.example.com` works from the browser
 
-If your Kaneo deployment is public, do not leave `S3_ENDPOINT` set to `http://minio:9000`.
+If your Kolab deployment is public, do not leave `S3_ENDPOINT` set to `http://minio:9000`.
 
 Use a public MinIO hostname instead, for example:
 
 ```env
-S3_ENDPOINT=https://files.cloud.kaneo.app
-S3_BUCKET=kaneo-uploads
-S3_ACCESS_KEY_ID=kaneo
+S3_ENDPOINT=https://files.cloud.kolab.app
+S3_BUCKET=kolab-uploads
+S3_ACCESS_KEY_ID=kolab
 S3_SECRET_ACCESS_KEY=<generate-a-strong-random-secret>
 S3_REGION=us-east-1
 S3_FORCE_PATH_STYLE=true
@@ -87,24 +87,24 @@ S3_FORCE_PATH_STYLE=true
 
 The simplest production setup is:
 
-- `cloud.kaneo.app` for Kaneo
-- `files.cloud.kaneo.app` for MinIO
+- `cloud.kolab.app` for Kolab
+- `files.cloud.kolab.app` for MinIO
 
 Expose MinIO on its own public hostname through your reverse proxy.
 
 Why this is needed:
 
-- Kaneo signs uploads against `S3_ENDPOINT`
+- Kolab signs uploads against `S3_ENDPOINT`
 - the browser uses that signed URL directly
 - Docker-internal names like `minio` are not resolvable from a user's browser
 
 Using a dedicated subdomain is recommended over proxying MinIO under a path.
 
-Reads do not need a public bucket URL, because Kaneo serves uploaded assets back through `/api/asset/:id`.
+Reads do not need a public bucket URL, because Kolab serves uploaded assets back through `/api/asset/:id`.
 
 ## Other S3-compatible backends
 
-Kaneo is not tied to MinIO. Any deployment can point Kaneo at another S3-compatible backend by changing the `S3_*` environment variables.
+Kolab is not tied to MinIO. Any deployment can point Kolab at another S3-compatible backend by changing the `S3_*` environment variables.
 
 Examples:
 
@@ -115,13 +115,13 @@ Examples:
 
 ## Using `fs`
 
-`fs` is another S3-compatible option if you want a lightweight local object store. It is built by friends of Kaneo.
+`fs` is another S3-compatible option if you want a lightweight local object store. It is built by friends of Kolab.
 
-When using `fs`, configure Kaneo like this:
+When using `fs`, configure Kolab like this:
 
 ```env
 S3_ENDPOINT=http://fs:2600
-S3_BUCKET=kaneo-uploads
+S3_BUCKET=kolab-uploads
 S3_ACCESS_KEY_ID=<your-access-key>
 S3_SECRET_ACCESS_KEY=<your-secret-key>
 S3_REGION=us-east-1
@@ -131,16 +131,16 @@ S3_FORCE_PATH_STYLE=true
 Important notes for `fs`:
 
 - buckets are created through the S3 API or CLI, not through a web dashboard
-- Kaneo still expects the bucket to exist before uploads start
+- Kolab still expects the bucket to exist before uploads start
 - direct browser uploads may need reverse-proxy CORS headers, because `fs` does not currently implement S3 CORS APIs
 
-## Required Kaneo storage variables
+## Required Kolab storage variables
 
-Set these in your Kaneo deployment:
+Set these in your Kolab deployment:
 
 | Name | Description |
 | --- | --- |
-| `S3_ENDPOINT` | S3-compatible API endpoint used by Kaneo |
+| `S3_ENDPOINT` | S3-compatible API endpoint used by Kolab |
 | `S3_BUCKET` | Bucket used for uploaded files |
 | `S3_ACCESS_KEY_ID` | Access key used to create presigned upload URLs. Optional when using an IAM role (see below) |
 | `S3_SECRET_ACCESS_KEY` | Secret key used to create presigned upload URLs. Optional when using an IAM role (see below) |
@@ -151,16 +151,16 @@ Optional:
 
 | Name | Description |
 | --- | --- |
-| `S3_PUBLIC_BASE_URL` | Optional public asset base URL. Kaneo does not require this for the current private asset flow. |
+| `S3_PUBLIC_BASE_URL` | Optional public asset base URL. Kolab does not require this for the current private asset flow. |
 | `S3_MAX_IMAGE_UPLOAD_BYTES` | Maximum allowed upload size in bytes for images and other uploaded files |
 | `S3_PRESIGN_TTL_SECONDS` | Presigned upload URL lifetime |
 
 ## Using an IAM role (AWS S3) instead of static keys
 
-When Kaneo runs on AWS (EC2, ECS, or EKS), you can let it authenticate with an
+When Kolab runs on AWS (EC2, ECS, or EKS), you can let it authenticate with an
 IAM role instead of long-lived access keys.
 
-Leave both `S3_ACCESS_KEY_ID` and `S3_SECRET_ACCESS_KEY` unset. Kaneo then falls
+Leave both `S3_ACCESS_KEY_ID` and `S3_SECRET_ACCESS_KEY` unset. Kolab then falls
 back to the AWS SDK's default credential provider chain, which automatically
 picks up credentials from:
 
@@ -174,7 +174,7 @@ Example for AWS S3 with an attached IAM role:
 
 ```env
 S3_ENDPOINT=https://s3.us-east-1.amazonaws.com
-S3_BUCKET=kaneo-uploads
+S3_BUCKET=kolab-uploads
 S3_REGION=us-east-1
 S3_FORCE_PATH_STYLE=false
 # S3_ACCESS_KEY_ID and S3_SECRET_ACCESS_KEY intentionally omitted
@@ -185,7 +185,7 @@ on the bucket.
 
 <Warning>
   Set both keys or neither. Configuring only one of `S3_ACCESS_KEY_ID` /
-  `S3_SECRET_ACCESS_KEY` is treated as a misconfiguration and Kaneo will refuse
+  `S3_SECRET_ACCESS_KEY` is treated as a misconfiguration and Kolab will refuse
   to start the storage client.
 </Warning>
 

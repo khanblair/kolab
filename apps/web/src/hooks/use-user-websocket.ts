@@ -1,4 +1,4 @@
-import { windowId } from "@kaneo/libs";
+import { windowId } from "@kolab/libs";
 import { useQueryClient } from "@tanstack/react-query";
 import { useEffect, useRef } from "react";
 import { getApiUrl } from "@/fetchers/get-api-url";

@@ -16,7 +16,7 @@ import type {
   clientRegistrationSchema,
 } from "../schemas";
 
-const clientUrl = process.env.KANEO_CLIENT_URL || "http://localhost:5173";
+const clientUrl = process.env.KOLAB_CLIENT_URL || "http://localhost:5173";
 
 type ClientRegistrationInput = v.InferOutput<typeof clientRegistrationSchema>;
 type AuthorizationInput = v.InferOutput<typeof authorizationQuerySchema>;

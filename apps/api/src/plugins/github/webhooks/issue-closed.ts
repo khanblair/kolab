@@ -57,7 +57,7 @@ export async function handleIssueClosed(payload: IssueClosedPayload) {
       ? JSON.parse(externalLink.metadata)
       : {};
 
-    if (existingMetadata.createdFrom === "kaneo") {
+    if (existingMetadata.createdFrom === "kolab") {
       continue;
     }
 

@@ -25,5 +25,5 @@ Reduced motion = fewer and gentler, not zero: keep opacity fades, drop movement.
 
 ## Verification
 
-- Mechanical: `pnpm --filter @kaneo/web build`; `grep -rn "motion-reduce\|useReducedMotion" apps/web/src | wc -l` > 10.
+- Mechanical: `pnpm --filter @kolab/web build`; `grep -rn "motion-reduce\|useReducedMotion" apps/web/src | wc -l` > 10.
 - Feel: DevTools Rendering panel → emulate `prefers-reduced-motion: reduce`; open popover/dialog/sidebar — things fade without sliding or scaling; onboarding steps crossfade without vertical movement.

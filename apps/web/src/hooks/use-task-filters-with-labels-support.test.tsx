@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { useTaskFiltersWithLabelsSupport } from "./use-task-filters-with-labels-support";
 
 describe("useTaskFiltersWithLabelsSupport", () => {
-  const storageKey = "kaneo:board-filters:project-1";
+  const storageKey = "kolab:board-filters:project-1";
 
   beforeEach(() => {
     window.localStorage.clear();

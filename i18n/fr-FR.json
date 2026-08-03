@@ -1,6 +1,6 @@
 {
 	"common": {
-		"appName": "Kaneo",
+		"appName": "Kolab",
 		"actions": {
 			"cancel": "Annuler",
 			"close": "Fermer",
@@ -75,7 +75,7 @@
 				"errorToast": "Échec de la création du projet"
 			},
 			"createWorkspace": {
-				"breadcrumbKaneo": "KANEO",
+				"breadcrumbKolab": "KOLAB",
 				"title": "Créer un nouvel espace de travail",
 				"description": "Créez un nouvel espace de travail en lui donnant un nom.",
 				"namePlaceholder": "Nom de l'espace de travail",
@@ -247,7 +247,7 @@
 			"workspaceLabel": "Espace de travail: {{workspaceName}}",
 			"joinWorkspace": "Rejoindre {{workspaceName}}",
 			"inviteBodySignedIn": "<inviter>{{inviterName}}</inviter> vous a invité à rejoindre son espace de travail.",
-			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> vous a invité à rejoindre son espace de travail sur Kaneo.",
+			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> vous a invité à rejoindre son espace de travail sur Kolab.",
 			"signInToAccept": "Connectez-vous pour accepter cette invitation.",
 			"accepting": "Acceptation...",
 			"acceptInvitation": "Accepter l'invitation",
@@ -262,7 +262,7 @@
 			}
 		},
 		"onboarding": {
-			"pageTitle": "Bienvenue sur Kaneo",
+			"pageTitle": "Bienvenue sur Kolab",
 			"workspacePageTitle": "Créer un espace de travail",
 			"createWorkspaceTitle": "Créer un espace de travail",
 			"createWorkspaceSubtitle": "Configurez votre espace de travail pour commencer à gérer des projets",
@@ -331,7 +331,7 @@
 		"notificationsPage": {
 			"pageTitle": "Notifications",
 			"title": "Notifications",
-			"subtitle": "Choisissez comment Kaneo transmet les notifications de votre compte et quels canaux utiliser.",
+			"subtitle": "Choisissez comment Kolab transmet les notifications de votre compte et quels canaux utiliser.",
 			"statusConnected": "Connecté",
 			"statusPaused": "En pause",
 			"emailTitle": "Email",
@@ -364,10 +364,10 @@
 			"webhookDescription": "Envoyer les notifications du compte vers votre propre point de terminaison au format JSON.",
 			"endpointUrl": "URL du point de terminaison",
 			"signingSecret": "Secret de signature",
-			"webhookUrlPlaceholder": "https://example.com/webhooks/kaneo",
+			"webhookUrlPlaceholder": "https://example.com/webhooks/kolab",
 			"webhookSecretPlaceholder": "Secret partagé facultatif",
 			"webhookSecretHintConfigured": "Un secret de signature est déjà configuré ({{masked}}). Saisissez-en un nouveau pour le remplacer.",
-			"webhookSecretHintOptional": "Facultatif. Kaneo signe le corps de la requête lorsqu'un secret est défini.",
+			"webhookSecretHintOptional": "Facultatif. Kolab signe le corps de la requête lorsqu'un secret est défini.",
 			"connectWebhook": "Connecter le webhook",
 			"workspaceRulesTitle": "Règles d'envoi par espace de travail",
 			"workspaceRulesDescription": "Réutilisez vos canaux globaux, puis choisissez quels espaces de travail et projets sont autorisés à envoyer des notifications de compte.",
@@ -418,7 +418,7 @@
 		},
 		"preferencesPage": {
 			"title": "Préférences",
-			"subtitle": "Personnalisez votre expérience Kaneo.",
+			"subtitle": "Personnalisez votre expérience Kolab.",
 			"appearanceTitle": "Apparence",
 			"appearanceSubtitle": "Paramètres visuels et préférences de mise en page.",
 			"theme": "Thème",
@@ -462,7 +462,7 @@
 			"title": "Paramètres développeur",
 			"subtitle": "Gérez vos clés API et vos ressources développeur.",
 			"apiKeysCardTitle": "Clés API",
-			"apiKeysCardDescription": "Créez et gérez des clés API pour un accès programmatique à Kaneo.",
+			"apiKeysCardDescription": "Créez et gérez des clés API pour un accès programmatique à Kolab.",
 			"createApiKey": "Créer une clé API",
 			"unnamedKey": "Clé sans nom"
 		},
@@ -501,7 +501,7 @@
 			},
 			"createDialog": {
 				"title": "Créer une clé API",
-				"description": "Créez une nouvelle clé API pour accéder à l'API Kaneo par programme.",
+				"description": "Créez une nouvelle clé API pour accéder à l'API Kolab par programme.",
 				"nameLabel": "Nom",
 				"namePlaceholder": "Ma clé API",
 				"nameDescription": "Un nom descriptif pour cette clé API",
@@ -680,7 +680,7 @@
 				"removeError": "Échec de la suppression de l'intégration GitHub",
 				"issuesImported": "Problèmes importés avec succès",
 				"importError": "Échec de l'importation des problèmes",
-				"commentOnEnabled": "Kaneo laissera un commentaire avec un lien de tâche sur les nouveaux problèmes",
+				"commentOnEnabled": "Kolab laissera un commentaire avec un lien de tâche sur les nouveaux problèmes",
 				"commentOnDisabled": "Les commentaires de lien de tâche sur les nouveaux problèmes sont désactivés",
 				"settingsUpdateError": "Échec de la mise à jour de l'intégration GitHub"
 			},
@@ -691,8 +691,8 @@
 			"badgeNotConnected": "Non connecté",
 			"repository": "Dépôt",
 			"repositoryHint": "Dépôt GitHub connecté",
-			"commentTaskLinkTitle": "Commenter le lien Kaneo sur les nouveaux problèmes",
-			"commentTaskLinkHint": "Lorsque cette option est activée, Kaneo publie un commentaire avec un lien de tâche sur chaque nouveau problème GitHub.",
+			"commentTaskLinkTitle": "Commenter le lien Kolab sur les nouveaux problèmes",
+			"commentTaskLinkHint": "Lorsque cette option est activée, Kolab publie un commentaire avec un lien de tâche sur chaque nouveau problème GitHub.",
 			"appStatusTitle": "Statut de l'application GitHub",
 			"appStatusHint": "Statut d'installation et de permissions",
 			"statusProperlyConfigured": "Correctement configuré",
@@ -743,7 +743,7 @@
 				"removeError": "Failed to remove Gitea integration",
 				"issuesImported": "Issues imported successfully",
 				"importError": "Failed to import issues",
-				"commentOnEnabled": "Kaneo will comment with a task link on new issues",
+				"commentOnEnabled": "Kolab will comment with a task link on new issues",
 				"commentOnDisabled": "Task link comments on new issues are turned off",
 				"settingsUpdateError": "Failed to update Gitea integration",
 				"secretCopied": "Copied",
@@ -759,8 +759,8 @@
 			"badgeNotConnected": "Not connected",
 			"repository": "Repository",
 			"repositoryHint": "Linked Gitea repository",
-			"commentTaskLinkTitle": "Comment Kaneo link on new issues",
-			"commentTaskLinkHint": "When enabled, Kaneo posts a comment on each new issue with a link to the task.",
+			"commentTaskLinkTitle": "Comment Kolab link on new issues",
+			"commentTaskLinkHint": "When enabled, Kolab posts a comment on each new issue with a link to the task.",
 			"webhookTitle": "Webhook",
 			"webhookHint": "In your Gitea repository, add a webhook with this URL and secret. Enable push, pull request, issues, issue comments, and create (for labels).",
 			"webhookSecretLabel": "Secret (must match the webhook secret in Gitea)",
@@ -884,15 +884,15 @@
 				"removeError": "Échec de la suppression de l'intégration webhook générique"
 			},
 			"connectionTitle": "Connexion webhook sortant",
-			"connectionHint": "Envoyez les événements de tâche en JSON vers votre propre point de terminaison. Un en-tête signé X-Kaneo-Signature est inclus lorsqu'un secret est configuré.",
+			"connectionHint": "Envoyez les événements de tâche en JSON vers votre propre point de terminaison. Un en-tête signé X-Kolab-Signature est inclus lorsqu'un secret est configuré.",
 			"connected": "Connecté",
 			"paused": "En pause",
 			"webhookLabel": "URL du point de terminaison",
-			"webhookPlaceholder": "https://example.com/webhooks/kaneo",
-			"webhookHint": "Kaneo envoie des requêtes POST avec une charge JSON pour chaque événement activé.",
+			"webhookPlaceholder": "https://example.com/webhooks/kolab",
+			"webhookHint": "Kolab envoie des requêtes POST avec une charge JSON pour chaque événement activé.",
 			"secretLabel": "Secret de signature",
 			"secretPlaceholder": "Secret partagé facultatif",
-			"secretHint": "Facultatif. Si défini, Kaneo signe le corps de la requête et envoie le digest hexadécimal dans l'en-tête X-Kaneo-Signature.",
+			"secretHint": "Facultatif. Si défini, Kolab signe le corps de la requête et envoie le digest hexadécimal dans l'en-tête X-Kolab-Signature.",
 			"secretHintConfigured": "Un secret de signature est déjà configuré ({{secret}}). Entrez-en un nouveau pour le remplacer.",
 			"eventsTitle": "Notifications d'événements",
 			"eventsHint": "Choisissez les changements de projet qui déclenchent les webhooks sortants.",
@@ -944,7 +944,7 @@
 			"threadIdHint": "Facultatif. Utilisez-le pour les sujets de forum dans les groupes Telegram.",
 			"chatLabelLabel": "Libellé du chat",
 			"chatLabelPlaceholder": "Mises à jour engineering",
-			"chatLabelHint": "Libellé facultatif pour votre référence dans Kaneo.",
+			"chatLabelHint": "Libellé facultatif pour votre référence dans Kolab.",
 			"eventsTitle": "Notifications d'événements",
 			"eventsHint": "Choisissez les changements du projet à publier dans Telegram.",
 			"events": {
@@ -1671,14 +1671,14 @@
 	},
 	"invitations": {
 		"email": {
-			"subject": "{{inviterName}} vous invite à rejoindre {{workspaceName}} sur Kaneo",
-			"preview": "Vous êtes invité à rejoindre {{workspaceName}} sur Kaneo",
+			"subject": "{{inviterName}} vous invite à rejoindre {{workspaceName}} sur Kolab",
+			"preview": "Vous êtes invité à rejoindre {{workspaceName}} sur Kolab",
 			"title": "Rejoindre {{workspaceName}}",
-			"subtitle": "{{inviterName}} ({{inviterEmail}}) vous invite à collaborer sur Kaneo.",
+			"subtitle": "{{inviterName}} ({{inviterEmail}}) vous invite à collaborer sur Kolab.",
 			"cta": "Accepter l’invitation",
 			"sameEmail": "Vous pouvez accepter l’invitation avec l’adresse e-mail qui a reçu ce message.",
 			"ignore": "Si vous ne vous attendiez pas à recevoir ce message, vous pouvez l’ignorer.",
-			"footer": "Invitation à un espace de travail Kaneo"
+			"footer": "Invitation à un espace de travail Kolab"
 		},
 		"pageTitle": "Invitations",
 		"pendingInvitations": "Invitations en attente",

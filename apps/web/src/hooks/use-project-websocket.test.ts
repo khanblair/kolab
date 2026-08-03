@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("@kaneo/libs", () => ({
+vi.mock("@kolab/libs", () => ({
   windowId: "test-window-id",
 }));
 

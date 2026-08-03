@@ -3,13 +3,13 @@ import { mergeMcpServerEntry } from "./merge-config.js";
 
 describe("mergeMcpServerEntry", () => {
   it("creates mcpServers when file is empty", () => {
-    const out = mergeMcpServerEntry(null, "kaneo", {
+    const out = mergeMcpServerEntry(null, "kolab", {
       command: "/usr/bin/node",
       args: ["/app/index.js"],
     });
     expect(JSON.parse(out)).toEqual({
       mcpServers: {
-        kaneo: {
+        kolab: {
           command: "/usr/bin/node",
           args: ["/app/index.js"],
         },
@@ -19,7 +19,7 @@ describe("mergeMcpServerEntry", () => {
 
   it("rejects empty string existing config as invalid JSON", () => {
     expect(() =>
-      mergeMcpServerEntry("", "kaneo", {
+      mergeMcpServerEntry("", "kolab", {
         command: "/usr/bin/node",
         args: ["/app/index.js"],
       }),
@@ -33,19 +33,19 @@ describe("mergeMcpServerEntry", () => {
         other: { command: "x", args: ["y"] },
       },
     });
-    const out = mergeMcpServerEntry(existing, "kaneo", {
+    const out = mergeMcpServerEntry(existing, "kolab", {
       command: "/usr/bin/node",
       args: ["/app/index.js"],
-      env: { KANEO_API_URL: "http://localhost:1337" },
+      env: { KOLAB_API_URL: "http://localhost:1337" },
     });
     expect(JSON.parse(out)).toEqual({
       other: true,
       mcpServers: {
         other: { command: "x", args: ["y"] },
-        kaneo: {
+        kolab: {
           command: "/usr/bin/node",
           args: ["/app/index.js"],
-          env: { KANEO_API_URL: "http://localhost:1337" },
+          env: { KOLAB_API_URL: "http://localhost:1337" },
         },
       },
     });

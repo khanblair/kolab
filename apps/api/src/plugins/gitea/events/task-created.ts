@@ -53,7 +53,7 @@ export async function handleTaskCreated(
       title: createdIssue.title,
       metadata: {
         state: createdIssue.state,
-        createdFrom: "kaneo",
+        createdFrom: "kolab",
         lastOutboundStateSyncAt: Date.now(),
       },
     });

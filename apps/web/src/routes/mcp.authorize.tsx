@@ -86,7 +86,7 @@ function McpAuthorizePage() {
   return (
     <AuthLayout
       title="Authorize MCP client"
-      subtitle="Review this request before granting access to your Kaneo account."
+      subtitle="Review this request before granting access to your Kolab account."
     >
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">

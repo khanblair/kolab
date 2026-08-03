@@ -1,9 +1,9 @@
 ---
 title: Account Notifications
-description: Deliver your personal Kaneo notifications by email, ntfy, Gotify, or a custom webhook with workspace and project scoping
+description: Deliver your personal Kolab notifications by email, ntfy, Gotify, or a custom webhook with workspace and project scoping
 ---
 
-Kaneo can keep the normal in-app notification inbox and also forward matching notifications to external channels for the signed-in user.
+Kolab can keep the normal in-app notification inbox and also forward matching notifications to external channels for the signed-in user.
 
 You can configure this under:
 
@@ -24,7 +24,7 @@ These settings are personal to the signed-in account. They do not change notific
 
 ## How it works
 
-Kaneo already stores in-app notifications in the notification inbox. Account notification delivery adds a separate preference layer on top of that behavior.
+Kolab already stores in-app notifications in the notification inbox. Account notification delivery adds a separate preference layer on top of that behavior.
 
 Important rules:
 
@@ -71,9 +71,9 @@ Gotify requires:
 
 Setup notes:
 
-- create an application in your Gotify server before connecting Kaneo
+- create an application in your Gotify server before connecting Kolab
 - paste the base server URL, for example `https://gotify.example.com`
-- no extra topic or path is required because Kaneo sends directly to the Gotify message API using the application token
+- no extra topic or path is required because Kolab sends directly to the Gotify message API using the application token
 - if your Gotify server uses a custom port or TLS, include that in the server URL
 
 ### Custom webhook
@@ -83,11 +83,11 @@ Custom webhook requires:
 - a destination URL
 - optionally, a signing secret
 
-When a signing secret is configured, Kaneo sends an `X-Kaneo-Signature` header containing the `HMAC-SHA256` hex digest of the raw JSON body.
+When a signing secret is configured, Kolab sends an `X-Kolab-Signature` header containing the `HMAC-SHA256` hex digest of the raw JSON body.
 
 ## Workspace delivery rules
 
-Below the global channel cards, Kaneo shows workspace delivery rules.
+Below the global channel cards, Kolab shows workspace delivery rules.
 
 Each workspace rule can:
 
@@ -100,7 +100,7 @@ This lets a user receive notifications from one workspace in ntfy, another by em
 
 ## Supported notification sources
 
-V1 forwards the same notification types that currently create inbox notifications in Kaneo.
+V1 forwards the same notification types that currently create inbox notifications in Kolab.
 
 That includes:
 
@@ -110,11 +110,11 @@ That includes:
 - `task_assignee_changed`
 - `time_entry_created`
 
-If Kaneo cannot resolve a notification to a workspace or project context, that notification stays inbox-only.
+If Kolab cannot resolve a notification to a workspace or project context, that notification stays inbox-only.
 
 ## Reachability and security
 
-For security, Kaneo validates outbound HTTP destinations before saving or sending.
+For security, Kolab validates outbound HTTP destinations before saving or sending.
 
 Private or non-routable destinations are rejected, including examples like:
 
@@ -132,11 +132,11 @@ This applies to:
 
 If you are using a self-hosted ntfy instance, Gotify instance, or webhook receiver, it must be reachable from the API with an accepted public or routable hostname.
 
-If your receiver only exists on a private network, set `KANEO_ALLOW_PRIVATE_WEBHOOK_DESTINATIONS=true` on the API to bypass this guard. It is off by default, the `http`/`https` protocol requirement still applies, and enabling it re-opens the SSRF surface the check protects against. Only turn it on for a trusted, isolated deployment.
+If your receiver only exists on a private network, set `KOLAB_ALLOW_PRIVATE_WEBHOOK_DESTINATIONS=true` on the API to bypass this guard. It is off by default, the `http`/`https` protocol requirement still applies, and enabling it re-opens the SSRF surface the check protects against. Only turn it on for a trusted, isolated deployment.
 
 ## Troubleshooting
 
-### Notifications show in Kaneo but are not delivered
+### Notifications show in Kolab but are not delivered
 
 Check that:
 

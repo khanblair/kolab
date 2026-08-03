@@ -11,7 +11,7 @@ describe("WorkspaceInvitationEmail", () => {
         workspaceName: "Équipe Produit",
         inviterName: "Camille",
         inviterEmail: "camille@example.com",
-        invitationLink: "https://kaneo.example/invite/abc",
+        invitationLink: "https://kolab.example/invite/abc",
         to: "invite@example.com",
         copy: frFR.invitations.email,
       }),

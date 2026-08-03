@@ -1,9 +1,9 @@
 ---
 title: Telegram
-description: Send task notifications from Kaneo to a Telegram chat or topic using a bot token and chat ID.
+description: Send task notifications from Kolab to a Telegram chat or topic using a bot token and chat ID.
 ---
 
-Kaneo can post task activity to Telegram whenever events occur in a project. Unlike Slack and Discord, Telegram uses a bot token plus a chat ID instead of an incoming webhook URL.
+Kolab can post task activity to Telegram whenever events occur in a project. Unlike Slack and Discord, Telegram uses a bot token plus a chat ID instead of an incoming webhook URL.
 
 ## Create a Telegram bot
 
@@ -60,7 +60,7 @@ Typical values look like:
 If `getUpdates` returns an empty result, send a fresh message in Telegram and reload the URL. If you see a `404`, double-check that the URL format is exactly `https://api.telegram.org/bot&lt;token&gt;/getUpdates`.
 </Info>
 
-## Connect Telegram in Kaneo
+## Connect Telegram in Kolab
 
 1. Open **Settings** in the sidebar.
 2. Under **Projects**, select the project you want to connect.
@@ -90,18 +90,18 @@ You can change these toggles at any time in the integration settings.
 
 ## Message format
 
-Kaneo sends formatted Telegram messages with:
+Kolab sends formatted Telegram messages with:
 
 - The event title
-- A direct link to the task in Kaneo
+- A direct link to the task in Kolab
 - Project, status, and priority details
 - The name of the user who triggered the event when available
 
-Make sure [`KANEO_CLIENT_URL`](/core/installation/environment-variables) is set to your public Kaneo URL so task links work correctly.
+Make sure [`KOLAB_CLIENT_URL`](/core/installation/environment-variables) is set to your public Kolab URL so task links work correctly.
 
 ## Updating credentials
 
-To rotate the bot token after connecting, paste a new token in the bot token field and click **Save Changes**. If you leave the token field empty, Kaneo keeps the currently stored token.
+To rotate the bot token after connecting, paste a new token in the bot token field and click **Save Changes**. If you leave the token field empty, Kolab keeps the currently stored token.
 
 You can also update the chat ID, thread ID, label, and event subscriptions at any time.
 

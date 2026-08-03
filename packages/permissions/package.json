@@ -1,5 +1,5 @@
 {
-	"name": "@kaneo/permissions",
+	"name": "@kolab/permissions",
 	"version": "0.0.0",
 	"private": true,
 	"type": "module",
@@ -22,7 +22,7 @@
 		"better-auth": "^1.6.9"
 	},
 	"devDependencies": {
-		"@kaneo/typescript-config": "workspace:*",
+		"@kolab/typescript-config": "workspace:*",
 		"typescript": "^5.9.2",
 		"vite": "^7.3.5",
 		"vitest": "^4.1.10"

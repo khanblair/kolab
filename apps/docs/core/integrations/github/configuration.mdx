@@ -1,10 +1,10 @@
 ---
 title: Configuration & Setup
-description: Configure Kaneo with your GitHub App credentials and connect projects to repositories. Includes Docker Compose and Kubernetes examples.
+description: Configure Kolab with your GitHub App credentials and connect projects to repositories. Includes Docker Compose and Kubernetes examples.
 ---
 
 
-This guide covers configuring Kaneo with your GitHub App credentials and connecting projects to repositories.
+This guide covers configuring Kolab with your GitHub App credentials and connecting projects to repositories.
 
 <Info>
 Make sure you've completed the [GitHub App setup](/core/integrations/github/setup) before proceeding.
@@ -12,7 +12,7 @@ Make sure you've completed the [GitHub App setup](/core/integrations/github/setu
 
 ## Environment Variables
 
-Add the following environment variables to your Kaneo deployment:
+Add the following environment variables to your Kolab deployment:
 
 ```bash
 # GitHub App (integration only — repository sync, webhooks)
@@ -25,7 +25,7 @@ MIIEpAIBAAKCAQEA...
 GITHUB_WEBHOOK_SECRET=your-webhook-secret-here
 
 # Optional: GitHub App slug for installation URLs in the UI
-GITHUB_APP_NAME=kaneo-your-instance-name
+GITHUB_APP_NAME=kolab-your-instance-name
 ```
 
 <Info>
@@ -39,7 +39,7 @@ GitHub sign-in uses separate OAuth variables (`GITHUB_OAUTH_CLIENT_ID` / `GITHUB
 | `GITHUB_APP_ID` | Your GitHub App's ID | ✅ | `123456` |
 | `GITHUB_PRIVATE_KEY` | Full private key content (with newlines) | ✅ | `-----BEGIN RSA...` |
 | `GITHUB_WEBHOOK_SECRET` | Secret for webhook verification | ✅ | `your-secret` |
-| `GITHUB_APP_NAME` | App slug for installation URLs in the UI | ⚠️ | `kaneo-mycompany` |
+| `GITHUB_APP_NAME` | App slug for installation URLs in the UI | ⚠️ | `kolab-mycompany` |
 
 <Warning>
 `GITHUB_APP_NAME` is optional but recommended. It's used to generate direct installation links in the UI.
@@ -54,7 +54,7 @@ Update your `compose.yml` file:
 ```yaml
 services:
   backend:
-    image: ghcr.io/usekaneo/api:latest
+    image: ghcr.io/khanblair/kolab-api:latest
     environment:
       # ... other environment variables
       GITHUB_APP_ID: "123456"
@@ -65,7 +65,7 @@ services:
         ...
         -----END RSA PRIVATE KEY-----
       GITHUB_WEBHOOK_SECRET: "your-webhook-secret-here"
-      GITHUB_APP_NAME: "kaneo-mycompany"
+      GITHUB_APP_NAME: "kolab-mycompany"
     # ... rest of configuration
 ```
 
@@ -82,7 +82,7 @@ apiVersion: v1
 kind: Secret
 metadata:
   name: github-integration
-  namespace: kaneo
+  namespace: kolab
 type: Opaque
 stringData:
   GITHUB_APP_ID: "123456"
@@ -93,7 +93,7 @@ stringData:
     ...
     -----END RSA PRIVATE KEY-----
   GITHUB_WEBHOOK_SECRET: "your-webhook-secret-here"
-  GITHUB_APP_NAME: "kaneo-mycompany"
+  GITHUB_APP_NAME: "kolab-mycompany"
 ```
 
 Then reference it in your deployment:
@@ -102,13 +102,13 @@ Then reference it in your deployment:
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: kaneo-backend
+  name: kolab-backend
 spec:
   template:
     spec:
       containers:
       - name: backend
-        image: ghcr.io/usekaneo/api:latest
+        image: ghcr.io/khanblair/kolab-api:latest
         envFrom:
         - secretRef:
             name: github-integration
@@ -127,7 +127,7 @@ MIIEpAIBAAKCAQEA...
 ...
 -----END RSA PRIVATE KEY-----"
 GITHUB_WEBHOOK_SECRET=your-webhook-secret-here
-GITHUB_APP_NAME=kaneo-mycompany
+GITHUB_APP_NAME=kolab-mycompany
 ```
 
 ## Connecting Repositories
@@ -138,7 +138,7 @@ Once your environment variables are configured and your backend is restarted, yo
 <Step>
 **Navigate to Project Settings**
 
-1. Open your Kaneo project
+1. Open your Kolab project
 2. Go to **Project Settings**
 3. Find the **GitHub Integration** section
 </Step>
@@ -162,7 +162,7 @@ You have two options to connect a repository:
 <Step>
 **Verify and Connect**
 
-1. Kaneo will verify that your GitHub App has access
+1. Kolab will verify that your GitHub App has access
 2. If successful, click "Connect Repository"
 3. You should see a green "Connected" status
 
@@ -180,7 +180,7 @@ After connecting a repository, test the integration thoroughly:
 <Step>
 **Test Task to Issue Creation**
 
-Create a new task in your connected Kaneo project with:
+Create a new task in your connected Kolab project with:
 - A clear title
 - A description
 - Set priority and status
@@ -188,7 +188,7 @@ Create a new task in your connected Kaneo project with:
 Navigate to your GitHub repository and verify:
 - A new issue was created
 - The issue has `priority:*` and `status:*` labels
-- A comment links back to the Kaneo task
+- A comment links back to the Kolab task
 </Step>
 
 <Step>
@@ -215,7 +215,7 @@ In GitHub:
 1. Create a new issue
 2. Add labels like `priority:high` or `status:in-progress`
 
-In Kaneo:
+In Kolab:
 - Verify a task was created from the issue
 - Check that priority and status match the labels
 - Confirm the task links to the GitHub issue
@@ -225,9 +225,9 @@ In Kaneo:
 **Test Label Synchronization**
 
 Test both directions:
-1. Change task priority in Kaneo → Check issue labels in GitHub
-2. Add/remove labels in GitHub → Check task in Kaneo
-3. Change task status in Kaneo → Check if issue is closed/reopened
+1. Change task priority in Kolab → Check issue labels in GitHub
+2. Add/remove labels in GitHub → Check task in Kolab
+3. Change task status in Kolab → Check if issue is closed/reopened
 </Step>
 
 </Steps>
@@ -236,7 +236,7 @@ Test both directions:
 
 ### Branch Naming Patterns
 
-Configure how Kaneo matches branches to tasks in your project's GitHub integration settings:
+Configure how Kolab matches branches to tasks in your project's GitHub integration settings:
 
 **Predefined Patterns:**
 - `{slug}-{number}` (default) - e.g., `proj-123`
@@ -271,22 +271,22 @@ Status transitions only apply if the task is not already in "done" status. This 
 
 ### Label Synchronization
 
-Kaneo automatically creates and syncs these label types:
+Kolab automatically creates and syncs these label types:
 
 **System Labels** (managed automatically):
 - `priority:low`, `priority:medium`, `priority:high`, `priority:urgent`
 - `status:to-do`, `status:in-progress`, `status:in-review`, `status:done`, `status:planned`, `status:archived`
 
 **Custom Labels:**
-- Any labels added to GitHub issues (not starting with `priority:` or `status:`) are synced to Kaneo
-- Labels added in Kaneo can be synced to GitHub (if configured)
+- Any labels added to GitHub issues (not starting with `priority:` or `status:`) are synced to Kolab
+- Labels added in Kolab can be synced to GitHub (if configured)
 
 ### Multiple Organizations
 If you need to connect repositories from multiple GitHub organizations:
 
 1. Install your GitHub App on each organization
 2. Grant appropriate permissions for each organization
-3. Each Kaneo project can connect to any repository where your app is installed
+3. Each Kolab project can connect to any repository where your app is installed
 
 ---
 

@@ -45,8 +45,8 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: Build @kaneo/site
-        run: pnpm --filter @kaneo/site build
+      - name: Build @kolab/site
+        run: pnpm --filter @kolab/site build
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v5

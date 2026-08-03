@@ -1,6 +1,6 @@
 {
 	"common": {
-		"appName": "Kaneo",
+		"appName": "Kolab",
 		"actions": {
 			"cancel": "Batal",
 			"close": "Tutup",
@@ -75,7 +75,7 @@
 				"errorToast": "Gagal membuat proyek"
 			},
 			"createWorkspace": {
-				"breadcrumbKaneo": "KANEO",
+				"breadcrumbKolab": "KOLAB",
 				"title": "Buat ruang kerja baru",
 				"description": "Buat ruang kerja baru dengan memberikan nama untuk ruang kerja Anda.",
 				"namePlaceholder": "Nama ruang kerja",
@@ -247,7 +247,7 @@
 			"workspaceLabel": "Ruang kerja: {{workspaceName}}",
 			"joinWorkspace": "Gabung {{workspaceName}}",
 			"inviteBodySignedIn": "<inviter>{{inviterName}}</inviter> mengundang Anda untuk bergabung ke ruang kerjanya.",
-			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> mengundang Anda untuk bergabung ke ruang kerjanya di Kaneo.",
+			"inviteBodySignedOut": "<inviter>{{inviterName}}</inviter> mengundang Anda untuk bergabung ke ruang kerjanya di Kolab.",
 			"signInToAccept": "Masuk untuk menerima undangan ini.",
 			"accepting": "Menerima...",
 			"acceptInvitation": "Terima Undangan",
@@ -262,7 +262,7 @@
 			}
 		},
 		"onboarding": {
-			"pageTitle": "Selamat datang di Kaneo",
+			"pageTitle": "Selamat datang di Kolab",
 			"workspacePageTitle": "Buat Ruang Kerja",
 			"createWorkspaceTitle": "Buat ruang kerja",
 			"createWorkspaceSubtitle": "Siapkan ruang kerja Anda untuk mulai mengelola proyek",
@@ -331,7 +331,7 @@
 		"notificationsPage": {
 			"pageTitle": "Notifikasi",
 			"title": "Notifikasi",
-			"subtitle": "Pilih cara Kaneo mengirim notifikasi akun Anda dan kanal yang digunakan.",
+			"subtitle": "Pilih cara Kolab mengirim notifikasi akun Anda dan kanal yang digunakan.",
 			"statusConnected": "Terhubung",
 			"statusPaused": "Dijeda",
 			"emailTitle": "Email",
@@ -364,10 +364,10 @@
 			"webhookDescription": "Kirim notifikasi akun ke endpoint Anda sendiri sebagai JSON.",
 			"endpointUrl": "URL endpoint",
 			"signingSecret": "Rahasia penandatanganan",
-			"webhookUrlPlaceholder": "https://example.com/webhooks/kaneo",
+			"webhookUrlPlaceholder": "https://example.com/webhooks/kolab",
 			"webhookSecretPlaceholder": "Kunci rahasia bersama (opsional)",
 			"webhookSecretHintConfigured": "Signing secret sudah dikonfigurasi ({{masked}}). Masukkan yang baru untuk menggantinya.",
-			"webhookSecretHintOptional": "Opsional. Kaneo mendeteksi dan menandatangani isi request jika secret dikonfigurasi.",
+			"webhookSecretHintOptional": "Opsional. Kolab mendeteksi dan menandatangani isi request jika secret dikonfigurasi.",
 			"connectWebhook": "Hubungkan webhook",
 			"workspaceRulesTitle": "Aturan pengiriman ruang kerja",
 			"workspaceRulesDescription": "Gunakan ulang kanal global Anda, lalu tentukan ruang kerja dan proyek mana yang boleh mengirim notifikasi akun.",
@@ -418,7 +418,7 @@
 		},
 		"preferencesPage": {
 			"title": "Preferensi",
-			"subtitle": "Sesuaikan pengalaman Kaneo Anda.",
+			"subtitle": "Sesuaikan pengalaman Kolab Anda.",
 			"appearanceTitle": "Tampilan",
 			"appearanceSubtitle": "Pengaturan visual dan preferensi tata letak.",
 			"theme": "Tema",
@@ -462,7 +462,7 @@
 			"title": "Pengaturan Pengembang",
 			"subtitle": "Kelola API key dan sumber daya pengembang Anda.",
 			"apiKeysCardTitle": "API Key",
-			"apiKeysCardDescription": "Buat dan kelola API key untuk akses terprogram ke Kaneo.",
+			"apiKeysCardDescription": "Buat dan kelola API key untuk akses terprogram ke Kolab.",
 			"createApiKey": "Buat API Key",
 			"unnamedKey": "Key Tanpa Nama"
 		},
@@ -501,7 +501,7 @@
 			},
 			"createDialog": {
 				"title": "Buat API Key",
-				"description": "Buat API key baru untuk mengakses API Kaneo secara terprogram.",
+				"description": "Buat API key baru untuk mengakses API Kolab secara terprogram.",
 				"nameLabel": "Nama",
 				"namePlaceholder": "API Key Saya",
 				"nameDescription": "Nama deskriptif untuk API key ini",
@@ -680,7 +680,7 @@
 				"removeError": "Gagal menghapus integrasi GitHub",
 				"issuesImported": "Issue berhasil diimpor",
 				"importError": "Gagal mengimpor issue",
-				"commentOnEnabled": "Kaneo akan berkomentar dengan tautan tugas pada issue baru",
+				"commentOnEnabled": "Kolab akan berkomentar dengan tautan tugas pada issue baru",
 				"commentOnDisabled": "Komentar tautan tugas pada issue baru dimatikan",
 				"settingsUpdateError": "Gagal memperbarui integrasi GitHub"
 			},
@@ -691,8 +691,8 @@
 			"badgeNotConnected": "Tidak Terhubung",
 			"repository": "Repositori",
 			"repositoryHint": "Repositori GitHub terhubung",
-			"commentTaskLinkTitle": "Komentari tautan Kaneo pada issue baru",
-			"commentTaskLinkHint": "Saat diaktifkan, Kaneo memposting komentar pada setiap issue GitHub baru dengan tautan ke tugas.",
+			"commentTaskLinkTitle": "Komentari tautan Kolab pada issue baru",
+			"commentTaskLinkHint": "Saat diaktifkan, Kolab memposting komentar pada setiap issue GitHub baru dengan tautan ke tugas.",
 			"appStatusTitle": "Status GitHub App",
 			"appStatusHint": "Status pemasangan dan izin",
 			"statusProperlyConfigured": "Dikonfigurasi dengan benar",
@@ -743,7 +743,7 @@
 				"removeError": "Gagal menghapus integrasi Gitea",
 				"issuesImported": "Issue berhasil diimpor",
 				"importError": "Gagal mengimpor issue",
-				"commentOnEnabled": "Kaneo akan berkomentar dengan tautan tugas pada issue baru",
+				"commentOnEnabled": "Kolab akan berkomentar dengan tautan tugas pada issue baru",
 				"commentOnDisabled": "Komentar tautan tugas pada issue baru dimatikan",
 				"settingsUpdateError": "Gagal memperbarui integrasi Gitea",
 				"secretCopied": "Disalin",
@@ -759,8 +759,8 @@
 			"badgeNotConnected": "Tidak terhubung",
 			"repository": "Repositori",
 			"repositoryHint": "Repositori Gitea tertaut",
-			"commentTaskLinkTitle": "Komentari tautan Kaneo pada issue baru",
-			"commentTaskLinkHint": "Saat diaktifkan, Kaneo memposting komentar pada setiap issue baru dengan tautan ke tugas.",
+			"commentTaskLinkTitle": "Komentari tautan Kolab pada issue baru",
+			"commentTaskLinkHint": "Saat diaktifkan, Kolab memposting komentar pada setiap issue baru dengan tautan ke tugas.",
 			"webhookTitle": "Webhook",
 			"webhookHint": "Di repositori Gitea Anda, tambahkan webhook dengan URL dan rahasia ini. Aktifkan push, pull request, issue, komentar issue, dan create (untuk label).",
 			"webhookSecretLabel": "Rahasia (harus sama dengan rahasia webhook di Gitea)",
@@ -884,15 +884,15 @@
 				"removeError": "Gagal menghapus integrasi webhook generik"
 			},
 			"connectionTitle": "Koneksi webhook keluar",
-			"connectionHint": "Kirim event tugas ke endpoint Anda sendiri sebagai JSON. Header X-Kaneo-Signature yang ditandatangani disertakan saat rahasia dikonfigurasi.",
+			"connectionHint": "Kirim event tugas ke endpoint Anda sendiri sebagai JSON. Header X-Kolab-Signature yang ditandatangani disertakan saat rahasia dikonfigurasi.",
 			"connected": "Terhubung",
 			"paused": "Dijeda",
 			"webhookLabel": "URL endpoint",
-			"webhookPlaceholder": "https://example.com/webhooks/kaneo",
-			"webhookHint": "Kaneo mengirim request POST dengan payload JSON untuk setiap event yang diaktifkan.",
+			"webhookPlaceholder": "https://example.com/webhooks/kolab",
+			"webhookHint": "Kolab mengirim request POST dengan payload JSON untuk setiap event yang diaktifkan.",
 			"secretLabel": "Rahasia penandatanganan",
 			"secretPlaceholder": "Rahasia bersama opsional",
-			"secretHint": "Opsional. Jika diberikan, Kaneo menandatangani body request dan mengirim digest hex di header X-Kaneo-Signature.",
+			"secretHint": "Opsional. Jika diberikan, Kolab menandatangani body request dan mengirim digest hex di header X-Kolab-Signature.",
 			"secretHintConfigured": "Rahasia penandatanganan sudah dikonfigurasi ({{secret}}). Masukkan yang baru untuk menggantinya.",
 			"eventsTitle": "Notifikasi event",
 			"eventsHint": "Pilih perubahan proyek yang harus memicu webhook keluar.",
@@ -944,7 +944,7 @@
 			"threadIdHint": "Opsional. Gunakan ini untuk topik forum di dalam grup Telegram.",
 			"chatLabelLabel": "Label chat",
 			"chatLabelPlaceholder": "Engineering Updates",
-			"chatLabelHint": "Label opsional untuk referensi Anda di Kaneo.",
+			"chatLabelHint": "Label opsional untuk referensi Anda di Kolab.",
 			"eventsTitle": "Notifikasi event",
 			"eventsHint": "Pilih perubahan proyek yang harus diposting ke Telegram.",
 			"events": {
@@ -1808,14 +1808,14 @@
 	},
 	"invitations": {
 		"email": {
-			"subject": "{{inviterName}} invited you to join {{workspaceName}} on Kaneo",
-			"preview": "You're invited to {{workspaceName}} on Kaneo",
+			"subject": "{{inviterName}} invited you to join {{workspaceName}} on Kolab",
+			"preview": "You're invited to {{workspaceName}} on Kolab",
 			"title": "Join {{workspaceName}}",
-			"subtitle": "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kaneo.",
+			"subtitle": "{{inviterName}} ({{inviterEmail}}) invited you to collaborate in Kolab.",
 			"cta": "Accept invitation",
 			"sameEmail": "You can accept with the same email that received this message.",
 			"ignore": "If this wasn't expected, you can safely ignore this email.",
-			"footer": "Kaneo workspace invitation"
+			"footer": "Kolab workspace invitation"
 		},
 		"pageTitle": "Undangan",
 		"pendingInvitations": "Undangan Tertunda",

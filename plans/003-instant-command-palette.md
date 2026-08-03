@@ -25,5 +25,5 @@ Add an `instant?: boolean` prop to the command dialog popup/overlay in `ui/comma
 
 ## Verification
 
-- Mechanical: `pnpm --filter @kaneo/web build`.
+- Mechanical: `pnpm --filter @kolab/web build`.
 - Feel: hit Cmd+K repeatedly — the palette appears/disappears with zero transition, like Raycast. Regular dialogs (create task) still animate.

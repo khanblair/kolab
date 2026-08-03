@@ -51,12 +51,12 @@ const MentionList = forwardRef<MentionListRef, MentionListProps>(
     if (items.length === 0) return null;
 
     return (
-      <div className="kaneo-mention-list">
+      <div className="kolab-mention-list">
         {items.map((item, index) => (
           <button
             type="button"
             key={item.id}
-            className={`kaneo-mention-item${index === selected ? " is-active" : ""}`}
+            className={`kolab-mention-item${index === selected ? " is-active" : ""}`}
             onClick={() => select(index)}
             onMouseEnter={() => setSelected(index)}
           >

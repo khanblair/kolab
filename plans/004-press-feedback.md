@@ -22,5 +22,5 @@ No interactive surface presses. `ui/button.tsx:34` variants change color/shadow 
 
 ## Verification
 
-- Mechanical: `pnpm --filter @kaneo/web build`.
+- Mechanical: `pnpm --filter @kolab/web build`.
 - Feel: click-and-hold any button — it compresses; release — it snaps back fast. Card press feels tactile, not bouncy. Keyboard activation (Enter/Space) shows the same pressed state via `data-pressed`.

@@ -1,18 +1,18 @@
 ---
-description: Overview of the Kaneo project structure, architecture, and key technologies
+description: Overview of the Kolab project structure, architecture, and key technologies
 globs: 
 alwaysApply: true
 ---
 # Project Overview
 
-Kaneo is a self-hosted project management platform built with a focus on simplicity and performance. This document provides an overview of the project structure and architecture.
+Kolab is a self-hosted project management platform built with a focus on simplicity and performance. This document provides an overview of the project structure and architecture.
 
 ## Project Structure
 
-Kaneo is organized as a **monorepo** using pnpm workspaces:
+Kolab is organized as a **monorepo** using pnpm workspaces:
 
 ```
-kaneo/
+kolab/
 ├── apps/
 │   ├── api/          # Backend API (Hono/Node.js)
 │   ├── docs/         # Documentation site (Next.js)
@@ -63,7 +63,7 @@ kaneo/
 1. **Install dependencies**: `pnpm install`
 2. **Start development**: `pnpm dev` (starts both API and web)
 3. **Lint code**: `pnpm lint` (runs Biome)
-4. **Database migrations**: `pnpm --filter @kaneo/api db:generate` and `db:migrate`
+4. **Database migrations**: `pnpm --filter @kolab/api db:generate` and `db:migrate`
 
 ## Environment Setup
 

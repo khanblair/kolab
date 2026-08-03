@@ -19,13 +19,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kaneo -d kaneo"]
+      test: ["CMD-SHELL", "pg_isready -U kolab -d kolab"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  kaneo:
-    image: ghcr.io/usekaneo/kaneo:latest
+  kolab:
+    image: ghcr.io/khanblair/kolab:latest
     ports:
       - "5173:5173"
     env_file:
@@ -47,10 +47,10 @@ volumes:
 
 ## The services and volumes
 
-Kaneo uses the following services:
+Kolab uses the following services:
 
 - `postgres`: The PostgreSQL database.
-- `kaneo`: The combined API and web container.
+- `kolab`: The combined API and web container.
 
 Additionally, the following volumes are used:
 
@@ -61,28 +61,28 @@ Additionally, the following volumes are used:
 Copy `.env.sample` to `.env` and uncomment or set these values:
 
 ```env
-KANEO_CLIENT_URL=http://localhost:5173
-POSTGRES_DB=kaneo
-POSTGRES_USER=kaneo
+KOLAB_CLIENT_URL=http://localhost:5173
+POSTGRES_DB=kolab
+POSTGRES_USER=kolab
 POSTGRES_PASSWORD=changeme
 AUTH_SECRET=                             # generate: openssl rand -hex 32
 ```
 
-`KANEO_API_URL` defaults to `KANEO_CLIENT_URL/api` — set it explicitly only if you need to override the default (e.g. a reverse proxy changes the path).
+`KOLAB_API_URL` defaults to `KOLAB_CLIENT_URL/api` — set it explicitly only if you need to override the default (e.g. a reverse proxy changes the path).
 
 This keeps the browser on one origin while the container proxies `/api` requests to the internal API process.
 
-For this Compose setup, the bundled Kaneo container reaches PostgreSQL at the service hostname `postgres`.
+For this Compose setup, the bundled Kolab container reaches PostgreSQL at the service hostname `postgres`.
 If you run the API directly on your host instead, use `localhost` or set `DATABASE_URL` explicitly.
 
 ## Notes on object storage
 
-Kaneo uses S3-compatible object storage for private uploads in task descriptions and comments.
+Kolab uses S3-compatible object storage for private uploads in task descriptions and comments.
 
-- Object storage is optional. Kaneo runs without it, but uploads in task descriptions and comments will be unavailable.
+- Object storage is optional. Kolab runs without it, but uploads in task descriptions and comments will be unavailable.
 - For local/self-hosted setups, MinIO is the recommended option when you want uploads.
-- The Kaneo API creates presigned upload URLs and the browser uploads files directly to the configured storage backend.
-- Kaneo serves uploaded assets back through its own API, so the bucket does not need to be public.
+- The Kolab API creates presigned upload URLs and the browser uploads files directly to the configured storage backend.
+- Kolab serves uploaded assets back through its own API, so the bucket does not need to be public.
 - If you do not configure object storage, leave the `S3_*` variables unset.
 - For a complete MinIO example and backend-specific setup notes, see the [storage backends guide](/core/installation/storage-backends).
 
@@ -117,7 +117,7 @@ MINIO_ROOT_USER=minioadmin
 MINIO_ROOT_PASSWORD=minioadmin
 
 S3_ENDPOINT=http://minio:9000
-S3_BUCKET=kaneo-uploads
+S3_BUCKET=kolab-uploads
 S3_ACCESS_KEY_ID=minioadmin
 S3_SECRET_ACCESS_KEY=minioadmin
 S3_REGION=us-east-1
@@ -128,7 +128,7 @@ Create the bucket before testing uploads. With MinIO, you can do that from the M
 
 ### Using `fs` instead of MinIO
 
-If you want to use [`fs`](https://github.com/ferdzo/fs), you can point the same `S3_*` variables at its endpoint instead of MinIO. Kaneo only needs an S3-compatible API endpoint, credentials, and a bucket.
+If you want to use [`fs`](https://github.com/ferdzo/fs), you can point the same `S3_*` variables at its endpoint instead of MinIO. Kolab only needs an S3-compatible API endpoint, credentials, and a bucket.
 
 When using `fs`, keep these differences in mind:
 

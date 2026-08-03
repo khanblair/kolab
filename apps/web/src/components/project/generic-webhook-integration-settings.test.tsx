@@ -54,7 +54,7 @@ describe("GenericWebhookIntegrationSettings", () => {
 
     fireEvent.change(
       screen.getByLabelText("settings:genericWebhookIntegration.webhookLabel"),
-      { target: { value: "https://example.com/hooks/kaneo" } },
+      { target: { value: "https://example.com/hooks/kolab" } },
     );
     fireEvent.click(
       screen.getByRole("switch", {
@@ -77,7 +77,7 @@ describe("GenericWebhookIntegrationSettings", () => {
       expect(createIntegration).toHaveBeenCalledWith({
         projectId: "project-1",
         data: expect.objectContaining({
-          webhookUrl: "https://example.com/hooks/kaneo",
+          webhookUrl: "https://example.com/hooks/kolab",
           dueDateReminderLeadTimeMinutes: 2880,
           events: expect.objectContaining({
             dueDateReminder: true,
@@ -97,7 +97,7 @@ describe("GenericWebhookIntegrationSettings", () => {
 
     fireEvent.change(
       screen.getByLabelText("settings:genericWebhookIntegration.webhookLabel"),
-      { target: { value: "https://example.com/hooks/kaneo" } },
+      { target: { value: "https://example.com/hooks/kolab" } },
     );
     for (const event of [
       "taskDeleted",
@@ -139,7 +139,7 @@ describe("GenericWebhookIntegrationSettings", () => {
 
     fireEvent.change(
       screen.getByLabelText("settings:genericWebhookIntegration.webhookLabel"),
-      { target: { value: "https://example.com/hooks/kaneo" } },
+      { target: { value: "https://example.com/hooks/kolab" } },
     );
     fireEvent.click(
       screen.getByRole("switch", {
@@ -167,7 +167,7 @@ describe("GenericWebhookIntegrationSettings", () => {
       expect(createIntegration).toHaveBeenCalledWith({
         projectId: "project-1",
         data: expect.objectContaining({
-          webhookUrl: "https://example.com/hooks/kaneo",
+          webhookUrl: "https://example.com/hooks/kolab",
           events: expect.objectContaining({ dueDateReminder: false }),
         }),
       }),

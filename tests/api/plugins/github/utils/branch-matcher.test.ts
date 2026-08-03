@@ -10,7 +10,7 @@ import {
 } from "../../../../../apps/api/src/plugins/github/utils/branch-matcher";
 
 const baseConfig: GitHubConfig = {
-  repositoryOwner: "kaneo",
+  repositoryOwner: "kolab",
   repositoryName: "api",
   installationId: 1,
   branchPattern: "{slug}-{number}",

@@ -56,17 +56,17 @@ describe("resolve-database-url", () => {
     process.env.POSTGRES_PASSWORD = "password";
     process.env.POSTGRES_HOST = "db.internal";
     process.env.POSTGRES_PORT = "6543";
-    process.env.POSTGRES_DB = "kaneo_dev";
-    process.env.POSTGRES_USER = "kaneo";
+    process.env.POSTGRES_DB = "kolab_dev";
+    process.env.POSTGRES_USER = "kolab";
 
     expect(resolveDatabaseConfig()).toMatchObject({
       connectionString:
-        "postgresql://kaneo:password@db.internal:6543/kaneo_dev",
+        "postgresql://kolab:password@db.internal:6543/kolab_dev",
       source: "POSTGRES_ENV",
       host: "db.internal",
       port: 6543,
-      database: "kaneo_dev",
-      username: "kaneo",
+      database: "kolab_dev",
+      username: "kolab",
     });
   });
 
@@ -74,25 +74,25 @@ describe("resolve-database-url", () => {
     process.env.POSTGRES_PASSWORD = "password";
 
     expect(resolveDatabaseConfig()).toMatchObject({
-      connectionString: "postgresql://kaneo:password@postgres:5432/kaneo",
+      connectionString: "postgresql://kolab:password@postgres:5432/kolab",
       source: "POSTGRES_ENV",
       host: "postgres",
       port: 5432,
-      database: "kaneo",
-      username: "kaneo",
+      database: "kolab",
+      username: "kolab",
     });
   });
 
   it("preserves the localhost fallback when only POSTGRES_DB and POSTGRES_USER are set", () => {
-    process.env.POSTGRES_DB = "kaneo";
-    process.env.POSTGRES_USER = "kaneo";
+    process.env.POSTGRES_DB = "kolab";
+    process.env.POSTGRES_USER = "kolab";
 
     expect(resolveDatabaseConfig()).toMatchObject({
-      connectionString: "postgresql://localhost:5432/kaneo",
+      connectionString: "postgresql://localhost:5432/kolab",
       source: "LOCAL_FALLBACK",
       host: "localhost",
       port: 5432,
-      database: "kaneo",
+      database: "kolab",
       username: "",
     });
   });

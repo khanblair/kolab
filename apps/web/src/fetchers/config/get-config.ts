@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 import type { InferResponseType } from "hono/client";
 
 export type GetConfigResponse = InferResponseType<

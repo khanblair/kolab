@@ -1,9 +1,9 @@
 ---
 name: verify
-description: Build/launch/drive recipe for verifying Kaneo changes end-to-end on a local dev instance
+description: Build/launch/drive recipe for verifying Kolab changes end-to-end on a local dev instance
 ---
 
-# Verifying Kaneo changes
+# Verifying Kolab changes
 
 ## Launch
 

@@ -8,7 +8,7 @@ import { SectionSeparator } from "@/components/landing/section-separator";
 export const metadata: Metadata = {
   title: "Pricing",
   description:
-    "Simple pricing for Kaneo Cloud. Self-hosting stays free and open source forever.",
+    "Simple pricing for Kolab Cloud. Self-hosting stays free and open source forever.",
   alternates: {
     canonical: "/pricing",
   },
@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 const notes = [
   {
-    title: "Already on Kaneo Cloud?",
+    title: "Already on Kolab Cloud?",
     body: "Accounts created before paid plans launched keep free access for at least 12 months, with 6 months notice before anything changes, and a full export or self-hosting path either way.",
   },
   {
@@ -26,7 +26,7 @@ const notes = [
   {
     title: "Questions?",
     body: "We answer billing and pricing questions at",
-    email: "support@kaneo.app",
+    email: "support@kolab.app",
   },
 ];
 
@@ -50,7 +50,7 @@ export default function PricingPage() {
               </FadeIn>
               <FadeIn delay={120}>
                 <p className="mt-5 text-balance text-foreground/70 text-lg leading-relaxed">
-                  Self-hosting is free forever. Kaneo Cloud starts with a 14-day
+                  Self-hosting is free forever. Kolab Cloud starts with a 14-day
                   free trial, no credit card required.
                 </p>
               </FadeIn>

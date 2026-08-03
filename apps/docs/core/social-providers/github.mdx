@@ -1,22 +1,22 @@
 ---
 title: GitHub
-description: GitHub is a social provider for Kaneo.
+description: GitHub is a social provider for Kolab.
 ---
 
 ## Overview
 
-GitHub is a social provider for Kaneo. It allows users to sign in to Kaneo using their GitHub account.
+GitHub is a social provider for Kolab. It allows users to sign in to Kolab using their GitHub account.
 
 ## Configuration
 
 1. Go to the [GitHub Developer Settings](https://github.com/settings/developers/).
 2. Create a new OAuth app.
-3. Set the redirect URI to `KANEO_API_URL/api/auth/callback/github`.
+3. Set the redirect URI to `KOLAB_API_URL/api/auth/callback/github`.
 4. Copy the client ID and client secret.
 5. Set `GITHUB_OAUTH_CLIENT_ID` and `GITHUB_OAUTH_CLIENT_SECRET` (or the legacy `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` if you prefer).
 
-For more information on what your `KANEO_API_URL` is, see the [Environment variables](/core/installation/environment-variables#github-sso) page.
+For more information on what your `KOLAB_API_URL` is, see the [Environment variables](/core/installation/environment-variables#github-sso) page.
 
 ## Usage
 
-Once you have configured the social provider, you can sign in to Kaneo using your GitHub account.
+Once you have configured the social provider, you can sign in to Kolab using your GitHub account.

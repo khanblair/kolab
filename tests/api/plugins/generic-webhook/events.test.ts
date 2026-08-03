@@ -39,14 +39,14 @@ const context = {
   integrationId: "integration-1",
   projectId: "project-1",
   config: {
-    webhookUrl: "https://example.com/hooks/kaneo",
+    webhookUrl: "https://example.com/hooks/kolab",
   },
 };
 
 const enabledContext = {
   ...context,
   config: {
-    webhookUrl: "https://example.com/hooks/kaneo",
+    webhookUrl: "https://example.com/hooks/kolab",
     events: { taskDeleted: true },
   },
 };
@@ -101,7 +101,7 @@ describe("generic webhook event handlers", () => {
 
     expect(postToGenericWebhook).toHaveBeenCalledTimes(1);
     const [url, payload] = vi.mocked(postToGenericWebhook).mock.calls[0] ?? [];
-    expect(url).toBe("https://example.com/hooks/kaneo");
+    expect(url).toBe("https://example.com/hooks/kolab");
     expect(payload).toMatchObject({
       event: "task.deleted",
       integration: { type: "generic-webhook" },

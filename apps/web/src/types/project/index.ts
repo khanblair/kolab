@@ -1,4 +1,4 @@
-import type { client } from "@kaneo/libs";
+import type { client } from "@kolab/libs";
 import type { InferResponseType } from "hono/client";
 import type Task from "@/types/task";
 

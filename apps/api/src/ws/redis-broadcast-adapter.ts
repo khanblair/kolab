@@ -2,7 +2,7 @@ import * as v from "valibot";
 import { closeRedis, getRedisPub, getRedisSub } from "../redis";
 import type { BroadcastAdapter, BroadcastMessage } from "./broadcast-adapter";
 
-const CHANNEL_PREFIX = "kaneo:ws:";
+const CHANNEL_PREFIX = "kolab:ws:";
 const CHANNEL_SUFFIX = ":broadcast";
 const CHANNEL_PATTERN = `${CHANNEL_PREFIX}*${CHANNEL_SUFFIX}`;
 

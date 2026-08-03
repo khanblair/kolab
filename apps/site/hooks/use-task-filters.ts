@@ -50,7 +50,7 @@ export function useTaskFilters(
   project: ProjectWithTasks | null | undefined,
   projectId?: string,
 ) {
-  const storageKey = projectId ? `kaneo:board-filters:${projectId}` : null;
+  const storageKey = projectId ? `kolab:board-filters:${projectId}` : null;
   const [filters, setFilters] = useState<BoardFilters>(DEFAULT_FILTERS);
 
   useEffect(() => {

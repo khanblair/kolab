@@ -15,7 +15,7 @@ export async function promptTargetSelect(): Promise<InstallTargetId[]> {
     {
       type: "multiselect",
       name: "targets",
-      message: "Where should Kaneo register this MCP server?",
+      message: "Where should Kolab register this MCP server?",
       choices: INSTALL_TARGETS.map((t) => ({
         title: t.label,
         description: t.description,

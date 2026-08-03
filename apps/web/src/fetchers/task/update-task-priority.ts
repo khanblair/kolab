@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 import type Task from "@/types/task";
 
 async function updateTaskPriority(taskId: string, task: Task) {

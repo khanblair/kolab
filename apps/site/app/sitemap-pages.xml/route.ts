@@ -1,6 +1,6 @@
 export const dynamic = "force-static";
 
-const SITE = "https://kaneo.app";
+const SITE = "https://kolab.app";
 
 export function GET() {
   const lastmod = new Date().toISOString();

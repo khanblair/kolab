@@ -5,7 +5,7 @@ alwaysApply: false
 ---
 # Frontend Web Guidelines
 
-The Kaneo web application is built with React, TanStack Router, TanStack Query, and Vite. This document outlines conventions and patterns for frontend development.
+The Kolab web application is built with React, TanStack Router, TanStack Query, and Vite. This document outlines conventions and patterns for frontend development.
 
 ## Framework: React
 

@@ -4,7 +4,7 @@ import { Footer } from "@/components/landing/footer";
 import { Navbar } from "@/components/landing/navbar";
 import { SectionSeparator } from "@/components/landing/section-separator";
 
-const SIGN_UP = "https://cloud.kaneo.app/auth/sign-up";
+const SIGN_UP = "https://cloud.kolab.app/auth/sign-up";
 
 type Cell = boolean | string;
 
@@ -12,7 +12,7 @@ export type Comparison = {
   competitor: string;
   heading: string;
   subheading: string;
-  rows: { feature: string; kaneo: Cell; them: Cell }[];
+  rows: { feature: string; kolab: Cell; them: Cell }[];
   reasons: { title: string; body: string }[];
   honestNote: string;
 };
@@ -47,7 +47,7 @@ export function ComparisonPage({ data }: { data: Comparison }) {
             <div className="max-w-2xl">
               <FadeIn delay={0}>
                 <p className="font-medium text-primary text-sm">
-                  Kaneo vs {data.competitor}
+                  Kolab vs {data.competitor}
                 </p>
               </FadeIn>
               <FadeIn delay={60}>
@@ -83,7 +83,7 @@ export function ComparisonPage({ data }: { data: Comparison }) {
                 <div className="grid grid-cols-[1.4fr_1fr_1fr] text-sm">
                   <div className="border-border/50 border-b px-4 py-3 font-medium sm:px-6" />
                   <div className="border-border/50 border-b bg-primary/5 px-4 py-3 text-center font-medium sm:px-6">
-                    Kaneo
+                    Kolab
                   </div>
                   <div className="border-border/50 border-b px-4 py-3 text-center font-medium text-foreground/70 sm:px-6">
                     {data.competitor}
@@ -95,7 +95,7 @@ export function ComparisonPage({ data }: { data: Comparison }) {
                         {row.feature}
                       </div>
                       <div className="flex items-center justify-center border-border/40 border-b bg-primary/5 px-4 py-3 text-center sm:px-6">
-                        <CellValue value={row.kaneo} emphasize />
+                        <CellValue value={row.kolab} emphasize />
                       </div>
                       <div className="flex items-center justify-center border-border/40 border-b px-4 py-3 text-center sm:px-6">
                         <CellValue value={row.them} />
@@ -112,7 +112,7 @@ export function ComparisonPage({ data }: { data: Comparison }) {
           <section className="px-6 py-14 md:py-20">
             <div className="mx-auto w-full max-w-6xl">
               <h2 className="max-w-2xl text-2xl font-medium md:text-3xl">
-                Why teams choose Kaneo
+                Why teams choose Kolab
               </h2>
               <div className="mt-8 grid gap-8 md:grid-cols-3">
                 {data.reasons.map((reason) => (
@@ -139,7 +139,7 @@ export function ComparisonPage({ data }: { data: Comparison }) {
                   className="inline-flex h-10 items-center justify-center rounded-lg border border-transparent bg-primary px-4 font-medium text-primary-foreground text-sm transition-colors hover:bg-primary/90"
                   href={SIGN_UP}
                 >
-                  Try Kaneo Cloud free
+                  Try Kolab Cloud free
                 </a>
                 <a
                   className="inline-flex h-10 items-center justify-center rounded-lg border border-border bg-transparent px-4 font-medium text-sm transition-colors hover:bg-accent"

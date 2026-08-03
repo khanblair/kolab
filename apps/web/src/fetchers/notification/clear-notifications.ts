@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 async function clearNotifications() {
   const response = await client.notification["clear-all"].$delete();

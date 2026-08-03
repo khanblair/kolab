@@ -1,7 +1,7 @@
 {
 	"$schema": "https://json-schema.org/draft/2020-12/schema",
-	"$id": "https://kaneo.app/i18n/schema.json",
-	"title": "Kaneo locale schema",
+	"$id": "https://kolab.app/i18n/schema.json",
+	"title": "Kolab locale schema",
 	"type": "object",
 	"additionalProperties": false,
 	"properties": {
@@ -293,7 +293,7 @@
 							"type": "object",
 							"additionalProperties": false,
 							"properties": {
-								"breadcrumbKaneo": {
+								"breadcrumbKolab": {
 									"type": "string"
 								},
 								"title": {
@@ -319,7 +319,7 @@
 								}
 							},
 							"required": [
-								"breadcrumbKaneo",
+								"breadcrumbKolab",
 								"title",
 								"description",
 								"namePlaceholder",

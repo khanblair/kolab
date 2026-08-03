@@ -12,11 +12,11 @@ type MentionSuggestionOptions = {
 };
 
 // Adds an @-triggered autocomplete of workspace members to an editor. On select
-// it inserts a `kaneoMention` node (which round-trips through Markdown). Built on
+// it inserts a `kolabMention` node (which round-trips through Markdown). Built on
 // @tiptap/suggestion so it stays self-contained and does not touch the editor's
 // own keyboard/menu handling.
 export const MentionSuggestion = Extension.create<MentionSuggestionOptions>({
-  name: "kaneoMentionSuggestion",
+  name: "kolabMentionSuggestion",
 
   addOptions() {
     return { getMembers: () => [] };
@@ -27,7 +27,7 @@ export const MentionSuggestion = Extension.create<MentionSuggestionOptions>({
 
     const suggestion: Omit<SuggestionOptions, "editor"> = {
       char: "@",
-      pluginKey: new PluginKey("kaneoMentionSuggestion"),
+      pluginKey: new PluginKey("kolabMentionSuggestion"),
       allowSpaces: false,
       items: ({ query }) => {
         const q = query.toLowerCase();
@@ -42,7 +42,7 @@ export const MentionSuggestion = Extension.create<MentionSuggestionOptions>({
           .focus()
           .insertContentAt(range, [
             {
-              type: "kaneoMention",
+              type: "kolabMention",
               attrs: { id: member.id, label: member.label },
             },
             { type: "text", text: " " },
@@ -68,7 +68,7 @@ export const MentionSuggestion = Extension.create<MentionSuggestionOptions>({
               editor: props.editor,
             });
             popup = document.createElement("div");
-            popup.className = "kaneo-mention-popup";
+            popup.className = "kolab-mention-popup";
             popup.appendChild(component.element);
             document.body.appendChild(popup);
             place(props.clientRect);

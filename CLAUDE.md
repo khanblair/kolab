@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-Kaneo is a self-hosted project management platform built with simplicity and performance as core principles. The codebase is organized as a **pnpm monorepo** with TurboRepo.
+Kolab is a self-hosted project management platform built with simplicity and performance as core principles. The codebase is organized as a **pnpm monorepo** with TurboRepo.
 
 **Key Philosophy**: Features exist to solve real problems, not to impress. Avoid over-engineering - keep solutions simple and focused. Don't add features, refactoring, or improvements beyond what was asked.
 
@@ -28,44 +28,44 @@ pnpm build
 ### API-Specific Commands
 ```bash
 # Run API in development mode
-pnpm --filter @kaneo/api dev
+pnpm --filter @kolab/api dev
 
 # Build API
-pnpm --filter @kaneo/api build
+pnpm --filter @kolab/api build
 
 # Generate database migrations (after schema changes)
-pnpm --filter @kaneo/api db:generate
+pnpm --filter @kolab/api db:generate
 
 # Run database migrations (auto-runs on API startup)
-pnpm --filter @kaneo/api db:migrate
+pnpm --filter @kolab/api db:migrate
 
 # Open Drizzle Studio (database GUI)
-pnpm --filter @kaneo/api db:studio
+pnpm --filter @kolab/api db:studio
 
 # Lint API code
-pnpm --filter @kaneo/api lint
+pnpm --filter @kolab/api lint
 ```
 
 ### Web-Specific Commands
 ```bash
 # Run web app in development mode
-pnpm --filter @kaneo/web dev
+pnpm --filter @kolab/web dev
 
 # Build web app for production
-pnpm --filter @kaneo/web build
+pnpm --filter @kolab/web build
 
 # Preview production build
-pnpm --filter @kaneo/web preview
+pnpm --filter @kolab/web preview
 
 # Lint web code
-pnpm --filter @kaneo/web lint
+pnpm --filter @kolab/web lint
 ```
 
 ## Architecture Overview
 
 ### Monorepo Structure
 ```
-kaneo/
+kolab/
 ├── apps/
 │   ├── api/          # Backend API (Hono/Node.js/PostgreSQL)
 │   ├── web/          # Frontend app (React/Vite/TanStack)
@@ -174,8 +174,8 @@ Commits will be slow due to the build step. Ensure code compiles before committi
 **Single `.env` file** in project root shared by all apps.
 
 Required variables:
-- `KANEO_CLIENT_URL` - Web app URL (e.g., http://localhost:5173)
-- `KANEO_API_URL` - API URL (e.g., http://localhost:1337)
+- `KOLAB_CLIENT_URL` - Web app URL (e.g., http://localhost:5173)
+- `KOLAB_API_URL` - API URL (e.g., http://localhost:1337)
 - `AUTH_SECRET` - JWT secret (min 32 chars)
 - `DATABASE_URL` - PostgreSQL connection string
 - `POSTGRES_DB`, `POSTGRES_USER`, `POSTGRES_PASSWORD`
@@ -203,7 +203,7 @@ See `ENVIRONMENT_SETUP.md` for detailed configuration and troubleshooting.
 ### Database Changes
 
 1. Modify schema in `apps/api/src/database/schema.ts`
-2. Generate migration: `pnpm --filter @kaneo/api db:generate`
+2. Generate migration: `pnpm --filter @kolab/api db:generate`
 3. Migration auto-runs on next API startup
 4. Always use CUID2 for IDs, include timestamps, specify cascade behavior
 

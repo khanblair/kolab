@@ -4,7 +4,7 @@ description: Learn how to authenticate API requests using API keys or the device
 ---
 
 
-All API endpoints require authentication. Kaneo currently supports two authentication patterns for API access:
+All API endpoints require authentication. Kolab currently supports two authentication patterns for API access:
 
 - API keys for scripts, services, and long-lived integrations
 - Device authorization for CLIs and external apps that need browser-based sign-in
@@ -13,21 +13,21 @@ All API endpoints require authentication. Kaneo currently supports two authentic
 
 ### API keys
 
-Use API keys when you control secret storage and want a stable credential for a single Kaneo instance.
+Use API keys when you control secret storage and want a stable credential for a single Kolab instance.
 
 ### Device authorization
 
 Use the device flow when you are building a CLI, desktop app, or other client that should send the user to the browser to approve access.
 
-The device flow follows RFC 8628 and returns a Bearer token that can be used against that Kaneo instance's API.
+The device flow follows RFC 8628 and returns a Bearer token that can be used against that Kolab instance's API.
 
 ## Creating an API Key
 
 <Steps>
 <Step>
-**Sign in to Kaneo**
+**Sign in to Kolab**
 
-Sign in to your Kaneo instance using your account credentials.
+Sign in to your Kolab instance using your account credentials.
 </Step>
 
 <Step>
@@ -78,7 +78,7 @@ Authorization: Bearer your-api-key-here
 Here's an example of making an authenticated API request using curl:
 
 ```bash
-curl -X GET https://your-kaneo-instance.com/api/task?workspaceId=your-workspace-id \
+curl -X GET https://your-kolab-instance.com/api/task?workspaceId=your-workspace-id \
   -H "Authorization: Bearer your-api-key-here" \
   -H "Content-Type: application/json"
 ```
@@ -86,7 +86,7 @@ curl -X GET https://your-kaneo-instance.com/api/task?workspaceId=your-workspace-
 ### Example with JavaScript
 
 ```javascript
-const response = await fetch('https://your-kaneo-instance.com/api/task?workspaceId=your-workspace-id', {
+const response = await fetch('https://your-kolab-instance.com/api/task?workspaceId=your-workspace-id', {
   method: 'GET',
   headers: {
     'Authorization': 'Bearer your-api-key-here',
@@ -97,14 +97,14 @@ const response = await fetch('https://your-kaneo-instance.com/api/task?workspace
 
 ## Using Device Authorization
 
-By default, self-hosted Kaneo allows the built-in device clients `kaneo-cli` and `kaneo-mcp`.
+By default, self-hosted Kolab allows the built-in device clients `kolab-cli` and `kolab-mcp`.
 
 If you want to use a different device client ID, the instance operator must allow it through `DEVICE_AUTH_CLIENT_IDS`.
 
 ### Flow overview
 
 1. Your app requests a device code from `/api/auth/device/code`
-2. Kaneo returns a `device_code`, `user_code`, polling interval, and verification URL
+2. Kolab returns a `device_code`, `user_code`, polling interval, and verification URL
 3. The user opens the verification URL in a browser and signs in
 4. The user approves the request
 5. Your app polls `/api/auth/device/token` until an access token is issued
@@ -113,7 +113,7 @@ If you want to use a different device client ID, the instance operator must allo
 ### Request a device code
 
 ```bash
-curl -X POST https://your-kaneo-instance.com/api/auth/device/code \
+curl -X POST https://your-kolab-instance.com/api/auth/device/code \
   -H "Content-Type: application/json" \
   -d '{"client_id":"your-app-id"}'
 ```
@@ -124,8 +124,8 @@ Example response:
 {
   "device_code": "dev_123",
   "user_code": "ABCD-1234",
-  "verification_uri": "https://your-kaneo-instance.com/device",
-  "verification_uri_complete": "https://your-kaneo-instance.com/device?user_code=ABCD-1234",
+  "verification_uri": "https://your-kolab-instance.com/device",
+  "verification_uri_complete": "https://your-kolab-instance.com/device?user_code=ABCD-1234",
   "interval": 5,
   "expires_in": 600
 }
@@ -134,7 +134,7 @@ Example response:
 ### Poll for a token
 
 ```bash
-curl -X POST https://your-kaneo-instance.com/api/auth/device/token \
+curl -X POST https://your-kolab-instance.com/api/auth/device/token \
   -H "Content-Type: application/json" \
   -d '{
     "grant_type":"urn:ietf:params:oauth:grant-type:device_code",
@@ -143,14 +143,14 @@ curl -X POST https://your-kaneo-instance.com/api/auth/device/token \
   }'
 ```
 
-While waiting for approval, Kaneo may return:
+While waiting for approval, Kolab may return:
 
 - `authorization_pending`
 - `slow_down`
 - `invalid_client`
 - `expired_token`
 
-Once approved, Kaneo returns an access token:
+Once approved, Kolab returns an access token:
 
 ```json
 {
@@ -162,7 +162,7 @@ Once approved, Kaneo returns an access token:
 ### Use the returned token
 
 ```bash
-curl -X GET https://your-kaneo-instance.com/api/task?workspaceId=your-workspace-id \
+curl -X GET https://your-kolab-instance.com/api/task?workspaceId=your-workspace-id \
   -H "Authorization: Bearer your-access-token"
 ```
 

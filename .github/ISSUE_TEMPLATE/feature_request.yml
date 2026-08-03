@@ -1,12 +1,12 @@
 name: "Feature request"
-description: "Suggest an idea for Kaneo"
+description: "Suggest an idea for Kolab"
 title: "feat: "
 labels: ["enhancement"]
 body:
   - type: markdown
     attributes:
       value: |
-        Thanks for taking the time to suggest a feature for **Kaneo**! 🎯
+        Thanks for taking the time to suggest a feature for **Kolab**! 🎯
         Please fill out the sections below to help us understand your idea.
 
   - type: textarea
@@ -45,7 +45,7 @@ body:
   - type: textarea
     id: simplicity
     attributes:
-      label: "Does this feature align with Kaneo's focus on simplicity?"
+      label: "Does this feature align with Kolab's focus on simplicity?"
       description: "Yes/No, because..."
     validations:
       required: true

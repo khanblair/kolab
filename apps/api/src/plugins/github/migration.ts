@@ -142,7 +142,7 @@ async function migrateTaskLinks() {
         title: null,
         metadata: JSON.stringify({
           migrated: true,
-          createdFrom: linkType === "Created from" ? "github" : "kaneo",
+          createdFrom: linkType === "Created from" ? "github" : "kolab",
         }),
       });
       linksCreated++;

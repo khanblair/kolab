@@ -1,8 +1,8 @@
 import type { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 import type { CallToolResult } from "@modelcontextprotocol/sdk/types.js";
 import { z } from "zod";
-import type { KaneoClient } from "../kaneo/client.js";
-import { buildFullTaskUpdateBody } from "../kaneo/task-helpers.js";
+import type { KolabClient } from "../kolab/client.js";
+import { buildFullTaskUpdateBody } from "../kolab/task-helpers.js";
 import { errorResult, textResult } from "../utils/mcp-result.js";
 
 const prioritySchema = z.enum([
@@ -38,7 +38,7 @@ function run(fn: () => Promise<unknown>): Promise<CallToolResult> {
 
 export function registerTools(
   server: McpServer,
-  ctx: { client: KaneoClient },
+  ctx: { client: KolabClient },
 ): void {
   const { client } = ctx;
 
@@ -46,7 +46,7 @@ export function registerTools(
     "whoami",
     {
       description:
-        "Return the current Kaneo session and user for the cached device token.",
+        "Return the current Kolab session and user for the cached device token.",
       inputSchema: z.object({}),
     },
     async () =>

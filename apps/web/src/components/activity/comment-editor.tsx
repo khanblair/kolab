@@ -39,8 +39,8 @@ import { useTranslation } from "react-i18next";
 import { bundledLanguages, type Highlighter } from "shiki";
 import { AttachmentCard } from "@/components/task/extensions/attachment-card";
 import { EmbedBlock } from "@/components/task/extensions/embed-block";
-import { KaneoIssueLink } from "@/components/task/extensions/kaneo-issue-link";
-import { KaneoMention } from "@/components/task/extensions/kaneo-mention";
+import { KolabIssueLink } from "@/components/task/extensions/kolab-issue-link";
+import { KolabMention } from "@/components/task/extensions/kolab-mention";
 import type { MentionMember } from "@/components/task/extensions/mention-list";
 import { MentionSuggestion } from "@/components/task/extensions/mention-suggestion";
 import {
@@ -600,7 +600,7 @@ export default function CommentEditor({
           heading: { levels: [1, 2, 3] },
           trailingNode: false,
           codeBlock: {
-            HTMLAttributes: { class: "kaneo-tiptap-codeblock" },
+            HTMLAttributes: { class: "kolab-tiptap-codeblock" },
           },
         }),
         Link.configure({
@@ -623,15 +623,15 @@ export default function CommentEditor({
         }),
         EmbedBlock,
         AttachmentCard,
-        KaneoIssueLink,
-        KaneoMention,
+        KolabIssueLink,
+        KolabMention,
         MentionSuggestion.configure({
           getMembers: () => mentionMembersRef.current,
         }),
         TaskList,
         Image.configure({
           HTMLAttributes: {
-            class: "kaneo-editor-image",
+            class: "kolab-editor-image",
             loading: "lazy",
           },
         }),
@@ -651,8 +651,8 @@ export default function CommentEditor({
       editorProps: {
         attributes: {
           class: cn(
-            proseClassName || "kaneo-comment-editor-prose",
-            readOnly && "kaneo-comment-editor-prose-readonly",
+            proseClassName || "kolab-comment-editor-prose",
+            readOnly && "kolab-comment-editor-prose-readonly",
           ),
         },
         handlePaste: (view, event) => {
@@ -695,7 +695,7 @@ export default function CommentEditor({
             event.preventDefault();
             view.dispatch(
               view.state.tr.replaceSelectionWith(
-                view.state.schema.nodes.kaneoIssueLink.create({
+                view.state.schema.nodes.kolabIssueLink.create({
                   url,
                   issueKey: issueKey || "",
                   taskId: taskIdFromUrl || "",
@@ -941,7 +941,7 @@ export default function CommentEditor({
     const handleImagePreviewClick = (event: MouseEvent) => {
       const target = event.target as HTMLElement | null;
       if (!(target instanceof HTMLImageElement)) return;
-      if (!target.classList.contains("kaneo-editor-image")) return;
+      if (!target.classList.contains("kolab-editor-image")) return;
 
       event.preventDefault();
       setPreviewImage({
@@ -1338,9 +1338,9 @@ export default function CommentEditor({
     (event: ReactMouseEvent<HTMLElement>) => {
       if (disabled) return;
       const target = event.target as HTMLElement;
-      if (target.closest(".kaneo-codeblock-language")) return;
+      if (target.closest(".kolab-codeblock-language")) return;
       const hovered = target.closest(
-        "pre.kaneo-tiptap-codeblock",
+        "pre.kolab-tiptap-codeblock",
       ) as HTMLElement | null;
 
       if (!hovered) {
@@ -1363,7 +1363,7 @@ export default function CommentEditor({
   const handleEditorMouseLeave = useCallback(
     (event: ReactMouseEvent<HTMLElement>) => {
       const relatedTarget = event.relatedTarget as HTMLElement | null;
-      if (relatedTarget?.closest(".kaneo-codeblock-language")) return;
+      if (relatedTarget?.closest(".kolab-codeblock-language")) return;
       if (isCodeLanguageMenuOpen) return;
 
       if (codeLanguageHideTimeoutRef.current !== null) {
@@ -1373,7 +1373,7 @@ export default function CommentEditor({
       codeLanguageHideTimeoutRef.current = window.setTimeout(() => {
         codeLanguageHideTimeoutRef.current = null;
         const pickerIsHovered = Boolean(
-          document.querySelector(".kaneo-codeblock-language:hover"),
+          document.querySelector(".kolab-codeblock-language:hover"),
         );
         if (pickerIsHovered || isCodeLanguageMenuOpen) return;
 
@@ -1427,9 +1427,9 @@ export default function CommentEditor({
           : t("activity:comment.editor.ariaCommentEditor")
       }
       className={cn(
-        "kaneo-comment-editor-shell",
+        "kolab-comment-editor-shell",
         isDragActive && "is-drag-active",
-        readOnly && "kaneo-comment-editor-shell-readonly",
+        readOnly && "kolab-comment-editor-shell-readonly",
         className,
       )}
       onDragEnter={handleShellDragEnter}
@@ -1460,7 +1460,7 @@ export default function CommentEditor({
       )}
       {editor && hoveredCodeBlock && !disabled && (
         <div
-          className="kaneo-codeblock-language"
+          className="kolab-codeblock-language"
           style={{
             top: hoveredCodeBlock.top,
             left: hoveredCodeBlock.left,
@@ -1469,7 +1469,7 @@ export default function CommentEditor({
         >
           <button
             type="button"
-            className="kaneo-codeblock-language-trigger kaneo-codeblock-copy-trigger"
+            className="kolab-codeblock-language-trigger kolab-codeblock-copy-trigger"
             aria-label={
               isCodeCopied
                 ? t("activity:comment.editor.ariaCopied")
@@ -1501,7 +1501,7 @@ export default function CommentEditor({
               <DropdownMenuTrigger asChild>
                 <button
                   type="button"
-                  className="kaneo-codeblock-language-trigger"
+                  className="kolab-codeblock-language-trigger"
                 >
                   <span className="truncate">{activeCodeLanguageLabel}</span>
                   <ChevronDown className="size-3.5 opacity-70" />
@@ -1535,7 +1535,7 @@ export default function CommentEditor({
       {editor && !readOnly && !disabled && showBubbleMenu && (
         <BubbleMenu
           editor={editor}
-          className="kaneo-comment-editor-bubble"
+          className="kolab-comment-editor-bubble"
           shouldShow={({ editor: activeEditor, from, to }) => {
             if (activeEditor.isActive("embedBlock")) return false;
             if (activeEditor.isActive("image")) return false;
@@ -1548,7 +1548,7 @@ export default function CommentEditor({
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               editor.isActive("bold") && "bg-accent text-accent-foreground",
             )}
             onClick={() => editor.chain().focus().toggleBold().run()}
@@ -1560,7 +1560,7 @@ export default function CommentEditor({
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               editor.isActive("italic") && "bg-accent text-accent-foreground",
             )}
             onClick={() => editor.chain().focus().toggleItalic().run()}
@@ -1572,7 +1572,7 @@ export default function CommentEditor({
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               editor.isActive("underline") &&
                 "bg-accent text-accent-foreground",
             )}
@@ -1585,7 +1585,7 @@ export default function CommentEditor({
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               editor.isActive("bulletList") &&
                 "bg-accent text-accent-foreground",
             )}
@@ -1598,7 +1598,7 @@ export default function CommentEditor({
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               editor.isActive("taskList") && "bg-accent text-accent-foreground",
             )}
             onClick={() => editor.chain().focus().toggleTaskList().run()}
@@ -1610,7 +1610,7 @@ export default function CommentEditor({
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               editor.isActive("orderedList") &&
                 "bg-accent text-accent-foreground",
             )}
@@ -1623,7 +1623,7 @@ export default function CommentEditor({
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               editor.isActive("link") && "bg-accent text-accent-foreground",
             )}
             onClick={setLink}
@@ -1634,7 +1634,7 @@ export default function CommentEditor({
             type="button"
             variant="ghost"
             size="xs"
-            className="kaneo-comment-editor-bubble-btn"
+            className="kolab-comment-editor-bubble-btn"
             onClick={() => openImagePicker(editor)}
           >
             <Paperclip className="size-3.5" />
@@ -1644,8 +1644,8 @@ export default function CommentEditor({
       {editor && !readOnly && !disabled && showBubbleMenu && (
         <BubbleMenu
           editor={editor}
-          pluginKey="kaneo-comment-table-bubble"
-          className="kaneo-comment-editor-bubble"
+          pluginKey="kolab-comment-table-bubble"
+          className="kolab-comment-editor-bubble"
           shouldShow={({ editor: activeEditor, from, to }) =>
             activeEditor.isActive("table") && from === to
           }
@@ -1654,7 +1654,7 @@ export default function CommentEditor({
             type="button"
             variant="ghost"
             size="xs"
-            className="kaneo-comment-editor-bubble-btn"
+            className="kolab-comment-editor-bubble-btn"
             title={t("activity:comment.editor.table.addColumnBefore", {
               defaultValue: "Insert column left",
             })}
@@ -1666,7 +1666,7 @@ export default function CommentEditor({
             type="button"
             variant="ghost"
             size="xs"
-            className="kaneo-comment-editor-bubble-btn"
+            className="kolab-comment-editor-bubble-btn"
             title={t("activity:comment.editor.table.addColumnAfter", {
               defaultValue: "Insert column right",
             })}
@@ -1679,7 +1679,7 @@ export default function CommentEditor({
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               "text-destructive",
             )}
             title={t("activity:comment.editor.table.deleteColumn", {
@@ -1689,12 +1689,12 @@ export default function CommentEditor({
           >
             <Columns3 className="size-3.5" />
           </Button>
-          <span className="kaneo-tiptap-bubble-separator" />
+          <span className="kolab-tiptap-bubble-separator" />
           <Button
             type="button"
             variant="ghost"
             size="xs"
-            className="kaneo-comment-editor-bubble-btn"
+            className="kolab-comment-editor-bubble-btn"
             title={t("activity:comment.editor.table.addRowBefore", {
               defaultValue: "Insert row above",
             })}
@@ -1706,7 +1706,7 @@ export default function CommentEditor({
             type="button"
             variant="ghost"
             size="xs"
-            className="kaneo-comment-editor-bubble-btn"
+            className="kolab-comment-editor-bubble-btn"
             title={t("activity:comment.editor.table.addRowAfter", {
               defaultValue: "Insert row below",
             })}
@@ -1719,7 +1719,7 @@ export default function CommentEditor({
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               "text-destructive",
             )}
             title={t("activity:comment.editor.table.deleteRow", {
@@ -1729,13 +1729,13 @@ export default function CommentEditor({
           >
             <Rows3 className="size-3.5" />
           </Button>
-          <span className="kaneo-tiptap-bubble-separator" />
+          <span className="kolab-tiptap-bubble-separator" />
           <Button
             type="button"
             variant="ghost"
             size="xs"
             className={cn(
-              "kaneo-comment-editor-bubble-btn",
+              "kolab-comment-editor-bubble-btn",
               "text-destructive",
             )}
             title={t("activity:comment.editor.table.deleteTable", {
@@ -1749,7 +1749,7 @@ export default function CommentEditor({
       )}
       {slashMenu && !readOnly && !disabled && (
         <div
-          className="kaneo-tiptap-slash-menu"
+          className="kolab-tiptap-slash-menu"
           style={{
             top: slashMenu.top,
             left: slashMenu.left,
@@ -1760,8 +1760,8 @@ export default function CommentEditor({
             groupedSlashCommands.map((group) => {
               if (!group.items.length) return null;
               return (
-                <div key={group.title} className="kaneo-tiptap-slash-group">
-                  <div className="kaneo-tiptap-slash-group-title">
+                <div key={group.title} className="kolab-tiptap-slash-group">
+                  <div className="kolab-tiptap-slash-group-title">
                     {group.title}
                   </div>
                   {group.items.map((command) => {
@@ -1773,7 +1773,7 @@ export default function CommentEditor({
                         key={command.id}
                         type="button"
                         className={cn(
-                          "kaneo-tiptap-slash-item",
+                          "kolab-tiptap-slash-item",
                           slashMenu.selectedIndex === index && "is-selected",
                         )}
                         onMouseEnter={() =>
@@ -1793,11 +1793,11 @@ export default function CommentEditor({
                           setSlashMenu(null);
                         }}
                       >
-                        <span className="kaneo-tiptap-slash-label">
+                        <span className="kolab-tiptap-slash-label">
                           {command.label}
                         </span>
                         {command.shortcut && (
-                          <span className="kaneo-tiptap-slash-shortcut">
+                          <span className="kolab-tiptap-slash-shortcut">
                             {command.shortcut}
                           </span>
                         )}
@@ -1808,7 +1808,7 @@ export default function CommentEditor({
               );
             })
           ) : (
-            <div className="kaneo-tiptap-slash-empty">
+            <div className="kolab-tiptap-slash-empty">
               {t("activity:comment.editor.noCommands")}
             </div>
           )}
@@ -1816,7 +1816,7 @@ export default function CommentEditor({
       )}
       {editor && embedComposer && (
         <div
-          className="kaneo-embed-composer"
+          className="kolab-embed-composer"
           style={{
             top: embedComposer.top,
             left: embedComposer.left,
@@ -1824,23 +1824,23 @@ export default function CommentEditor({
           }}
         >
           {embedComposer.mode === "choice" ? (
-            <div className="kaneo-embed-choice-menu">
+            <div className="kolab-embed-choice-menu">
               <button
                 type="button"
-                className="kaneo-embed-choice-item is-primary"
+                className="kolab-embed-choice-item is-primary"
                 onMouseDown={(event) => {
                   event.preventDefault();
                   submitEmbedComposer("embed");
                 }}
               >
                 <span>{t("activity:comment.editor.embedVideo")}</span>
-                <span className="kaneo-embed-choice-hint">
+                <span className="kolab-embed-choice-hint">
                   {t("activity:comment.editor.hintTab")}
                 </span>
               </button>
               <button
                 type="button"
-                className="kaneo-embed-choice-item"
+                className="kolab-embed-choice-item"
                 onMouseDown={(event) => {
                   event.preventDefault();
                   setEmbedComposer(null);
@@ -1848,14 +1848,14 @@ export default function CommentEditor({
                 }}
               >
                 <span>{t("activity:comment.editor.keepAsLink")}</span>
-                <span className="kaneo-embed-choice-hint">
+                <span className="kolab-embed-choice-hint">
                   {t("activity:comment.editor.hintEsc")}
                 </span>
               </button>
             </div>
           ) : (
             <form
-              className="kaneo-embed-composer-form"
+              className="kolab-embed-composer-form"
               onSubmit={(event) => {
                 event.preventDefault();
                 submitEmbedComposer("embed");
@@ -1873,7 +1873,7 @@ export default function CommentEditor({
                 placeholder={t("activity:comment.editor.pasteUrl")}
                 autoFocus
               />
-              <div className="kaneo-embed-composer-actions">
+              <div className="kolab-embed-composer-actions">
                 <Button
                   type="button"
                   size="xs"
@@ -1898,7 +1898,7 @@ export default function CommentEditor({
                 </Button>
               </div>
               {embedComposerError && (
-                <p className="kaneo-embed-composer-error">
+                <p className="kolab-embed-composer-error">
                   {t(`activity:comment.editor.${embedComposerError}`)}
                 </p>
               )}
@@ -1908,14 +1908,14 @@ export default function CommentEditor({
       )}
       <EditorContent
         editor={editor}
-        className={cn("kaneo-comment-editor-content", contentClassName)}
+        className={cn("kolab-comment-editor-content", contentClassName)}
         onMouseMove={handleEditorMouseMove}
         onMouseLeave={handleEditorMouseLeave}
       />
       {!readOnly && !disabled && showQuickAttachButton && (
         <button
           type="button"
-          className="kaneo-editor-quick-attach"
+          className="kolab-editor-quick-attach"
           onMouseDown={(event) => {
             event.preventDefault();
           }}
@@ -1926,7 +1926,7 @@ export default function CommentEditor({
         </button>
       )}
       {isDragActive && (
-        <div className="kaneo-editor-drop-indicator">
+        <div className="kolab-editor-drop-indicator">
           <span>{t("activity:comment.editor.dropImageToUpload")}</span>
         </div>
       )}

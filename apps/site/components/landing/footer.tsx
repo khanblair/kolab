@@ -6,7 +6,7 @@ export function Footer() {
       <div className="mx-auto w-full max-w-6xl space-y-10">
         <div className="grid gap-10 md:grid-cols-5">
           <div className="space-y-4 md:col-span-2">
-            <a href="/" aria-label="Kaneo home" className="inline-flex">
+            <a href="/" aria-label="Kolab home" className="inline-flex">
               <Logo />
             </a>
             <p className="max-w-sm text-balance text-muted-foreground text-sm">
@@ -19,7 +19,7 @@ export function Footer() {
               <p className="font-medium">Product</p>
               <a
                 className="block text-muted-foreground transition-colors hover:text-foreground"
-                href="https://cloud.kaneo.app"
+                href="https://cloud.kolab.app"
               >
                 Open Cloud
               </a>
@@ -65,7 +65,7 @@ export function Footer() {
               <p className="font-medium">Resources</p>
               <a
                 className="block text-muted-foreground transition-colors hover:text-foreground"
-                href="https://github.com/usekaneo/kaneo"
+                href="https://github.com/khanblair/kolab"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -73,7 +73,7 @@ export function Footer() {
               </a>
               <a
                 className="block text-muted-foreground transition-colors hover:text-foreground"
-                href="https://github.com/usekaneo/kaneo/blob/main/LICENSE"
+                href="https://github.com/khanblair/kolab/blob/main/LICENSE"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -81,7 +81,7 @@ export function Footer() {
               </a>
               <a
                 className="block text-muted-foreground transition-colors hover:text-foreground"
-                href="https://github.com/usekaneo/kaneo/blob/main/CONTRIBUTING.md"
+                href="https://github.com/khanblair/kolab/blob/main/CONTRIBUTING.md"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -131,9 +131,9 @@ export function Footer() {
               </a>
               <a
                 className="block text-muted-foreground transition-colors hover:text-foreground"
-                href="mailto:support@kaneo.app"
+                href="mailto:support@kolab.app"
               >
-                support@kaneo.app
+                support@kolab.app
               </a>
             </div>
           </div>

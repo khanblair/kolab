@@ -1,4 +1,4 @@
-import { DEFAULT_ROLE_NAMES, statement } from "@kaneo/permissions";
+import { DEFAULT_ROLE_NAMES, statement } from "@kolab/permissions";
 import { createFileRoute } from "@tanstack/react-router";
 import { Plus, Shield, Trash2, X } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -48,7 +48,7 @@ export const Route = createFileRoute(
 
 // Resources our app contributes on top of better-auth's defaults
 // (organization/member/team/invitation). Derive the list from the shared
-// `@kaneo/permissions` statement so adding a new resource there picks it
+// `@kolab/permissions` statement so adding a new resource there picks it
 // up here automatically.
 // "ac" is better-auth's meta-resource for managing roles themselves; we don't
 // surface it. Organization/member/team/invitation are likewise managed by the

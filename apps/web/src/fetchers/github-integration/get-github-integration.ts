@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 async function getGithubIntegration(projectId: string) {
   const response = await client["github-integration"].project[

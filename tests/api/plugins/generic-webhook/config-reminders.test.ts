@@ -7,7 +7,7 @@ import {
 describe("generic webhook reminder config", () => {
   it("keeps reminders opt-in with a one-day default lead time", () => {
     const config = normalizeGenericWebhookConfig({
-      webhookUrl: "https://example.com/hooks/kaneo",
+      webhookUrl: "https://example.com/hooks/kolab",
     });
 
     expect(config.events).toEqual(defaultGenericWebhookEvents);
@@ -22,7 +22,7 @@ describe("generic webhook reminder config", () => {
 
   it("preserves a configured reminder lead time", () => {
     const config = normalizeGenericWebhookConfig({
-      webhookUrl: "https://example.com/hooks/kaneo",
+      webhookUrl: "https://example.com/hooks/kolab",
       events: { dueDateReminder: true },
       dueDateReminderLeadTimeMinutes: 2880,
     });

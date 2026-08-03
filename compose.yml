@@ -9,13 +9,13 @@ services:
       - postgres_data:/var/lib/postgresql/data
     restart: unless-stopped
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U kaneo -d kaneo"]
+      test: ["CMD-SHELL", "pg_isready -U kolab -d kolab"]
       interval: 10s
       timeout: 5s
       retries: 5
 
-  kaneo:
-    image: ghcr.io/usekaneo/kaneo:latest
+  kolab:
+    image: ghcr.io/khanblair/kolab:latest
     ports:
       - "5173:5173"
     env_file:

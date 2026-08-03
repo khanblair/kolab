@@ -1,10 +1,10 @@
 # Environment Setup Guide
 
-This guide will help you set up the Kaneo development environment and troubleshoot common issues.
+This guide will help you set up the Kolab development environment and troubleshoot common issues.
 
 ## Quick Start
 
-1. **Create a `.env` file** in the root of the project with the required environment variables (see the [documentation](https://kaneo.app/docs/core/installation/environment-variables) for the complete list).
+1. **Create a `.env` file** in the root of the project with the required environment variables (see the [documentation](https://kolab.app/docs/core/installation/environment-variables) for the complete list).
 
 2. **Start the development servers**:
    ```bash
@@ -17,16 +17,16 @@ This starts both the API (port 1337) and web app (port 5173). Both will automati
 
 ## Environment Variables
 
-Kaneo uses a **single `.env` file** in the root of the project for all environment variables. This file is shared by both the API and web services.
+Kolab uses a **single `.env` file** in the root of the project for all environment variables. This file is shared by both the API and web services.
 
 ### Required Variables
 
 For development, you'll need at minimum:
 
-- `KANEO_CLIENT_URL` - The URL of the web application (e.g., `http://localhost:5173`)
-- `KANEO_API_URL` - The URL of the API (e.g., `http://localhost:1337`)
+- `KOLAB_CLIENT_URL` - The URL of the web application (e.g., `http://localhost:5173`)
+- `KOLAB_API_URL` - The URL of the API (e.g., `http://localhost:1337`)
 - `AUTH_SECRET` - Secret key for JWT token generation (**must be at least 32 characters long**; use a long, random value in production)
-- `DEVICE_AUTH_CLIENT_IDS` - **Optional.** Comma-separated list of allowed device-flow OAuth client IDs. When unset, Kaneo implicitly allows `kaneo-cli` and `kaneo-mcp` by default (no extra configuration for the CLI or MCP). Override only when you need additional trusted clients, for example `kaneo-cli,kaneo-mcp,my-desktop-app`.
+- `DEVICE_AUTH_CLIENT_IDS` - **Optional.** Comma-separated list of allowed device-flow OAuth client IDs. When unset, Kolab implicitly allows `kolab-cli` and `kolab-mcp` by default (no extra configuration for the CLI or MCP). Override only when you need additional trusted clients, for example `kolab-cli,kolab-mcp,my-desktop-app`.
 - `DATABASE_URL` - PostgreSQL connection string
 - `POSTGRES_DB` - PostgreSQL database name
 - `POSTGRES_USER` - PostgreSQL username
@@ -42,18 +42,18 @@ For local development, the web app also supports:
 
 ### Optional Variables
 
-Kaneo supports many optional configuration options including:
+Kolab supports many optional configuration options including:
 - SSO providers (GitHub OAuth via `GITHUB_OAUTH_CLIENT_ID` / `GITHUB_OAUTH_CLIENT_SECRET`, Google, Discord, Custom OAuth/OIDC)
 - GitHub repository integration (GitHub App: `GITHUB_APP_ID`, `GITHUB_PRIVATE_KEY`, `GITHUB_WEBHOOK_SECRET`, optional `GITHUB_APP_NAME`) — separate from GitHub SSO
 - SMTP configuration for email
 - Access control settings
 - CORS configuration
 - Redis for horizontal scaling
-- Private-network notification receivers (`KANEO_ALLOW_PRIVATE_WEBHOOK_DESTINATIONS=true` lets ntfy/Gotify/webhook destinations resolve to private addresses; off by default to prevent SSRF)
+- Private-network notification receivers (`KOLAB_ALLOW_PRIVATE_WEBHOOK_DESTINATIONS=true` lets ntfy/Gotify/webhook destinations resolve to private addresses; off by default to prevent SSRF)
 
 #### Redis Configuration
 
-Kaneo supports three Redis deployment modes for WebSocket Pub/Sub. When any Redis mode is configured, WebSocket broadcasts use Redis Pub/Sub, allowing multiple API instances to relay real-time updates. When none are set, an in-memory adapter is used (single-instance only).
+Kolab supports three Redis deployment modes for WebSocket Pub/Sub. When any Redis mode is configured, WebSocket broadcasts use Redis Pub/Sub, allowing multiple API instances to relay real-time updates. When none are set, an in-memory adapter is used (single-instance only).
 
 **Standalone (single server):**
 - `REDIS_URL` - Redis connection string (e.g., `redis://localhost:6379`)
@@ -92,12 +92,12 @@ When SMTP is configured, sign-in uses email verification codes by default. Set `
 
 Hosted multi-tenant instances should enable the cloud abuse gates. Self-hosted instances can leave these unset.
 
-- `KANEO_CLOUD` - Set to `true` to enable cloud-only protections: disposable-email signup block, Turnstile captcha enforcement, guest-account invite block, and tightened rate limits on `/sign-up/email` and `/organization/invite-member`.
+- `KOLAB_CLOUD` - Set to `true` to enable cloud-only protections: disposable-email signup block, Turnstile captcha enforcement, guest-account invite block, and tightened rate limits on `/sign-up/email` and `/organization/invite-member`.
 - `TURNSTILE_SECRET_KEY` - Cloudflare Turnstile secret key (API container, server-side verification). When unset, captcha verification is skipped.
-- `KANEO_TURNSTILE_SITE_KEY` - Cloudflare Turnstile site key, on the **web container**. The production web image bakes the literal placeholder `KANEO_TURNSTILE_SITE_KEY` into the bundle; `apps/web/env.sh` swaps it for the runtime value when the container starts.
+- `KOLAB_TURNSTILE_SITE_KEY` - Cloudflare Turnstile site key, on the **web container**. The production web image bakes the literal placeholder `KOLAB_TURNSTILE_SITE_KEY` into the bundle; `apps/web/env.sh` swaps it for the runtime value when the container starts.
 - `VITE_TURNSTILE_SITE_KEY` - Local dev only. Set in `apps/web/.env` when running `pnpm dev`; Vite reads this at build/dev time. Not used in the production image.
 
-For a complete list of all environment variables, their descriptions, and configuration options, see the [official documentation](https://kaneo.app/docs/core/installation/environment-variables).
+For a complete list of all environment variables, their descriptions, and configuration options, see the [official documentation](https://kolab.app/docs/core/installation/environment-variables).
 
 ## Common Issues & Troubleshooting
 
@@ -111,8 +111,8 @@ For a complete list of all environment variables, their descriptions, and config
 **Solutions:**
 
 1. **Check URL Configuration:**
-   - Ensure `KANEO_API_URL` matches your API server URL
-   - Ensure `KANEO_CLIENT_URL` matches your web app URL
+   - Ensure `KOLAB_API_URL` matches your API server URL
+   - Ensure `KOLAB_CLIENT_URL` matches your web app URL
    - For development, you can also set `VITE_API_URL` in your `.env` file
 
 2. **Configure CORS Origins:**
@@ -121,7 +121,7 @@ For a complete list of all environment variables, their descriptions, and config
      CORS_ORIGINS=http://localhost:5173,https://yourdomain.com
      ```
    - For development, you can leave `CORS_ORIGINS` empty to allow all origins
-   - **Note:** `CORS_ORIGINS` should match `KANEO_CLIENT_URL` for proper authentication
+   - **Note:** `CORS_ORIGINS` should match `KOLAB_CLIENT_URL` for proper authentication
 
 3. **Check Protocol Consistency:**
    - Ensure both frontend and API use the same protocol (http/https)
@@ -156,7 +156,7 @@ For a complete list of all environment variables, their descriptions, and config
 4. **Use the right configuration mode:**
    - For host-native development, prefer an explicit `DATABASE_URL`
    - If you derive from `POSTGRES_*`, set `POSTGRES_HOST=localhost` when running the API on your host
-   - `POSTGRES_DB` and `POSTGRES_USER` by themselves do not switch Kaneo into derived connection mode
+   - `POSTGRES_DB` and `POSTGRES_USER` by themselves do not switch Kolab into derived connection mode
 
 ### Authentication Issues
 
@@ -169,7 +169,7 @@ For a complete list of all environment variables, their descriptions, and config
 1. **Check Authentication Configuration:**
    - Ensure `AUTH_SECRET` is set in your `.env` file
    - Use a strong secret in production
-   - Verify `KANEO_CLIENT_URL` and `KANEO_API_URL` are correctly configured
+   - Verify `KOLAB_CLIENT_URL` and `KOLAB_API_URL` are correctly configured
 
 2. **Clear Browser Data:**
    - Clear cookies and local storage
@@ -205,10 +205,10 @@ For a complete list of all environment variables, their descriptions, and config
 
 ### Production
 - Use HTTPS for both frontend and API
-- Set specific `CORS_ORIGINS` for security (should match `KANEO_CLIENT_URL`)
+- Set specific `CORS_ORIGINS` for security (should match `KOLAB_CLIENT_URL`)
 - Use strong, unique secrets for `AUTH_SECRET`
 - Configure proper database credentials
-- Ensure `KANEO_CLIENT_URL` and `KANEO_API_URL` are set to your production URLs
+- Ensure `KOLAB_CLIENT_URL` and `KOLAB_API_URL` are set to your production URLs
 
 ## Getting Help
 
@@ -218,6 +218,6 @@ If you're still experiencing issues:
 2. Review the API server logs
 3. Verify all environment variables are set correctly
 4. Ensure all services (PostgreSQL, API, Frontend) are running
-5. Consult the [official documentation](https://kaneo.app/docs) for detailed guides and troubleshooting
+5. Consult the [official documentation](https://kolab.app/docs) for detailed guides and troubleshooting
 
-For the most up-to-date information on environment variables and configuration, always refer to the [official documentation](https://kaneo.app/docs/core/installation/environment-variables).
+For the most up-to-date information on environment variables and configuration, always refer to the [official documentation](https://kolab.app/docs/core/installation/environment-variables).

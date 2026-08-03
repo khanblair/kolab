@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 async function importGiteaIssues(projectId: string) {
   const response = await client["gitea-integration"]["import-issues"].$post({

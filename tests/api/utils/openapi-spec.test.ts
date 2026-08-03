@@ -14,11 +14,11 @@ import {
 
 describe("openapi spec helpers", () => {
   it("normalizes API server urls", () => {
-    expect(normalizeApiServerUrl("https://api.kaneo.app")).toBe(
-      "https://api.kaneo.app/api",
+    expect(normalizeApiServerUrl("https://api.kolab.app")).toBe(
+      "https://api.kolab.app/api",
     );
-    expect(normalizeApiServerUrl("https://api.kaneo.app/api/")).toBe(
-      "https://api.kaneo.app/api",
+    expect(normalizeApiServerUrl("https://api.kolab.app/api/")).toBe(
+      "https://api.kolab.app/api",
     );
   });
 

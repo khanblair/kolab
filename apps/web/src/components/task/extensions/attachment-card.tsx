@@ -19,20 +19,20 @@ function AttachmentCardView({ node }: NodeViewProps) {
   const size = Number(node.attrs.size || 0);
 
   return (
-    <NodeViewWrapper as="span" className="kaneo-attachment-node">
+    <NodeViewWrapper as="span" className="kolab-attachment-node">
       <a
         href={url}
         target="_blank"
         rel="noopener noreferrer"
-        className="kaneo-attachment-card"
+        className="kolab-attachment-card"
         title={filename}
       >
-        <span className="kaneo-attachment-card-icon">
+        <span className="kolab-attachment-card-icon">
           <FileText className="size-4" />
         </span>
-        <span className="kaneo-attachment-card-content">
-          <span className="kaneo-attachment-card-title">{filename}</span>
-          <span className="kaneo-attachment-card-meta">
+        <span className="kolab-attachment-card-content">
+          <span className="kolab-attachment-card-title">{filename}</span>
+          <span className="kolab-attachment-card-meta">
             {formatBytes(size)}
             {mimeType ? ` · ${mimeType}` : ""}
           </span>
@@ -60,14 +60,14 @@ export const AttachmentCard = Node.create({
 
   parseHTML() {
     return [
-      { tag: "kaneo-attachment[url]" },
+      { tag: "kolab-attachment[url]" },
       { tag: "span[data-type='attachment-card'][data-url]" },
     ];
   },
 
   renderHTML({ HTMLAttributes }) {
     return [
-      "kaneo-attachment",
+      "kolab-attachment",
       mergeAttributes(HTMLAttributes, {
         "data-type": "attachment-card",
         "data-url": HTMLAttributes.url,
@@ -102,6 +102,6 @@ export const AttachmentCard = Node.create({
 
     if (!url) return "";
 
-    return `\n<kaneo-attachment url="${url}" filename="${filename}" mime-type="${mimeType}" size="${size}" />\n`;
+    return `\n<kolab-attachment url="${url}" filename="${filename}" mime-type="${mimeType}" size="${size}" />\n`;
   },
 });

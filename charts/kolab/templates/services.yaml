@@ -1,21 +1,21 @@
-# Kaneo Service
+# Kolab Service
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "kaneo.fullname" . }}-kaneo
+  name: {{ include "kolab.fullname" . }}-kolab
   labels:
-    {{- include "kaneo.labels" . | nindent 4 }}
-    app.kubernetes.io/component: kaneo
+    {{- include "kolab.labels" . | nindent 4 }}
+    app.kubernetes.io/component: kolab
 spec:
-  type: {{ .Values.kaneo.service.type }}
+  type: {{ .Values.kolab.service.type }}
   ports:
-    - port: {{ .Values.kaneo.service.port }}
-      targetPort: kaneo
+    - port: {{ .Values.kolab.service.port }}
+      targetPort: kolab
       protocol: TCP
       name: http
   selector:
-    {{- include "kaneo.selectorLabels" . | nindent 4 }}
-    app.kubernetes.io/component: kaneo
+    {{- include "kolab.selectorLabels" . | nindent 4 }}
+    app.kubernetes.io/component: kolab
 
 {{- if .Values.postgresql.enabled }}
 ---
@@ -23,9 +23,9 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: {{ include "kaneo.fullname" . }}-postgresql
+  name: {{ include "kolab.fullname" . }}-postgresql
   labels:
-    {{- include "kaneo.labels" . | nindent 4 }}
+    {{- include "kolab.labels" . | nindent 4 }}
     app.kubernetes.io/component: postgresql
 spec:
   type: {{ .Values.postgresql.service.type }}
@@ -35,6 +35,6 @@ spec:
       protocol: TCP
       name: postgresql
   selector:
-    {{- include "kaneo.selectorLabels" . | nindent 4 }}
+    {{- include "kolab.selectorLabels" . | nindent 4 }}
     app.kubernetes.io/component: postgresql
 {{- end }}

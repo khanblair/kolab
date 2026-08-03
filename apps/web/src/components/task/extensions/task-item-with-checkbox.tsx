@@ -19,7 +19,7 @@ function TaskItemNodeView({ editor, node, updateAttributes }: NodeViewProps) {
       data-type="taskItem"
       data-checked={checked ? "true" : "false"}
     >
-      <div contentEditable={false} className="kaneo-task-item-checkbox">
+      <div contentEditable={false} className="kolab-task-item-checkbox">
         <Checkbox
           checked={checked}
           disabled={!isEditable}

@@ -32,7 +32,7 @@ jobs:
                 description: $body,
                 color: 3066993,
                 author: {name: $author, icon_url: $avatar},
-                footer: {text: "usekaneo/kaneo"}
+                footer: {text: "khanblair/kolab"}
               }]
             }')
           curl -fsS -H "Content-Type: application/json" -d "$payload" "$WEBHOOK"

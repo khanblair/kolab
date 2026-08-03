@@ -79,7 +79,7 @@ describe("API integration: device authorization (RFC 8628)", () => {
         "content-type": "application/json",
         Origin: origin,
       },
-      body: JSON.stringify({ client_id: "kaneo-cli" }),
+      body: JSON.stringify({ client_id: "kolab-cli" }),
     });
 
     expect(res.status).toBe(200);
@@ -117,7 +117,7 @@ describe("API integration: device authorization (RFC 8628)", () => {
         "content-type": "application/json",
         Origin: origin,
       },
-      body: JSON.stringify({ client_id: "kaneo-cli" }),
+      body: JSON.stringify({ client_id: "kolab-cli" }),
     });
     const { device_code } = (await codeRes.json()) as { device_code: string };
 
@@ -130,7 +130,7 @@ describe("API integration: device authorization (RFC 8628)", () => {
       body: JSON.stringify({
         grant_type: "urn:ietf:params:oauth:grant-type:device_code",
         device_code,
-        client_id: "kaneo-cli",
+        client_id: "kolab-cli",
       }),
     });
 
@@ -181,7 +181,7 @@ describe("API integration: device authorization (RFC 8628)", () => {
         "content-type": "application/json",
         Origin: origin,
       },
-      body: JSON.stringify({ client_id: "kaneo-cli" }),
+      body: JSON.stringify({ client_id: "kolab-cli" }),
     });
     expect(codeRes.status).toBe(200);
     const devicePayload = (await codeRes.json()) as {
@@ -238,7 +238,7 @@ describe("API integration: device authorization (RFC 8628)", () => {
         body: JSON.stringify({
           grant_type: "urn:ietf:params:oauth:grant-type:device_code",
           device_code: devicePayload.device_code,
-          client_id: "kaneo-cli",
+          client_id: "kolab-cli",
         }),
       });
       if (tokenRes.status === 200) {
@@ -279,7 +279,7 @@ describe("API integration: device authorization (RFC 8628)", () => {
   it("still authenticates with a valid API key Bearer", async () => {
     const member = await createWorkspaceMember();
 
-    const rawKey = `kaneo_test_${randomUUID()}`;
+    const rawKey = `kolab_test_${randomUUID()}`;
     const hashed = await hashApiKeyForTest(rawKey);
     const now = new Date();
 
@@ -289,7 +289,7 @@ describe("API integration: device authorization (RFC 8628)", () => {
       key: hashed,
       name: "integration device test",
       start: rawKey.slice(0, 12),
-      prefix: "kaneo",
+      prefix: "kolab",
       createdAt: now,
       updatedAt: now,
     });

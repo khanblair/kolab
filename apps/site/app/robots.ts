@@ -8,7 +8,7 @@ export default function robots(): MetadataRoute.Robots {
       userAgent: "*",
       allow: "/",
     },
-    sitemap: "https://kaneo.app/sitemap.xml",
-    host: "https://kaneo.app",
+    sitemap: "https://kolab.app/sitemap.xml",
+    host: "https://kolab.app",
   };
 }

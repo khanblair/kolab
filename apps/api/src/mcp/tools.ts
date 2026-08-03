@@ -183,7 +183,7 @@ export function registerMcpTools(
   server.registerTool(
     "whoami",
     {
-      description: "Return the current Kaneo session and user.",
+      description: "Return the current Kolab session and user.",
       inputSchema: z.object({}),
     },
     async () =>

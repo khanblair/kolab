@@ -240,7 +240,7 @@
     padding: 0.5rem;
   }
 
-  .kaneo-slash-menu {
+  .kolab-slash-menu {
     min-width: 17rem;
     max-width: 22rem;
     max-height: min(20rem, 56vh);
@@ -255,7 +255,7 @@
     padding: 0.25rem;
   }
 
-  .kaneo-slash-menu-label {
+  .kolab-slash-menu-label {
     color: var(--muted-foreground);
     font-size: 0.6875rem;
     font-weight: 500;
@@ -264,7 +264,7 @@
     padding: 0.375rem 0.5rem 0.25rem;
   }
 
-  .kaneo-slash-menu-item {
+  .kolab-slash-menu-item {
     appearance: none;
     border: 0;
     background: transparent;
@@ -284,13 +284,13 @@
     line-height: 1;
   }
 
-  .kaneo-slash-menu-item:hover,
-  .kaneo-slash-menu-item.is-selected {
+  .kolab-slash-menu-item:hover,
+  .kolab-slash-menu-item.is-selected {
     background: var(--accent);
     color: var(--accent-foreground);
   }
 
-  .kaneo-slash-menu-icon {
+  .kolab-slash-menu-icon {
     width: 1.125rem;
     min-width: 1.125rem;
     height: 1.125rem;
@@ -301,7 +301,7 @@
     color: var(--muted-foreground);
   }
 
-  .kaneo-slash-menu-title {
+  .kolab-slash-menu-title {
     flex: 1;
     min-width: 0;
     font-size: 0.875rem;
@@ -312,7 +312,7 @@
     text-overflow: ellipsis;
   }
 
-  .kaneo-slash-menu-shortcut {
+  .kolab-slash-menu-shortcut {
     margin-left: auto;
     display: inline-flex;
     align-items: center;
@@ -329,7 +329,7 @@
     white-space: nowrap;
   }
 
-  .kaneo-slash-menu-item.is-selected .kaneo-slash-menu-shortcut {
+  .kolab-slash-menu-item.is-selected .kolab-slash-menu-shortcut {
     color: color-mix(in srgb, var(--accent-foreground) 72%, transparent);
   }
 

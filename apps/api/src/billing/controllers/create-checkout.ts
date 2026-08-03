@@ -48,7 +48,7 @@ async function createCheckout({
     units = Math.max(1, members?.value ?? 1);
   }
 
-  const clientUrl = process.env.KANEO_CLIENT_URL ?? "";
+  const clientUrl = process.env.KOLAB_CLIENT_URL ?? "";
   const { checkoutUrl } = await createCheckoutSession({
     productId,
     units,

@@ -1,14 +1,14 @@
 ---
 title: Slack
-description: Send task notifications from Kaneo to a Slack channel using incoming webhooks.
+description: Send task notifications from Kolab to a Slack channel using incoming webhooks.
 ---
 
-Kaneo can post task activity to a Slack channel whenever events occur in a project. This uses Slack's incoming webhook feature — no bot token or OAuth flow required.
+Kolab can post task activity to a Slack channel whenever events occur in a project. This uses Slack's incoming webhook feature — no bot token or OAuth flow required.
 
 ## Create a Slack webhook
 
 1. Go to [api.slack.com/apps](https://api.slack.com/apps) and click **Create New App** then **From scratch**.
-2. Name your app (e.g. "Kaneo") and select your workspace.
+2. Name your app (e.g. "Kolab") and select your workspace.
 3. In the app settings, go to **Incoming Webhooks** and toggle it **On**.
 4. Click **Add New Webhook to Workspace**.
 5. Select the channel where you want notifications (or choose your own DM for personal notifications).
@@ -22,7 +22,7 @@ https://hooks.slack.com/services/T00000000/B00000000/XXXXXXXXXXXXXXXXXXXXXXXX
 If your Slack workspace restricts app installations, you may need a workspace admin to approve the app before you can use the webhook.
 </Warning>
 
-## Connect Slack in Kaneo
+## Connect Slack in Kolab
 
 1. Open **Settings** in the sidebar.
 2. Under **Projects**, select the project you want to connect.
@@ -50,14 +50,14 @@ You can toggle any combination of these events in the integration settings at an
 
 ## Message format
 
-Kaneo sends Slack Block Kit messages with:
+Kolab sends Slack Block Kit messages with:
 
 - A header describing the event (e.g. "Task Status Changed")
-- Task name with a clickable link to the task in Kaneo
+- Task name with a clickable link to the task in Kolab
 - Fields for project, status, and priority
 - The name of the user who triggered the event
 
-Make sure [`KANEO_CLIENT_URL`](/core/installation/environment-variables) is set to your public Kaneo URL so task links work correctly.
+Make sure [`KOLAB_CLIENT_URL`](/core/installation/environment-variables) is set to your public Kolab URL so task links work correctly.
 
 ## Updating the webhook
 

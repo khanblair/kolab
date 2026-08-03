@@ -8,7 +8,7 @@ import {
 } from "../../../apps/api/src/billing/config";
 
 const KEYS = [
-  "KANEO_CLOUD",
+  "KOLAB_CLOUD",
   "CREEM_API_KEY",
   "CREEM_WEBHOOK_SECRET",
   "CREEM_PRODUCT_PERSONAL_MONTHLY",
@@ -43,7 +43,7 @@ describe("billing config", () => {
   it("is disabled unless cloud + both keys are set", () => {
     expect(isBillingEnabled()).toBe(false);
 
-    process.env.KANEO_CLOUD = "true";
+    process.env.KOLAB_CLOUD = "true";
     expect(isBillingEnabled()).toBe(false);
 
     process.env.CREEM_API_KEY = "key";

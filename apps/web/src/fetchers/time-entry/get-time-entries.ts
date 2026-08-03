@@ -1,4 +1,4 @@
-import { client } from "@kaneo/libs";
+import { client } from "@kolab/libs";
 
 async function getTimeEntriesByTaskId(taskId: string) {
   const response = await client["time-entry"].task[":taskId"].$get({

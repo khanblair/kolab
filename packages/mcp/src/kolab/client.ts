@@ -8,7 +8,7 @@ export type Json =
   | Json[]
   | { [key: string]: Json };
 
-export class KaneoClient {
+export class KolabClient {
   readonly baseUrl: string;
   private readonly auth: AuthService;
 

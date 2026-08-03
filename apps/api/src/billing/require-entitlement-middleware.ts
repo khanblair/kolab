@@ -2,7 +2,7 @@ import type { Context, Next } from "hono";
 import { requireWorkspaceEntitlement } from "./controllers/require-entitlement";
 
 /**
- * Blocks the request when the workspace has no active Kaneo Cloud entitlement
+ * Blocks the request when the workspace has no active Kolab Cloud entitlement
  * (expired trial, canceled or expired subscription). Must run after a
  * workspace-access middleware that sets `c.get("workspaceId")`. No-ops when
  * billing is disabled, so self-hosted installs are unaffected.
