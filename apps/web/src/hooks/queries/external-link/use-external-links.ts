@@ -1,12 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import getExternalLinks from "@/fetchers/external-link/get-external-links";
+import { useQuery } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 
 function useExternalLinks(taskId: string) {
-  return useQuery({
-    queryKey: ["external-links", taskId],
-    queryFn: () => getExternalLinks(taskId),
-    enabled: !!taskId,
-  });
+  const links = useQuery(
+    api.externalLink.list,
+    taskId ? { taskId: taskId as Id<"task"> } : "skip",
+  );
+
+  return {
+    data: links?.map(withId),
+    isLoading: Boolean(taskId) && links === undefined,
+    isError: false,
+  };
 }
 
 export default useExternalLinks;

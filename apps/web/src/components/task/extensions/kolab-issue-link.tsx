@@ -1,15 +1,14 @@
-import { useQuery } from "@tanstack/react-query";
 import { mergeAttributes, Node } from "@tiptap/core";
 import type { NodeViewProps } from "@tiptap/react";
 import { NodeViewWrapper, ReactNodeViewRenderer } from "@tiptap/react";
+import { useQuery } from "convex/react";
 import { useTranslation } from "react-i18next";
 import {
   HoverCard,
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/preview-card";
-import getProject from "@/fetchers/project/get-project";
-import getTask from "@/fetchers/task/get-task";
+import { api, type Id } from "@/lib/convex-api";
 
 function parseTaskRouteFromUrl(url: string) {
   try {
@@ -36,27 +35,20 @@ function KolabIssueLinkView({ node }: NodeViewProps) {
   const taskRoute = parseTaskRouteFromUrl(url);
   const taskId = taskIdAttr || taskRoute?.taskId || "";
 
-  const { data: task } = useQuery({
-    queryKey: ["task", taskId, "kolab-issue-link"],
-    queryFn: () => getTask(taskId),
-    enabled: Boolean(taskId),
-    staleTime: 1000 * 60,
-  });
-  const { data: project } = useQuery({
-    queryKey: [
-      "projects",
-      taskRoute?.workspaceId,
-      taskRoute?.projectId,
-      "kolab-issue-link",
-    ],
-    queryFn: () =>
-      getProject({
-        id: taskRoute?.projectId ?? "",
-        workspaceId: taskRoute?.workspaceId ?? "",
-      }),
-    enabled: Boolean(taskRoute?.workspaceId && taskRoute?.projectId),
-    staleTime: 1000 * 60,
-  });
+  const task = useQuery(
+    api.task.get,
+    taskId ? { taskId: taskId as Id<"task"> } : "skip",
+  );
+  const project = useQuery(
+    api.project.get,
+    taskRoute?.projectId
+      ? { projectId: taskRoute.projectId as Id<"project"> }
+      : "skip",
+  );
+  const members = useQuery(
+    api.workspace.listMembers,
+    project?.workspaceId ? { workspaceId: project.workspaceId } : "skip",
+  );
 
   const projectSlug = project?.slug ? String(project.slug).toUpperCase() : "";
   const resolvedIssueKey =
@@ -69,10 +61,13 @@ function KolabIssueLinkView({ node }: NodeViewProps) {
   const priority = task?.priority
     ? t(`tasks:priority.${task.priority}`)
     : t("tasks:priority.no-priority");
-  const assignee = task?.assigneeName || t("tasks:assignee.unassigned");
+  const assigneeName = task?.assigneeId
+    ? members?.find((m) => m.userId === task.assigneeId)?.name
+    : undefined;
+  const assignee = assigneeName || t("tasks:assignee.unassigned");
   const href =
-    taskRoute?.workspaceId && taskRoute?.projectId && task?.id
-      ? `/dashboard/workspace/${taskRoute.workspaceId}/project/${taskRoute.projectId}/task/${task.id}`
+    taskRoute?.workspaceId && taskRoute?.projectId && task?._id
+      ? `/dashboard/workspace/${taskRoute.workspaceId}/project/${taskRoute.projectId}/task/${task._id}`
       : url;
   const isInternal = href.startsWith("/");
 
