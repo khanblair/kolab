@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { ExternalLink, Github, Pencil, Trash2 } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -54,7 +53,6 @@ export default function CommentCard({
   const { mutateAsync: updateComment, isPending } = useUpdateComment();
   const { mutate: deleteComment, isPending: isDeleting } =
     useDeleteComment(taskId);
-  const queryClient = useQueryClient();
 
   const canEdit = currentUser?.id === user?.id;
   const isFromGitHub = externalSource === "github";
@@ -91,21 +89,12 @@ export default function CommentCard({
       });
 
       setIsEditing(false);
-      await queryClient.invalidateQueries({ queryKey: ["activities", taskId] });
       toast.success(t("activity:comment.updated"));
     } catch (error) {
       console.error("Failed to update comment:", error);
       toast.error(t("activity:comment.failedToUpdate"));
     }
-  }, [
-    commentId,
-    currentUser?.id,
-    editedContent,
-    queryClient,
-    t,
-    taskId,
-    updateComment,
-  ]);
+  }, [commentId, currentUser?.id, editedContent, t, updateComment]);
 
   return (
     <TooltipProvider>

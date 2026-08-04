@@ -532,7 +532,7 @@ function CreateTaskModal({
             color: workspaceLabel.color,
             taskId: null,
             workspaceId: workspaceLabel.workspaceId || "",
-            createdAt: workspaceLabel.createdAt,
+            createdAt: new Date(workspaceLabel.createdAt).toISOString(),
           },
         ]);
       }
@@ -562,7 +562,7 @@ function CreateTaskModal({
         color: createdLabel.color,
         taskId: createdLabel.taskId ?? null,
         workspaceId: createdLabel.workspaceId ?? workspace.id,
-        createdAt: createdLabel.createdAt,
+        createdAt: new Date(createdLabel.createdAt).toISOString(),
       };
 
       setLabels([...labels, newLabel]);

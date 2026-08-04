@@ -1,22 +1,19 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import updateLabel from "@/fetchers/label/update-label";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
+
+type UpdateLabelRequest = {
+  id: string;
+  name?: string;
+  color?: string;
+};
 
 function useUpdateLabel() {
-  const queryClient = useQueryClient();
+  const updateLabel = useConvexMutation(api.label.update);
 
   return useMutation({
-    mutationFn: updateLabel,
-    onSuccess: (_updatedLabel) => {
-      void queryClient.invalidateQueries({
-        queryKey: ["labels"],
-      });
-      void queryClient.invalidateQueries({
-        queryKey: ["tasks"],
-      });
-      void queryClient.invalidateQueries({
-        queryKey: ["task"],
-      });
-    },
+    mutationFn: ({ id, name, color }: UpdateLabelRequest) =>
+      updateLabel({ labelId: id as Id<"label">, name, color }),
   });
 }
 

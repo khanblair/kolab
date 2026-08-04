@@ -1,61 +1,33 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import type { CreateLabelRequest } from "@/fetchers/label/create-label";
-import createLabel from "@/fetchers/label/create-label";
-import { addLabelToTaskInTasksCache } from "./sync-task-labels-cache";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
+
+type CreateLabelRequest = {
+  name: string;
+  color: string;
+  taskId?: string;
+  workspaceId: string;
+};
 
 function useCreateLabel() {
-  const queryClient = useQueryClient();
+  const createLabel = useConvexMutation(api.label.create);
 
   return useMutation({
-    mutationFn: createLabel,
-    onSuccess: (createdLabel, variables: CreateLabelRequest) => {
-      queryClient.setQueryData(
-        ["labels", variables.workspaceId],
-        (existingLabels: Array<typeof createdLabel> | undefined) => {
-          if (!existingLabels) return [createdLabel];
-
-          const alreadyExists = existingLabels.some(
-            (label) => label.id === createdLabel.id,
-          );
-
-          return alreadyExists
-            ? existingLabels
-            : [...existingLabels, createdLabel];
-        },
-      );
-
-      if (createdLabel.taskId) {
-        queryClient.setQueryData(
-          ["labels", createdLabel.taskId],
-          (existingLabels: Array<typeof createdLabel> | undefined) => {
-            if (!existingLabels) return [createdLabel];
-
-            const alreadyExists = existingLabels.some(
-              (label) => label.id === createdLabel.id,
-            );
-
-            return alreadyExists
-              ? existingLabels
-              : [...existingLabels, createdLabel];
-          },
-        );
-
-        addLabelToTaskInTasksCache(queryClient, createdLabel.taskId, {
-          id: createdLabel.id,
-          name: createdLabel.name,
-          color: createdLabel.color,
-        });
-      }
-
-      void queryClient.invalidateQueries({
-        queryKey: ["labels", variables.workspaceId],
+    mutationFn: async ({
+      name,
+      color,
+      taskId,
+      workspaceId,
+    }: CreateLabelRequest) => {
+      const label = await createLabel({
+        name,
+        color,
+        taskId: taskId ? (taskId as Id<"task">) : undefined,
+        workspaceId: workspaceId as Id<"workspace">,
       });
-
-      if (createdLabel.taskId) {
-        void queryClient.invalidateQueries({
-          queryKey: ["labels", createdLabel.taskId],
-        });
-      }
+      if (!label) throw new Error("Failed to create label");
+      return withId(label);
     },
   });
 }

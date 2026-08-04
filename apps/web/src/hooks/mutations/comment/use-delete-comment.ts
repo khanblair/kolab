@@ -1,14 +1,13 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import deleteComment from "@/fetchers/comment/delete-comment";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
-function useDeleteComment(taskId: string) {
-  const queryClient = useQueryClient();
+function useDeleteComment(_taskId: string) {
+  const removeComment = useConvexMutation(api.comment.remove);
 
   return useMutation({
-    mutationFn: deleteComment,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["activities", taskId] });
-    },
+    mutationFn: ({ activityId }: { activityId: string }) =>
+      removeComment({ commentId: activityId as Id<"comment"> }),
   });
 }
 

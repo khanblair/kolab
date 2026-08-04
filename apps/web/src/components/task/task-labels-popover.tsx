@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { Check, Plus, Search, X } from "lucide-react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -63,7 +62,6 @@ export default function TaskLabelsPopover({
   const [newLabelName, setNewLabelName] = useState("");
 
   const searchInputRef = useRef<HTMLInputElement>(null);
-  const queryClient = useQueryClient();
 
   const { mutateAsync: createLabel } = useCreateLabel();
   const { mutateAsync: deleteLabel } = useDeleteLabel();
@@ -152,10 +150,6 @@ export default function TaskLabelsPopover({
         });
         toast.success(t("tasks:popover.labels.addSuccess"));
       }
-
-      await queryClient.invalidateQueries({
-        queryKey: ["tasks", task.projectId],
-      });
     } catch (error) {
       toast.error(
         error instanceof Error
@@ -190,10 +184,6 @@ export default function TaskLabelsPopover({
         color: color,
         taskId: task.id,
         workspaceId,
-      });
-
-      await queryClient.invalidateQueries({
-        queryKey: ["tasks", task.projectId],
       });
 
       toast.success(t("tasks:popover.labels.createSuccess"));

@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { ArrowUp, Paperclip } from "lucide-react";
 import { useCallback, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,7 +24,6 @@ export default function CommentInput({ taskId }: CommentInputProps) {
   const [content, setContent] = useState("");
   const [attachAction, setAttachAction] = useState<(() => void) | null>(null);
   const { mutateAsync: createComment, isPending } = useCreateComment();
-  const queryClient = useQueryClient();
 
   const handleSubmit = useCallback(async () => {
     if (!content.trim()) {
@@ -40,14 +38,12 @@ export default function CommentInput({ taskId }: CommentInputProps) {
       });
 
       setContent("");
-      await queryClient.invalidateQueries({ queryKey: ["activities", taskId] });
-
       toast.success(t("activity:comment.added"));
     } catch (error) {
       console.error("Failed to create comment:", error);
       toast.error(t("activity:comment.failedToAdd"));
     }
-  }, [content, createComment, queryClient, t, taskId]);
+  }, [content, createComment, t, taskId]);
 
   const handleAttachActionChange = useCallback(
     (nextAttachAction: (() => void) | null) => {

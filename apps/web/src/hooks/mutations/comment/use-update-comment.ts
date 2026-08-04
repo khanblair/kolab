@@ -1,9 +1,22 @@
 import { useMutation } from "@tanstack/react-query";
-import updateComment from "@/fetchers/comment/update-comment";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
 function useUpdateComment() {
+  const updateComment = useConvexMutation(api.comment.update);
+
   return useMutation({
-    mutationFn: updateComment,
+    mutationFn: ({
+      activityId,
+      comment,
+    }: {
+      activityId: string;
+      comment: string;
+    }) =>
+      updateComment({
+        commentId: activityId as Id<"comment">,
+        content: comment,
+      }),
   });
 }
 

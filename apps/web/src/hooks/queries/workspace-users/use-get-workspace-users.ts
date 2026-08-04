@@ -1,54 +1,25 @@
-import { useQuery } from "@tanstack/react-query";
-import { authClient } from "@/lib/auth-client";
+import { useQuery } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
 type GetWorkspaceUsersRequest = {
   workspaceId?: string;
-  limit?: number;
-  offset?: number;
-  sortBy?: string;
-  sortDirection?: "asc" | "desc";
-  filterField?: string;
-  filterOperator?: "eq" | "ne" | "gt" | "gte" | "lt" | "lte" | "contains";
-  filterValue?: string;
 };
 
-function useGetWorkspaceUsers({
-  workspaceId,
-  limit,
-  offset,
-  sortBy,
-  sortDirection,
-  filterField,
-  filterOperator,
-  filterValue,
-}: GetWorkspaceUsersRequest) {
-  return useQuery({
-    queryKey: [
-      "workspace-users",
-      workspaceId,
-      limit,
-      offset,
-      sortBy,
-      sortDirection,
-      filterField,
-      filterOperator,
-      filterValue,
-    ],
-    enabled: !!workspaceId,
-    queryFn: async () => {
-      const { data, error } = await authClient.organization.listMembers({
-        query: {
-          organizationId: workspaceId,
-        },
-      });
+function useGetWorkspaceUsers({ workspaceId }: GetWorkspaceUsersRequest) {
+  const members = useQuery(
+    api.workspace.listMembers,
+    workspaceId ? { workspaceId: workspaceId as Id<"workspace"> } : "skip",
+  );
 
-      if (error) {
-        throw new Error(error.message || "Failed to get workspace users");
-      }
-
-      return data.members;
-    },
-  });
+  return {
+    data: members?.map((m) => ({
+      userId: m.userId,
+      role: m.role,
+      user: { id: m.userId, name: m.name, email: m.email ?? null, image: null },
+    })),
+    isLoading: Boolean(workspaceId) && members === undefined,
+    isError: false,
+  };
 }
 
 export default useGetWorkspaceUsers;

@@ -1,12 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import getLabelsByWorkspace from "@/fetchers/label/get-label-by-workspace";
+import { useQuery } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 
 function useGetLabelsByWorkspace(workspaceId: string) {
-  return useQuery({
-    enabled: Boolean(workspaceId),
-    queryKey: ["labels", workspaceId],
-    queryFn: () => getLabelsByWorkspace({ workspaceId }),
-  });
+  const labels = useQuery(
+    api.label.listByWorkspace,
+    workspaceId ? { workspaceId: workspaceId as Id<"workspace"> } : "skip",
+  );
+
+  return {
+    data: labels?.map(withId),
+    isLoading: Boolean(workspaceId) && labels === undefined,
+    isError: false,
+  };
 }
 
 export default useGetLabelsByWorkspace;
