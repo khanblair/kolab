@@ -1,19 +1,10 @@
-import { useQuery } from "@tanstack/react-query";
-import { authClient } from "@/lib/auth-client";
+import { useQuery } from "convex/react";
+import { api } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 
 function useGetApiKeys() {
-  return useQuery({
-    queryKey: ["api-keys"],
-    queryFn: async () => {
-      const result = await authClient.apiKey.list();
-
-      if (result.error) {
-        throw new Error(result.error.message);
-      }
-
-      return result.data.apiKeys || [];
-    },
-  });
+  const keys = useQuery(api.apiKey.list, {});
+  return { data: keys?.map(withId), isLoading: keys === undefined };
 }
 
 export default useGetApiKeys;

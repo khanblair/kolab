@@ -1,15 +1,14 @@
-import type { authClient } from "@/lib/auth-client";
+export type ApiKey = {
+  id: string;
+  name: string | null;
+  start: string;
+  createdAt: number;
+  expiresAt: number | null;
+};
 
-export type ApiKey = NonNullable<
-  Awaited<ReturnType<typeof authClient.apiKey.list>>["data"]
->;
+export type CreateApiKeyClientRequest = {
+  name: string;
+  expiresIn: number | null;
+};
 
-export type CreateApiKeyRequest = NonNullable<
-  Parameters<typeof authClient.apiKey.create>[0]
->;
-
-export type CreateApiKeyClientRequest = Omit<CreateApiKeyRequest, "userId">;
-
-export type CreateApiKeyResponse = NonNullable<
-  Awaited<ReturnType<typeof authClient.apiKey.create>>["data"]
->;
+export type CreateApiKeyResponse = ApiKey & { key: string };

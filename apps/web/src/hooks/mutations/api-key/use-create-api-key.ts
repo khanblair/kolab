@@ -1,31 +1,14 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { authClient } from "@/lib/auth-client";
-import type {
-  CreateApiKeyClientRequest,
-  CreateApiKeyResponse,
-} from "@/types/api-key";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api } from "@/lib/convex-api";
+import type { CreateApiKeyClientRequest } from "@/types/api-key";
 
 function useCreateApiKey() {
-  const queryClient = useQueryClient();
+  const createApiKey = useConvexMutation(api.apiKey.create);
 
   return useMutation({
-    mutationFn: async (data: CreateApiKeyClientRequest) => {
-      const result = await authClient.apiKey.create({
-        name: data.name,
-        expiresIn: data.expiresIn,
-        prefix: data.prefix,
-        metadata: data.metadata,
-      });
-
-      if (result.error) {
-        throw new Error(result.error.message);
-      }
-
-      return result.data as CreateApiKeyResponse;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["api-keys"] });
-    },
+    mutationFn: (data: CreateApiKeyClientRequest) =>
+      createApiKey({ name: data.name, expiresIn: data.expiresIn }),
   });
 }
 

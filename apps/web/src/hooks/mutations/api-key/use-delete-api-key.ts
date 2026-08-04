@@ -1,24 +1,13 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { authClient } from "@/lib/auth-client";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
 function useDeleteApiKey() {
-  const queryClient = useQueryClient();
+  const removeApiKey = useConvexMutation(api.apiKey.remove);
 
   return useMutation({
-    mutationFn: async (keyId: string) => {
-      const result = await authClient.apiKey.delete({
-        keyId: keyId,
-      });
-
-      if (result.error) {
-        throw new Error(result.error.message);
-      }
-
-      return result.data;
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["api-keys"] });
-    },
+    mutationFn: (keyId: string) =>
+      removeApiKey({ apiKeyId: keyId as Id<"apiKey"> }),
   });
 }
 
