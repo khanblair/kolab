@@ -16,34 +16,26 @@ import {
   SidebarMenu,
   SidebarMenuItem,
 } from "@/components/ui/sidebar";
-import getWorkspaces from "@/fetchers/workspace/get-workspaces";
-import useGetConfig from "@/hooks/queries/config/use-get-config";
+import { useGetBilling } from "@/hooks/queries/billing/use-get-billing";
 import { useWorkspacePermission } from "@/hooks/use-workspace-permission";
-import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/cn";
+import { api } from "@/lib/convex-api";
+import { convex } from "@/lib/convex-client";
 import { getInitials } from "@/lib/get-initials";
 
 export const Route = createFileRoute(
   "/_layout/_authenticated/dashboard/settings/workspace",
 )({
-  // Settings pages live outside `/dashboard/workspace/$workspaceId`, so they
-  // have no route param to identify "which workspace". They rely on the
-  // session's active organization. A user who deep-links here (or refreshes)
-  // before ever visiting a workspace dashboard would otherwise see an empty
-  // sidebar ("WS / Roles.Undefined") and a stuck "Loading…" — pick the first
-  // workspace as active so the layout has something to render.
+  // Settings pages live outside `/dashboard/workspace/$workspaceId`, so
+  // useActiveWorkspace() (which reads that route param) has nothing to read
+  // here — a pre-existing gap, not introduced by this guard. This only
+  // covers the zero-workspace case: send a user with no workspaces to
+  // onboarding instead of a blank settings shell.
   beforeLoad: async () => {
-    const session = await authClient.getSession();
-    if (session?.data?.session?.activeOrganizationId) return;
-
-    const workspaces = await getWorkspaces();
+    const workspaces = await convex.query(api.workspace.listForUser, {});
     if (workspaces.length === 0) {
       throw redirect({ to: "/onboarding" });
     }
-
-    await authClient.organization.setActive({
-      organizationId: workspaces[0].id,
-    });
   },
   component: RouteComponent,
 });
@@ -51,7 +43,7 @@ export const Route = createFileRoute(
 function RouteComponent() {
   const { t } = useTranslation();
   const { workspace, role } = useWorkspacePermission();
-  const { data: config } = useGetConfig();
+  const { data: billing } = useGetBilling(workspace?.id);
   const location = useLocation();
   const menuItems = [
     {
@@ -69,7 +61,7 @@ function RouteComponent() {
       url: "/dashboard/settings/workspace/labels",
       icon: Tag,
     },
-    ...(config?.billingEnabled
+    ...(billing?.billingEnabled
       ? [
           {
             title: "Billing",

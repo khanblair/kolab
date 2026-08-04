@@ -1,19 +1,17 @@
 import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
 import { toast } from "sonner";
-import {
-  type BillingInterval,
-  type BillingPlan,
-  createBillingCheckout,
-  createBillingPortal,
-} from "@/fetchers/billing/create-checkout";
+import { api, type Id } from "@/lib/convex-api";
+
+export type BillingPlan = "personal" | "team";
+export type BillingInterval = "monthly" | "annual";
 
 export function useCreateCheckout(workspaceId: string | undefined) {
+  const createCheckout = useConvexMutation(api.billing.createCheckout);
+
   return useMutation({
     mutationFn: (input: { plan: BillingPlan; interval: BillingInterval }) =>
-      createBillingCheckout({ workspaceId: workspaceId as string, ...input }),
-    onSuccess: ({ checkoutUrl }) => {
-      window.location.href = checkoutUrl;
-    },
+      createCheckout({ workspaceId: workspaceId as Id<"workspace">, ...input }),
     onError: (error) => {
       toast.error(
         error instanceof Error ? error.message : "Could not start checkout",
@@ -23,11 +21,13 @@ export function useCreateCheckout(workspaceId: string | undefined) {
 }
 
 export function useOpenBillingPortal(workspaceId: string | undefined) {
+  const createPortalSession = useConvexMutation(
+    api.billing.createPortalSession,
+  );
+
   return useMutation({
-    mutationFn: () => createBillingPortal(workspaceId as string),
-    onSuccess: ({ portalUrl }) => {
-      window.location.href = portalUrl;
-    },
+    mutationFn: () =>
+      createPortalSession({ workspaceId: workspaceId as Id<"workspace"> }),
     onError: (error) => {
       toast.error(
         error instanceof Error

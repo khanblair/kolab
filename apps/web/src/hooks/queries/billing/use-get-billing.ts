@@ -1,10 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import { getBilling } from "@/fetchers/billing/get-billing";
+import { useQuery } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
 export function useGetBilling(workspaceId: string | undefined) {
-  return useQuery({
-    queryKey: ["billing", workspaceId],
-    queryFn: () => getBilling(workspaceId as string),
-    enabled: Boolean(workspaceId),
-  });
+  const billing = useQuery(
+    api.billing.getWorkspaceBilling,
+    workspaceId ? { workspaceId: workspaceId as Id<"workspace"> } : "skip",
+  );
+  return {
+    data: billing,
+    isLoading: Boolean(workspaceId) && billing === undefined,
+  };
 }
