@@ -1,8 +1,9 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import upsertWorkflowRule from "@/fetchers/workflow-rule/upsert-workflow-rule";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
 export function useUpsertWorkflowRule() {
-  const queryClient = useQueryClient();
+  const upsertWorkflowRule = useConvexMutation(api.workflowRule.upsert);
 
   return useMutation({
     mutationFn: ({
@@ -11,11 +12,12 @@ export function useUpsertWorkflowRule() {
     }: {
       projectId: string;
       data: { integrationType: string; eventType: string; columnId: string };
-    }) => upsertWorkflowRule(projectId, data),
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: ["workflow-rules", variables.projectId],
-      });
-    },
+    }) =>
+      upsertWorkflowRule({
+        projectId: projectId as Id<"project">,
+        integrationType: data.integrationType,
+        eventType: data.eventType,
+        columnId: data.columnId as Id<"column">,
+      }),
   });
 }

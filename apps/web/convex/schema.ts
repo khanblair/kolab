@@ -162,6 +162,17 @@ export default defineSchema({
     .index("by_task", ["taskId"])
     .index("by_integration", ["integrationId"]),
 
+  // integrationType/eventType are free-text ("github"/"pr_merged" etc, not
+  // real integration or webhook FKs yet — integrations are still on the
+  // Hono API). One rule per (projectId, integrationType, eventType);
+  // enforced in workflowRule.ts's upsert, not here.
+  workflowRule: defineTable({
+    projectId: v.id("project"),
+    integrationType: v.string(),
+    eventType: v.string(),
+    columnId: v.id("column"),
+  }).index("by_project", ["projectId"]),
+
   activity: defineTable({
     taskId: v.id("task"),
     type: v.string(),
