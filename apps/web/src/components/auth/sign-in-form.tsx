@@ -14,7 +14,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
+import { supabase } from "@/lib/supabase-client";
 import { toast } from "@/lib/toast";
 
 export type SignInFormValues = {
@@ -47,7 +47,7 @@ export function SignInForm({ onSuccess, defaultEmail }: SignInFormProps) {
   const onSubmit = async (data: SignInFormValues) => {
     setIsPending(true);
     try {
-      const result = await authClient.signIn.email({
+      const result = await supabase.auth.signInWithPassword({
         email: data.email,
         password: data.password,
       });

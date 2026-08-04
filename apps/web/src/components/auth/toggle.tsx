@@ -1,5 +1,4 @@
 import { Link } from "@tanstack/react-router";
-import useGetConfig from "@/hooks/queries/config/use-get-config";
 
 type AuthToggleProps = {
   message: string;
@@ -8,12 +7,6 @@ type AuthToggleProps = {
 };
 
 export function AuthToggle({ message, linkText, linkTo }: AuthToggleProps) {
-  const { data: config } = useGetConfig();
-
-  if (config?.disableRegistration || config?.disablePasswordRegistration) {
-    return null;
-  }
-
   return (
     <div className="text-center text-sm text-muted-foreground mt-3">
       {message}{" "}

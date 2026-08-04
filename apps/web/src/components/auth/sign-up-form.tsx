@@ -15,7 +15,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { authClient } from "@/lib/auth-client";
+import { supabase } from "@/lib/supabase-client";
 import { toast } from "@/lib/toast";
 
 export type SignUpFormValues = {
@@ -27,25 +27,13 @@ export type SignUpFormValues = {
 type SignUpFormProps = {
   invitationId?: string;
   defaultEmail?: string;
-  /**
-   * Captcha token lifted from the page level. When the page renders Turnstile
-   * (cloud only), it passes the verified token here. `null` means captcha is
-   * required but not yet completed — the submit button stays disabled.
-   * `undefined` means captcha isn't required at all (self-hosted).
-   */
-  turnstileToken?: string | null;
 };
 
-export function SignUpForm({
-  invitationId,
-  defaultEmail,
-  turnstileToken,
-}: SignUpFormProps) {
+export function SignUpForm({ invitationId, defaultEmail }: SignUpFormProps) {
   const { t } = useTranslation();
   const [showPassword, setShowPassword] = useState(false);
   const [isPending, setIsPending] = useState(false);
   const { history } = useRouter();
-  const captchaRequired = turnstileToken !== undefined;
 
   const signUpSchema = useMemo(
     () =>
@@ -71,22 +59,11 @@ export function SignUpForm({
   const onSubmit = async (data: SignUpFormValues) => {
     setIsPending(true);
     try {
-      const headers: Record<string, string> = {};
-      if (turnstileToken) {
-        headers["x-turnstile-token"] = turnstileToken;
-      }
-      if (invitationId) {
-        headers["x-invitation-id"] = invitationId;
-      }
-
-      const result = await authClient.signUp.email(
-        {
-          email: data.email,
-          name: data.name,
-          password: data.password,
-        },
-        Object.keys(headers).length > 0 ? { headers } : undefined,
-      );
+      const result = await supabase.auth.signUp({
+        email: data.email,
+        password: data.password,
+        options: { data: { name: data.name } },
+      });
 
       if (result.error) {
         toast.error(result.error.message || t("auth:signUpForm.failedSignUp"));
@@ -94,6 +71,16 @@ export function SignUpForm({
       }
 
       toast.success(t("auth:signUpForm.accountCreated"));
+
+      if (!result.data.session) {
+        toast.info(
+          t("auth:signUpForm.confirmEmail", {
+            defaultValue: "Check your email to confirm your account.",
+          }),
+        );
+        history.push("/auth/sign-in");
+        return;
+      }
 
       if (invitationId) {
         history.push(`/invitation/accept/${invitationId}`);
@@ -195,11 +182,7 @@ export function SignUpForm({
           />
         </div>
 
-        <Button
-          type="submit"
-          disabled={isPending || (captchaRequired && !turnstileToken)}
-          className="w-full mt-4"
-        >
+        <Button type="submit" disabled={isPending} className="w-full mt-4">
           {isPending
             ? t("auth:signUpForm.creatingAccount")
             : t("auth:signUpForm.createAccount")}

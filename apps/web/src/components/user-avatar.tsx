@@ -14,7 +14,6 @@ import {
 } from "@/components/ui/menu";
 import { Separator } from "@/components/ui/separator";
 import useSignOut from "@/hooks/mutations/use-sign-out";
-import useGetConfig from "@/hooks/queries/config/use-get-config";
 import { getInitials } from "@/lib/get-initials";
 import { toast } from "@/lib/toast";
 import useProjectStore from "@/store/project";
@@ -22,10 +21,7 @@ import useProjectStore from "@/store/project";
 export function UserAvatar() {
   const { t } = useTranslation();
   const { user } = useAuth();
-  const { data: config } = useGetConfig();
-  const { mutateAsync: signOut, isPending } = useSignOut(
-    config?.customOAuthLogoutUrl,
-  );
+  const { mutateAsync: signOut, isPending } = useSignOut();
   const queryClient = useQueryClient();
   const { setProject } = useProjectStore();
   const navigate = useNavigate();

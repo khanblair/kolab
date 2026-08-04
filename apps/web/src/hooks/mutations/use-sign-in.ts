@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { authClient } from "@/lib/auth-client";
+import { supabase } from "@/lib/supabase-client";
 
 function useSignIn() {
   return useMutation({
@@ -10,11 +10,14 @@ function useSignIn() {
       email: string;
       password: string;
     }) => {
-      const result = await authClient.signIn.email({ email, password });
-      if (result.error) {
-        throw new Error(result.error.message);
+      const { data, error } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+      if (error) {
+        throw new Error(error.message);
       }
-      return result.data;
+      return data;
     },
   });
 }

@@ -1,5 +1,5 @@
 import { useMutation } from "@tanstack/react-query";
-import { authClient } from "@/lib/auth-client";
+import { supabase } from "@/lib/supabase-client";
 
 function useSignUp() {
   return useMutation({
@@ -12,11 +12,15 @@ function useSignUp() {
       password: string;
       name: string;
     }) => {
-      const result = await authClient.signUp.email({ email, password, name });
-      if (result.error) {
-        throw new Error(result.error.message);
+      const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
+        options: { data: { name } },
+      });
+      if (error) {
+        throw new Error(error.message);
       }
-      return result.data;
+      return data;
     },
   });
 }
