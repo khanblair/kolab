@@ -1,5 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
-import createProject from "@/fetchers/project/create-project";
+import { useMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 
 function useCreateProject({
   name,
@@ -12,9 +13,20 @@ function useCreateProject({
   workspaceId: string;
   icon: string;
 }) {
-  return useMutation({
-    mutationFn: () => createProject({ name, slug, workspaceId, icon }),
-  });
+  const createProject = useMutation(api.project.create);
+
+  return {
+    mutateAsync: async () => {
+      const project = await createProject({
+        name,
+        slug,
+        icon,
+        workspaceId: workspaceId as Id<"workspace">,
+      });
+      if (!project) throw new Error("Failed to create project");
+      return withId(project);
+    },
+  };
 }
 
 export default useCreateProject;

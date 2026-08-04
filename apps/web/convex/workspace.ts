@@ -9,7 +9,11 @@ import { currentUserProfile, requireWorkspaceMember } from "./lib/auth";
 // Better Auth's organization plugin and haven't been rewired either).
 
 export const create = mutation({
-  args: { name: v.string(), slug: v.string() },
+  args: {
+    name: v.string(),
+    slug: v.string(),
+    description: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
     const { userId, name, email } = await currentUserProfile(ctx);
 
@@ -24,6 +28,7 @@ export const create = mutation({
     const workspaceId = await ctx.db.insert("workspace", {
       name: args.name,
       slug: args.slug,
+      description: args.description,
     });
     await ctx.db.insert("workspaceUser", {
       workspaceId,

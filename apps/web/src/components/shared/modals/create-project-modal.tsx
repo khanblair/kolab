@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -42,7 +41,6 @@ function CreateProjectModal({ open, onClose }: CreateProjectModalProps) {
   const [selectedIcon, setSelectedIcon] = useState("Layout");
   const [iconPopoverOpen, setIconPopoverOpen] = useState(false);
   const [iconSearch, setIconSearch] = useState("");
-  const queryClient = useQueryClient();
   const { data: workspace } = useActiveWorkspace();
   const { mutateAsync } = useCreateProject({
     name,
@@ -73,7 +71,6 @@ function CreateProjectModal({ open, onClose }: CreateProjectModalProps) {
     try {
       const { id } = await mutateAsync();
       toast.success("Project created successfully");
-      await queryClient.invalidateQueries({ queryKey: ["projects"] });
 
       navigate({
         to: "/dashboard/workspace/$workspaceId/project/$projectId/board",

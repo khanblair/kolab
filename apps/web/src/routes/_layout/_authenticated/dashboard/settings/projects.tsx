@@ -102,10 +102,7 @@ function RouteComponent() {
         <div className="p-2">
           <div className="mb-1 flex items-center gap-3 rounded-md px-2 py-2">
             <Avatar className="h-8 w-8">
-              <AvatarImage
-                src={workspace?.logo ?? ""}
-                alt={workspace?.name || ""}
-              />
+              <AvatarImage src="" alt={workspace?.name || ""} />
               <AvatarFallback className="border border-sidebar-border/70 bg-sidebar-accent/70 text-[11px] font-medium text-sidebar-accent-foreground">
                 {workspaceInitials}
               </AvatarFallback>

@@ -9,6 +9,7 @@ export default defineSchema({
   workspace: defineTable({
     name: v.string(),
     slug: v.string(),
+    description: v.optional(v.string()),
   }).index("by_slug", ["slug"]),
 
   // name/email are denormalized from the Supabase JWT at membership-creation

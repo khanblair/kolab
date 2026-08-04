@@ -1,5 +1,4 @@
 import { standardSchemaResolver } from "@hookform/resolvers/standard-schema";
-import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { CheckCircle2 } from "lucide-react";
@@ -9,7 +8,6 @@ import { Trans, useTranslation } from "react-i18next";
 import { z } from "zod/v4";
 import { Logo } from "@/components/common/logo";
 import PageTitle from "@/components/page-title";
-import useAuth from "@/components/providers/auth-provider/hooks/use-auth";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -21,7 +19,7 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import useCreateWorkspace from "@/hooks/queries/workspace/use-create-workspace";
-import { authClient } from "@/lib/auth-client";
+import { setLastWorkspaceId } from "@/lib/last-workspace";
 import { toast } from "@/lib/toast";
 
 type OnboardingStep = "workspace" | "success";
@@ -46,9 +44,7 @@ export function OnboardingFlow() {
   const [step, setStep] = useState<OnboardingStep>("workspace");
   const [createdWorkspaceName, setCreatedWorkspaceName] = useState("");
   const navigate = useNavigate();
-  const queryClient = useQueryClient();
   const { mutateAsync: createWorkspace, isPending } = useCreateWorkspace();
-  const { user } = useAuth();
 
   const workspaceSchema = useMemo(
     () =>
@@ -73,14 +69,10 @@ export function OnboardingFlow() {
     try {
       const workspace = await createWorkspace({
         name: data.name.trim(),
-        description: data.description?.trim() || "",
-        userId: user?.id,
+        description: data.description?.trim() || undefined,
       });
 
-      await queryClient.invalidateQueries({ queryKey: ["workspaces"] });
-      await authClient.organization.setActive({
-        organizationId: workspace.id,
-      });
+      setLastWorkspaceId(workspace.id);
       setCreatedWorkspaceName(data.name);
       toast.success(t("auth:onboarding.toast.workspaceCreated"));
 

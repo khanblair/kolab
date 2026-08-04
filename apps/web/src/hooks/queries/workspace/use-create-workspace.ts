@@ -1,5 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
-import { authClient } from "@/lib/auth-client";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 import {
   createUniqueWorkspaceSlug,
   isWorkspaceSlugCollisionError,
@@ -8,59 +10,31 @@ import {
 type CreateWorkspaceRequest = {
   name: string;
   description?: string;
-  logo?: string;
   slug?: string;
-  keepCurrentActiveOrganization?: boolean;
-  userId?: string;
 };
 
 function useCreateWorkspace() {
+  const createWorkspace = useConvexMutation(api.workspace.create);
+
   return useMutation({
-    mutationFn: async ({
-      name,
-      description,
-      logo,
-      slug,
-      keepCurrentActiveOrganization = false,
-      userId,
-    }: CreateWorkspaceRequest) => {
-      const metadata = description ? { description } : undefined;
-      const existingWorkspaces = slug
-        ? []
-        : ((await authClient.organization.list()).data ?? []);
-      let workspaceSlug = slug
-        ? slug
-        : createUniqueWorkspaceSlug(
-            name,
-            existingWorkspaces.map((workspace) => workspace.slug),
-          );
+    mutationFn: async ({ name, description, slug }: CreateWorkspaceRequest) => {
+      let workspaceSlug = slug ?? createUniqueWorkspaceSlug(name, []);
 
       for (let attempt = 0; attempt < 5; attempt += 1) {
-        const { data, error } = await authClient.organization.create({
-          name,
-          slug: workspaceSlug,
-          logo: logo || undefined,
-          metadata,
-          keepCurrentActiveOrganization,
-          userId: userId,
-        });
-
-        if (!error) {
-          return data;
+        try {
+          const workspace = await createWorkspace({
+            name,
+            slug: workspaceSlug,
+            description,
+          });
+          if (!workspace) throw new Error("Failed to create workspace");
+          return withId(workspace);
+        } catch (error) {
+          if (slug || !isWorkspaceSlugCollisionError(error)) {
+            throw error;
+          }
+          workspaceSlug = createUniqueWorkspaceSlug(name, [workspaceSlug]);
         }
-
-        const createError = new Error(
-          error.message || "Failed to create workspace",
-        );
-
-        if (slug || !isWorkspaceSlugCollisionError(createError)) {
-          throw createError;
-        }
-
-        workspaceSlug = createUniqueWorkspaceSlug(name, [
-          ...existingWorkspaces.map((workspace) => workspace.slug),
-          workspaceSlug,
-        ]);
       }
 
       throw new Error("Failed to create workspace");

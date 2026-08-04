@@ -1,11 +1,12 @@
 import { useParams } from "@tanstack/react-router";
-import { authClient } from "@/lib/auth-client";
+import { useQuery } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 
+// The route's $workspaceId param is the source of truth — there's no
+// server-side "active workspace" concept anymore (that was Better Auth
+// session state, which doesn't exist under Supabase Auth).
 function useActiveWorkspace() {
-  const { data: activeOrganization, error } =
-    authClient.useActiveOrganization();
-  const { data: organizations, isPending: isOrganizationsPending } =
-    authClient.useListOrganizations();
   const { workspaceId } = useParams({
     strict: false,
     select: (params) => ({
@@ -16,19 +17,15 @@ function useActiveWorkspace() {
     }),
   });
 
-  const workspaceFromRoute = workspaceId
-    ? organizations?.find((organization) => organization.id === workspaceId)
-    : undefined;
-  const workspace = workspaceFromRoute ?? activeOrganization;
-  const isLoading =
-    (!!workspaceId && isOrganizationsPending && !workspaceFromRoute) ||
-    (!workspace && !error);
+  const workspace = useQuery(
+    api.workspace.get,
+    workspaceId ? { workspaceId: workspaceId as Id<"workspace"> } : "skip",
+  );
 
   return {
-    data: workspace,
-    error,
-    isLoading,
-    isError: !!error,
+    data: workspace ? withId(workspace) : undefined,
+    isLoading: Boolean(workspaceId) && workspace === undefined,
+    isError: false,
   };
 }
 

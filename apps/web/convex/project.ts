@@ -59,13 +59,20 @@ async function computeStatistics(ctx: QueryCtx, projectId: Id<"project">) {
     columns.filter((c) => c.isFinal).map((c) => c._id),
   );
   const totalTasks = tasks.length;
-  const completedTasks = tasks.filter(
-    (t) => t.columnId && finalColumnIds.has(t.columnId),
-  ).length;
+  const incompleteTasks = tasks.filter(
+    (t) => !t.columnId || !finalColumnIds.has(t.columnId),
+  );
+  const completedTasks = totalTasks - incompleteTasks.length;
+  const upcomingDueDates = incompleteTasks
+    .map((t) => t.dueDate)
+    .filter((d): d is number => d !== undefined);
+
   return {
     totalTasks,
     completionPercentage:
       totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100),
+    dueDate:
+      upcomingDueDates.length === 0 ? undefined : Math.min(...upcomingDueDates),
   };
 }
 

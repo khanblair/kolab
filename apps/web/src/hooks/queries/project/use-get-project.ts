@@ -1,18 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import getProject from "@/fetchers/project/get-project";
+import { useQuery } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 
-function useGetProject({
-  id,
-  workspaceId,
-}: {
-  id: string;
-  workspaceId: string;
-}) {
-  return useQuery({
-    queryFn: () => getProject({ id, workspaceId }),
-    queryKey: ["projects", workspaceId, id],
-    enabled: !!id,
-  });
+function useGetProject({ id }: { id: string; workspaceId: string }) {
+  const project = useQuery(
+    api.project.get,
+    id ? { projectId: id as Id<"project"> } : "skip",
+  );
+
+  return {
+    data: project ? withId(project) : undefined,
+    isLoading: Boolean(id) && project === undefined,
+    isError: false,
+  };
 }
 
 export default useGetProject;

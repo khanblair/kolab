@@ -36,7 +36,6 @@ import useGetProjects from "@/hooks/queries/project/use-get-projects";
 import useActiveWorkspace from "@/hooks/queries/workspace/use-active-workspace";
 import { useWorkspacePermission } from "@/hooks/use-workspace-permission";
 import { toast } from "@/lib/toast";
-import type { ProjectWithTasks } from "@/types/project";
 import CreateProjectModal from "./shared/modals/create-project-modal";
 import {
   AlertDialog,
@@ -81,7 +80,7 @@ export function NavProjects() {
     );
   };
 
-  const handleProjectClick = (project: ProjectWithTasks) => {
+  const handleProjectClick = (project: { id: string }) => {
     navigate({
       to: "/dashboard/workspace/$workspaceId/project/$projectId/board",
       params: {

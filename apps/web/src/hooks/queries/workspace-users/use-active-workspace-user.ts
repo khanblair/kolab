@@ -1,27 +1,21 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery } from "convex/react";
 import useAuth from "@/components/providers/auth-provider/hooks/use-auth";
 import useActiveWorkspace from "@/hooks/queries/workspace/use-active-workspace";
-import { authClient } from "@/lib/auth-client";
+import { api } from "@/lib/convex-api";
 
 export const useGetActiveWorkspaceUser = () => {
   const { user } = useAuth();
   const { data: workspace } = useActiveWorkspace();
 
-  return useQuery({
-    queryKey: ["workspace-user", "active", workspace?.id, user?.id],
-    enabled: !!workspace?.id && !!user?.id,
-    queryFn: async () => {
-      const { data, error } = await authClient.organization.listMembers({
-        query: {
-          organizationId: workspace?.id,
-        },
-      });
+  const members = useQuery(
+    api.workspace.listMembers,
+    workspace?.id ? { workspaceId: workspace.id } : "skip",
+  );
 
-      if (error) {
-        throw new Error(error.message || "Failed to get active workspace user");
-      }
+  const data = members?.find((m) => m.userId === user?.id) ?? null;
 
-      return data.members.find((member) => member.userId === user?.id) ?? null;
-    },
-  });
+  return {
+    data,
+    isLoading: Boolean(workspace?.id) && members === undefined,
+  };
 };

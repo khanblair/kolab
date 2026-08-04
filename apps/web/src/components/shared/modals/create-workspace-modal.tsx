@@ -1,4 +1,3 @@
-import { useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -19,7 +18,7 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import useCreateWorkspace from "@/hooks/queries/workspace/use-create-workspace";
-import { authClient } from "@/lib/auth-client";
+import { setLastWorkspaceId } from "@/lib/last-workspace";
 import { toast } from "@/lib/toast";
 
 type CreateWorkspaceModalProps = {
@@ -32,7 +31,6 @@ function CreateWorkspaceModal({ open, onClose }: CreateWorkspaceModalProps) {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
-  const queryClient = useQueryClient();
   const navigate = useNavigate();
   const { mutateAsync } = useCreateWorkspace();
 
@@ -57,11 +55,7 @@ function CreateWorkspaceModal({ open, onClose }: CreateWorkspaceModalProps) {
     try {
       const createdWorkspace = await mutateAsync({ name, description });
       toast.success(t("common:modals.createWorkspace.successToast"));
-      await queryClient.invalidateQueries({ queryKey: ["workspaces"] });
-
-      await authClient.organization.setActive({
-        organizationId: createdWorkspace.id,
-      });
+      setLastWorkspaceId(createdWorkspace.id);
 
       navigate({
         to: "/dashboard/workspace/$workspaceId",

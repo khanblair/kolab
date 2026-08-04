@@ -1,17 +1,14 @@
-import { authClient } from "@/lib/auth-client";
+import { useQuery } from "convex/react";
+import { api } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 
 function useGetWorkspaces() {
-  const {
-    data: organizations,
-    error,
-    isPending,
-  } = authClient.useListOrganizations();
+  const workspaces = useQuery(api.workspace.listForUser, {});
 
   return {
-    data: organizations,
-    error,
-    isLoading: isPending,
-    isError: !!error,
+    data: workspaces?.map(withId),
+    isLoading: workspaces === undefined,
+    isError: false,
   };
 }
 

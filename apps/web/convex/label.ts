@@ -1,11 +1,7 @@
 import { v } from "convex/values";
 import type { Id } from "./_generated/dataModel";
 import { type MutationCtx, mutation, query } from "./_generated/server";
-import {
-  requireProjectMember,
-  requireTaskMember,
-  requireWorkspaceMember,
-} from "./lib/auth";
+import { requireTaskMember, requireWorkspaceMember } from "./lib/auth";
 
 async function findTaskLabel(
   ctx: MutationCtx,

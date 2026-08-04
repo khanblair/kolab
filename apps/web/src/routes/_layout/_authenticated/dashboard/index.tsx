@@ -1,43 +1,23 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
-import { getPendingInvitations } from "@/fetchers/invitation/get-pending-invitations";
-import getWorkspaces from "@/fetchers/workspace/get-workspaces";
-import { authClient } from "@/lib/auth-client";
-import type Workspace from "@/types/workspace";
+import { api } from "@/lib/convex-api";
+import { convex } from "@/lib/convex-client";
+import { getLastWorkspaceId } from "@/lib/last-workspace";
 
 export const Route = createFileRoute("/_layout/_authenticated/dashboard/")({
   beforeLoad: async () => {
-    const workspaces: Workspace[] = await getWorkspaces();
-    const invitations = await getPendingInvitations();
+    const workspaces = await convex.query(api.workspace.listForUser, {});
 
-    if (invitations && invitations.length > 0 && !workspaces.length) {
-      throw redirect({ to: "/invitations" });
+    if (workspaces.length === 0) {
+      throw redirect({ to: "/onboarding" });
     }
 
-    const session = await authClient.getSession();
-    const activeWorkspaceId = session?.data?.session?.activeOrganizationId;
+    const lastWorkspaceId = getLastWorkspaceId();
+    const target =
+      workspaces.find((w) => w._id === lastWorkspaceId) ?? workspaces[0];
 
-    if (workspaces && workspaces.length > 0) {
-      if (
-        activeWorkspaceId &&
-        workspaces.some((ws) => ws.id === activeWorkspaceId)
-      ) {
-        throw redirect({
-          to: "/dashboard/workspace/$workspaceId",
-          params: { workspaceId: activeWorkspaceId },
-        });
-      }
-
-      const firstWorkspace = workspaces[0];
-
-      authClient.organization.setActive({
-        organizationId: firstWorkspace.id,
-      });
-
-      throw redirect({
-        to: "/dashboard/workspace/$workspaceId",
-        params: { workspaceId: firstWorkspace.id },
-      });
-    }
-    throw redirect({ to: "/onboarding" });
+    throw redirect({
+      to: "/dashboard/workspace/$workspaceId",
+      params: { workspaceId: target._id },
+    });
   },
 });
