@@ -1,5 +1,6 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
+import { requireWorkspaceMember } from "./lib/auth";
 
 // Mirrors apps/api/src/project/controllers/create-project.ts's
 // DEFAULT_PROJECT_COLUMNS. Convex mutations are transactional by default,
@@ -11,9 +12,6 @@ const DEFAULT_PROJECT_COLUMNS = [
   { name: "Done", slug: "done", position: 3, isFinal: true },
 ] as const;
 
-// NOTE: no auth check yet — this slice is proving the CRUD/schema pattern
-// before Supabase Auth is wired in. workspaceId is a trusted argument for
-// now, not derived from a verified session.
 export const create = mutation({
   args: {
     workspaceId: v.id("workspace"),
@@ -22,6 +20,7 @@ export const create = mutation({
     slug: v.string(),
   },
   handler: async (ctx, args) => {
+    await requireWorkspaceMember(ctx, args.workspaceId);
     const projectId = await ctx.db.insert("project", {
       workspaceId: args.workspaceId,
       name: args.name,
@@ -53,6 +52,7 @@ export const list = query({
     includeArchived: v.optional(v.boolean()),
   },
   handler: async (ctx, args) => {
+    await requireWorkspaceMember(ctx, args.workspaceId);
     const projects = await ctx.db
       .query("project")
       .withIndex("by_workspace", (q) => q.eq("workspaceId", args.workspaceId))
