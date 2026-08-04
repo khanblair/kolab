@@ -19,12 +19,12 @@ import { produce } from "immer";
 import { useEffect, useState } from "react";
 import { useUpdateTask } from "@/hooks/mutations/task/use-update-task";
 import { useRegisterShortcuts } from "@/hooks/use-keyboard-shortcuts";
+import { getPriorityIcon } from "@/lib/priority";
 import useBulkSelectionStore from "@/store/bulk-selection";
 import useProjectStore from "@/store/project";
 import type { ProjectWithTasks } from "@/types/project";
 import BulkToolbar from "../bulk-selection/bulk-toolbar";
 import Column from "./column";
-import TaskCard from "./task-card";
 
 type KanbanBoardProps = {
   project: ProjectWithTasks;
@@ -263,11 +263,41 @@ function KanbanBoard({ project, disableDragDrop = false }: KanbanBoardProps) {
           </div>
         </div>
       </div>
+      {/*
+        A plain, non-interactive preview — deliberately NOT <TaskCard>.
+        TaskCard unconditionally calls useSortable(), which registers with
+        dnd-kit under the task's id; rendering it here would create a
+        second live registration for the exact same id as the real,
+        still-mounted source card for the whole duration of every drag.
+        dnd-kit's shared draggable/droppable registries key purely on id
+        with last-write-wins semantics, so this raced the overlay clone's
+        mount/unmount against the real card's own registration and could
+        leave that card's listeners orphaned, breaking its next drag until
+        something else caused it to remount. list-view's DragOverlay
+        already avoids TaskRow the same way — this mirrors that pattern.
+      */}
       <DragOverlay dropAnimation={dropAnimation}>
         {activeTask ? (
-          <div className="transform rotate-1 scale-[1.03] shadow-lg">
-            <div className="ring-2 ring-ring/35 rounded-lg">
-              <TaskCard task={activeTask} />
+          <div className="transform rotate-1 scale-[1.03] shadow-lg cursor-grabbing">
+            <div className="ring-2 ring-ring/35 rounded-lg border border-border bg-background p-3">
+              <div className="mb-2.5 flex items-center gap-2">
+                {getPriorityIcon(activeTask.priority ?? "")}
+                <span className="text-[10px] font-mono text-muted-foreground/90">
+                  {project?.slug}-{activeTask.number}
+                </span>
+              </div>
+              <div
+                className="overflow-hidden break-words text-sm leading-5 font-medium text-foreground/95"
+                style={{
+                  display: "-webkit-box",
+                  WebkitLineClamp: 3,
+                  WebkitBoxOrient: "vertical",
+                  wordBreak: "break-word",
+                  hyphens: "auto",
+                }}
+              >
+                {activeTask.title}
+              </div>
             </div>
           </div>
         ) : null}
