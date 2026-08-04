@@ -2,6 +2,7 @@ import { v } from "convex/values";
 import type { Id } from "./_generated/dataModel";
 import { mutation, type QueryCtx, query } from "./_generated/server";
 import { requireProjectMember, requireWorkspaceMember } from "./lib/auth";
+import { deleteTaskAndRelations } from "./task";
 
 // Mirrors apps/api/src/project/controllers/create-project.ts's
 // DEFAULT_PROJECT_COLUMNS. Convex mutations are transactional by default,
@@ -41,6 +42,50 @@ export const create = mutation({
     }
 
     return await ctx.db.get(projectId);
+  },
+});
+
+export const update = mutation({
+  args: {
+    projectId: v.id("project"),
+    name: v.optional(v.string()),
+    icon: v.optional(v.string()),
+    slug: v.optional(v.string()),
+    description: v.optional(v.string()),
+    isPublic: v.optional(v.boolean()),
+  },
+  handler: async (ctx, args) => {
+    const { projectId, ...patch } = args;
+    await requireProjectMember(ctx, projectId);
+    await ctx.db.patch(projectId, patch);
+    return await ctx.db.get(projectId);
+  },
+});
+
+export const remove = mutation({
+  args: { projectId: v.id("project") },
+  handler: async (ctx, args) => {
+    await requireProjectMember(ctx, args.projectId);
+
+    const [tasks, columns] = await Promise.all([
+      ctx.db
+        .query("task")
+        .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
+        .collect(),
+      ctx.db
+        .query("column")
+        .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
+        .collect(),
+    ]);
+
+    for (const task of tasks) {
+      await deleteTaskAndRelations(ctx, task._id);
+    }
+    for (const column of columns) {
+      await ctx.db.delete(column._id);
+    }
+
+    await ctx.db.delete(args.projectId);
   },
 });
 

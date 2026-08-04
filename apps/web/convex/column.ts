@@ -2,11 +2,26 @@ import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { requireProjectMember } from "./lib/auth";
 
+// Mirrors apps/api/src/column/controllers/create-column.ts's toSlug() and
+// VIRTUAL_STATUSES reservation exactly — column slugs double as task
+// status values, so they can't collide with the virtual "planned"/
+// "archived" statuses.
+const VIRTUAL_STATUSES = ["planned", "archived"] as const;
+
+function toSlug(name: string): string {
+  const slug = name
+    .normalize("NFKC")
+    .toLowerCase()
+    .trim()
+    .replace(/[^\p{L}\p{M}\p{N}]+/gu, "-")
+    .replace(/^-+|-+$/g, "");
+  return /[\p{L}\p{N}]/u.test(slug) ? slug : "";
+}
+
 export const create = mutation({
   args: {
     projectId: v.id("project"),
     name: v.string(),
-    slug: v.string(),
     icon: v.optional(v.string()),
     color: v.optional(v.string()),
     isFinal: v.optional(v.boolean()),
@@ -14,12 +29,26 @@ export const create = mutation({
   handler: async (ctx, args) => {
     await requireProjectMember(ctx, args.projectId);
 
+    const slug = toSlug(args.name);
+    if (!slug) {
+      throw new Error(
+        "Column name must contain at least one alphanumeric character",
+      );
+    }
+    if ((VIRTUAL_STATUSES as readonly string[]).includes(slug)) {
+      throw new Error(
+        `Column slug "${slug}" is reserved for virtual task statuses`,
+      );
+    }
+
     const existing = await ctx.db
       .query("column")
       .withIndex("by_project", (q) => q.eq("projectId", args.projectId))
       .collect();
-    if (existing.some((c) => c.slug === args.slug)) {
-      throw new Error("A column with that slug already exists");
+    if (existing.some((c) => c.slug === slug)) {
+      throw new Error(
+        `Column with slug "${slug}" already exists in this project`,
+      );
     }
     const position =
       existing.length === 0
@@ -29,7 +58,7 @@ export const create = mutation({
     return await ctx.db.insert("column", {
       projectId: args.projectId,
       name: args.name,
-      slug: args.slug,
+      slug,
       position,
       icon: args.icon,
       color: args.color,
