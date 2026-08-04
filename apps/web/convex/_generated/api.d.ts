@@ -29,6 +29,7 @@ import type * as project from "../project.js";
 import type * as task from "../task.js";
 import type * as taskRelation from "../taskRelation.js";
 import type * as timeEntry from "../timeEntry.js";
+import type * as workflowRule from "../workflowRule.js";
 import type * as workspace from "../workspace.js";
 
 import type {
@@ -59,6 +60,7 @@ declare const fullApi: ApiFromModules<{
   task: typeof task;
   taskRelation: typeof taskRelation;
   timeEntry: typeof timeEntry;
+  workflowRule: typeof workflowRule;
   workspace: typeof workspace;
 }>;
 

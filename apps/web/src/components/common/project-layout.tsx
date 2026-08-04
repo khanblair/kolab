@@ -17,7 +17,6 @@ import {
 } from "@/components/ui/tooltip";
 import { shortcuts } from "@/constants/shortcuts";
 import useGetProject from "@/hooks/queries/project/use-get-project";
-import { useProjectWebSocket } from "@/hooks/use-project-websocket";
 import { cn } from "@/lib/cn";
 
 type ProjectLayoutProps = {
@@ -42,8 +41,6 @@ export default function ProjectLayout({
   const { data: project } = useGetProject({ id: projectId, workspaceId });
   const [isCreateProjectModalOpen, setIsCreateProjectModalOpen] =
     useState(false);
-
-  useProjectWebSocket(projectId);
 
   const resolvedView =
     activeView ??
