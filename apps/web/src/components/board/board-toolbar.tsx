@@ -20,12 +20,14 @@ import {
   type BoardFilters,
   DUE_DATE_FILTER_VALUES,
 } from "@/hooks/use-task-filters";
+import { useWorkspacePermission } from "@/hooks/use-workspace-permission";
 import { getColumnIcon } from "@/lib/column";
 import { getInitials } from "@/lib/get-initials";
 import { getPriorityLabel } from "@/lib/i18n/domain";
 import { getPriorityIcon } from "@/lib/priority";
 import type { SortConfig } from "@/lib/sort-tasks";
 import type { ProjectWithTasks } from "@/types/project";
+import AddColumnButton from "./add-column-button";
 
 type WorkspaceLabel = {
   id: string;
@@ -145,6 +147,8 @@ export default function BoardToolbar({
   onSortChange,
 }: BoardToolbarProps) {
   const { t } = useTranslation();
+  const { canManageProjects } = useWorkspacePermission();
+  const canEditColumns = canManageProjects();
   const selectedStatusIds = filters.status ?? [];
   const selectedPriorityIds = filters.priority ?? [];
   const selectedAssigneeIds = filters.assignee ?? [];
@@ -644,6 +648,9 @@ export default function BoardToolbar({
           </div>
 
           <div className="inline-flex items-center gap-1">
+            {project && canEditColumns && (
+              <AddColumnButton projectId={project.id} />
+            )}
             <button
               type="button"
               className={`inline-flex h-6 items-center gap-1 rounded-md px-2 text-xs font-medium transition-colors ${

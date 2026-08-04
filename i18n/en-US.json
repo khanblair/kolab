@@ -1495,7 +1495,8 @@
 		"boardSearchPlaceholder": "Search tickets...",
 		"view": {
 			"board": "Board",
-			"list": "List"
+			"list": "List",
+			"addColumn": "Add column"
 		},
 		"common": {
 			"selectTask": "Select task",
