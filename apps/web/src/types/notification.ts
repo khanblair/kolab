@@ -1,9 +1,13 @@
-import type { client } from "@kolab/libs";
-import type { InferResponseType } from "hono/client";
-
-export type Notification = Extract<
-  InferResponseType<(typeof client)["notification"]["$get"]>[number],
-  { id: string }
->;
+export type Notification = {
+  id: string;
+  type: string;
+  title?: string | null;
+  content?: string | null;
+  eventData?: unknown;
+  resourceId?: string | null;
+  resourceType?: string | null;
+  isRead: boolean;
+  createdAt: number;
+};
 
 export type NotificationEventData = Record<string, unknown> | null | undefined;

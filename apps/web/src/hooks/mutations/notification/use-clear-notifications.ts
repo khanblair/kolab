@@ -1,14 +1,12 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import clearNotifications from "@/fetchers/notification/clear-notifications";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api } from "@/lib/convex-api";
 
 function useClearNotifications() {
-  const queryClient = useQueryClient();
+  const clearAll = useConvexMutation(api.notification.clearAll);
 
   return useMutation({
-    mutationFn: clearNotifications,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notifications"] });
-    },
+    mutationFn: () => clearAll({}),
   });
 }
 

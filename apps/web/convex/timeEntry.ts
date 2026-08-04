@@ -1,6 +1,7 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
-import { requireTaskMember, requireUserId } from "./lib/auth";
+import { requireTaskMember } from "./lib/auth";
+import { createNotification } from "./lib/notifications";
 
 export const create = mutation({
   args: {
@@ -9,10 +10,9 @@ export const create = mutation({
     startTime: v.number(),
   },
   handler: async (ctx, args) => {
-    await requireTaskMember(ctx, args.taskId);
-    const userId = await requireUserId(ctx);
+    const { userId, task, project } = await requireTaskMember(ctx, args.taskId);
     const now = Date.now();
-    return await ctx.db.insert("timeEntry", {
+    const timeEntryId = await ctx.db.insert("timeEntry", {
       taskId: args.taskId,
       userId,
       description: args.description,
@@ -20,6 +20,22 @@ export const create = mutation({
       createdAt: now,
       updatedAt: now,
     });
+
+    if (task.assigneeId && task.assigneeId !== userId) {
+      await createNotification(ctx, {
+        userId: task.assigneeId,
+        type: "time_entry_created",
+        eventData: {
+          taskTitle: task.title,
+          projectId: task.projectId,
+          workspaceId: project.workspaceId,
+        },
+        resourceId: args.taskId,
+        resourceType: "task",
+      });
+    }
+
+    return await ctx.db.get(timeEntryId);
   },
 });
 

@@ -1,11 +1,9 @@
-import { useQuery } from "@tanstack/react-query";
-import getNotificationPreferences from "@/fetchers/notification-preferences/get-notification-preferences";
+import { useQuery } from "convex/react";
+import { api } from "@/lib/convex-api";
 
 function useGetNotificationPreferences() {
-  return useQuery({
-    queryFn: getNotificationPreferences,
-    queryKey: ["notification-preferences"],
-  });
+  const preferences = useQuery(api.notification.getPreferences, {});
+  return { data: preferences, isLoading: preferences === undefined };
 }
 
 export default useGetNotificationPreferences;

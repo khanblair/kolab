@@ -1,11 +1,13 @@
-import { useQuery } from "@tanstack/react-query";
-import getNotifications from "@/fetchers/notification/get-notifications";
+import { useQuery } from "convex/react";
+import { api } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 
 function useGetNotifications() {
-  return useQuery({
-    queryKey: ["notifications"],
-    queryFn: getNotifications,
-  });
+  const notifications = useQuery(api.notification.list, {});
+  return {
+    data: notifications?.map(withId),
+    isLoading: notifications === undefined,
+  };
 }
 
 export default useGetNotifications;

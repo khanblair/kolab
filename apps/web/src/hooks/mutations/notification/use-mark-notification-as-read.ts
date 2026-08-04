@@ -1,14 +1,13 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import markNotificationAsRead from "@/fetchers/notification/mark-notification-as-read";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
 function useMarkNotificationAsRead() {
-  const queryClient = useQueryClient();
+  const markAsRead = useConvexMutation(api.notification.markAsRead);
 
   return useMutation({
-    mutationFn: (id: string) => markNotificationAsRead(id),
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["notifications"] });
-    },
+    mutationFn: (id: string) =>
+      markAsRead({ notificationId: id as Id<"notification"> }),
   });
 }
 

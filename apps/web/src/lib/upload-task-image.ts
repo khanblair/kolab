@@ -1,6 +1,6 @@
-import createImageUpload, {
-  finalizeImageUpload,
-} from "@/fetchers/task/create-image-upload";
+import { api, type Id } from "@/lib/convex-api";
+import { getAssetUrl } from "@/lib/convex-asset-url";
+import { convex } from "@/lib/convex-client";
 
 const allowedImageMimeTypes = new Set([
   "image/apng",
@@ -40,41 +40,35 @@ export async function uploadTaskImage({
   surface: UploadSurface;
   file: File;
 }) {
-  if (!isSupportedImageFile(file)) {
-    if (!isSupportedTaskAsset(file)) {
-      throw new Error("Only non-empty file uploads are supported.");
-    }
+  if (!isSupportedImageFile(file) && !isSupportedTaskAsset(file)) {
+    throw new Error("Only non-empty file uploads are supported.");
   }
 
-  const upload = await createImageUpload({
-    taskId,
-    filename: file.name || "image",
-    contentType: file.type,
-    size: file.size,
-    surface,
+  const uploadUrl = await convex.mutation(api.asset.generateUploadUrl, {
+    taskId: taskId as Id<"task">,
   });
 
-  const response = await fetch(upload.uploadUrl, {
-    method: "PUT",
-    headers: upload.headers,
+  const uploadResponse = await fetch(uploadUrl, {
+    method: "POST",
+    headers: { "Content-Type": file.type || "application/octet-stream" },
     body: file,
   });
 
-  if (!response.ok) {
+  if (!uploadResponse.ok) {
     throw new Error("Failed to upload file to storage.");
   }
 
-  const asset = await finalizeImageUpload({
-    taskId,
-    key: upload.key,
+  const { storageId } = await uploadResponse.json();
+
+  const { id } = await convex.mutation(api.asset.finalizeUpload, {
+    taskId: taskId as Id<"task">,
+    storageId,
     filename: file.name || "image",
-    contentType: file.type,
-    size: file.size,
     surface,
   });
 
   return {
-    url: asset.url,
+    url: getAssetUrl(id),
     alt: getImageAltText(file.name || "image"),
     filename: file.name || "file",
     kind: isSupportedImageFile(file) ? "image" : "attachment",

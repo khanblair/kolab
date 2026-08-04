@@ -1,6 +1,9 @@
 import { v } from "convex/values";
 import { mutation, query } from "./_generated/server";
 import { currentUserProfile, requireWorkspaceMember } from "./lib/auth";
+import { createNotification } from "./lib/notifications";
+
+const TRIAL_DAYS = 14;
 
 // NOTE: fine-grained permission overrides (the `workspaceRole` table, ported
 // from Better Auth's dynamicAccessControl) aren't wired yet — every member
@@ -38,6 +41,26 @@ export const create = mutation({
       role: "owner",
       joinedAt: Date.now(),
     });
+
+    const now = Date.now();
+    await ctx.db.insert("workspaceBilling", {
+      workspaceId,
+      foundingFree: false,
+      trialEndsAt: now + TRIAL_DAYS * 24 * 60 * 60 * 1000,
+      createdAt: now,
+      updatedAt: now,
+    });
+
+    // Matches the original app's behavior: the creator (== owner) gets
+    // notified of their own workspace's creation.
+    await createNotification(ctx, {
+      userId,
+      type: "workspace_created",
+      eventData: { workspaceName: args.name },
+      resourceId: workspaceId,
+      resourceType: "workspace",
+    });
+
     return await ctx.db.get(workspaceId);
   },
 });

@@ -2,7 +2,53 @@ import { v } from "convex/values";
 import type { Id } from "./_generated/dataModel";
 import { type MutationCtx, mutation, query } from "./_generated/server";
 import { logActivity } from "./lib/activity";
+import { deleteAllTaskAssets, deleteOrphanedAssets } from "./lib/assets";
 import { requireProjectMember, requireTaskMember } from "./lib/auth";
+import { parseMentionIds } from "./lib/mentions";
+import { createNotification } from "./lib/notifications";
+
+async function clearReminderState(ctx: MutationCtx, taskId: Id<"task">) {
+  const sent = await ctx.db
+    .query("taskReminderSent")
+    .withIndex("by_task_and_type", (q) => q.eq("taskId", taskId))
+    .collect();
+  for (const row of sent) {
+    await ctx.db.delete(row._id);
+  }
+}
+
+// Notifies members newly @mentioned by a description edit — skips anyone
+// already mentioned in the previous description, and the editor themselves.
+async function notifyNewlyMentioned(
+  ctx: MutationCtx,
+  args: {
+    oldContent: string | undefined;
+    newContent: string | undefined;
+    editorId: string;
+    taskId: Id<"task">;
+    taskTitle: string;
+    projectId: Id<"project">;
+    workspaceId: Id<"workspace">;
+  },
+) {
+  const alreadyMentioned = new Set(parseMentionIds(args.oldContent));
+  const newlyMentioned = parseMentionIds(args.newContent).filter(
+    (id) => id !== args.editorId && !alreadyMentioned.has(id),
+  );
+  for (const mentionedId of newlyMentioned) {
+    await createNotification(ctx, {
+      userId: mentionedId,
+      type: "task_mention",
+      eventData: {
+        taskTitle: args.taskTitle,
+        projectId: args.projectId,
+        workspaceId: args.workspaceId,
+      },
+      resourceId: args.taskId,
+      resourceType: "task",
+    });
+  }
+}
 
 const priorityValidator = v.union(
   v.literal("no-priority"),
@@ -60,7 +106,7 @@ export const create = mutation({
     dueDate: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const { userId } = await requireProjectMember(ctx, args.projectId);
+    const { userId, project } = await requireProjectMember(ctx, args.projectId);
     const status = args.status ?? "to-do";
     const column = await resolveColumn(ctx, args.projectId, status);
     const position = await nextPositionInColumn(ctx, column?._id);
@@ -90,6 +136,20 @@ export const create = mutation({
       eventData: {},
     });
 
+    if (args.assigneeId && args.assigneeId !== userId) {
+      await createNotification(ctx, {
+        userId: args.assigneeId,
+        type: "task_created",
+        eventData: {
+          taskTitle: args.title,
+          projectId: args.projectId,
+          workspaceId: project.workspaceId,
+        },
+        resourceId: taskId,
+        resourceType: "task",
+      });
+    }
+
     return await ctx.db.get(taskId);
   },
 });
@@ -97,7 +157,7 @@ export const create = mutation({
 export const updateStatus = mutation({
   args: { taskId: v.id("task"), status: v.string() },
   handler: async (ctx, args) => {
-    const { userId, task } = await requireTaskMember(ctx, args.taskId);
+    const { userId, task, project } = await requireTaskMember(ctx, args.taskId);
     const oldStatus = task.status;
     const column = await resolveColumn(ctx, task.projectId, args.status);
     await ctx.db.patch(args.taskId, {
@@ -111,6 +171,21 @@ export const updateStatus = mutation({
       userId,
       eventData: { oldStatus, newStatus: args.status },
     });
+    if (task.assigneeId && task.assigneeId !== userId) {
+      await createNotification(ctx, {
+        userId: task.assigneeId,
+        type: "task_status_changed",
+        eventData: {
+          taskTitle: task.title,
+          oldStatus,
+          newStatus: args.status,
+          projectId: task.projectId,
+          workspaceId: project.workspaceId,
+        },
+        resourceId: args.taskId,
+        resourceType: "task",
+      });
+    }
   },
 });
 
@@ -125,7 +200,7 @@ export const updatePosition = mutation({
     position: v.number(),
   },
   handler: async (ctx, args) => {
-    const { userId, task } = await requireTaskMember(ctx, args.taskId);
+    const { userId, task, project } = await requireTaskMember(ctx, args.taskId);
     const column = await ctx.db.get(args.columnId);
     if (!column || column.projectId !== task.projectId) {
       throw new Error("Column does not belong to this task's project");
@@ -144,6 +219,21 @@ export const updatePosition = mutation({
         userId,
         eventData: { oldStatus, newStatus: column.slug },
       });
+      if (task.assigneeId && task.assigneeId !== userId) {
+        await createNotification(ctx, {
+          userId: task.assigneeId,
+          type: "task_status_changed",
+          eventData: {
+            taskTitle: task.title,
+            oldStatus,
+            newStatus: column.slug,
+            projectId: task.projectId,
+            workspaceId: project.workspaceId,
+          },
+          resourceId: args.taskId,
+          resourceType: "task",
+        });
+      }
     }
   },
 });
@@ -151,7 +241,7 @@ export const updatePosition = mutation({
 export const updateAssignee = mutation({
   args: { taskId: v.id("task"), assigneeId: v.union(v.string(), v.null()) },
   handler: async (ctx, args) => {
-    const { userId, task } = await requireTaskMember(ctx, args.taskId);
+    const { userId, task, project } = await requireTaskMember(ctx, args.taskId);
     if ((task.assigneeId ?? null) === args.assigneeId) return;
     await ctx.db.patch(args.taskId, {
       assigneeId: args.assigneeId ?? undefined,
@@ -163,6 +253,19 @@ export const updateAssignee = mutation({
       userId,
       eventData: args.assigneeId ? { newAssigneeId: args.assigneeId } : {},
     });
+    if (args.assigneeId && args.assigneeId !== userId) {
+      await createNotification(ctx, {
+        userId: args.assigneeId,
+        type: "task_assignee_changed",
+        eventData: {
+          taskTitle: task.title,
+          projectId: task.projectId,
+          workspaceId: project.workspaceId,
+        },
+        resourceId: args.taskId,
+        resourceType: "task",
+      });
+    }
   },
 });
 
@@ -199,6 +302,7 @@ export const updateDueDate = mutation({
       userId,
       eventData: { oldDueDate, newDueDate: args.dueDate },
     });
+    await clearReminderState(ctx, args.taskId);
   },
 });
 
@@ -224,10 +328,26 @@ export const updateTitle = mutation({
 export const updateDescription = mutation({
   args: { taskId: v.id("task"), description: v.optional(v.string()) },
   handler: async (ctx, args) => {
-    await requireTaskMember(ctx, args.taskId);
+    const { userId, task, project } = await requireTaskMember(ctx, args.taskId);
+    const oldDescription = task.description;
     await ctx.db.patch(args.taskId, {
       description: args.description,
       updatedAt: Date.now(),
+    });
+    await deleteOrphanedAssets(
+      ctx,
+      oldDescription,
+      args.description,
+      args.taskId,
+    );
+    await notifyNewlyMentioned(ctx, {
+      oldContent: oldDescription,
+      newContent: args.description,
+      editorId: userId,
+      taskId: args.taskId,
+      taskTitle: task.title,
+      projectId: task.projectId,
+      workspaceId: project.workspaceId,
     });
   },
 });
@@ -250,7 +370,7 @@ export const patch = mutation({
     position: v.optional(v.number()),
   },
   handler: async (ctx, args) => {
-    const { userId, task } = await requireTaskMember(ctx, args.taskId);
+    const { userId, task, project } = await requireTaskMember(ctx, args.taskId);
 
     const updates: Record<string, unknown> = { updatedAt: Date.now() };
     if (args.title !== undefined) updates.title = args.title;
@@ -279,6 +399,43 @@ export const patch = mutation({
         userId,
         eventData: { oldStatus, newStatus: args.status },
       });
+      if (task.assigneeId && task.assigneeId !== userId) {
+        await createNotification(ctx, {
+          userId: task.assigneeId,
+          type: "task_status_changed",
+          eventData: {
+            taskTitle: task.title,
+            oldStatus,
+            newStatus: args.status,
+            projectId: task.projectId,
+            workspaceId: project.workspaceId,
+          },
+          resourceId: args.taskId,
+          resourceType: "task",
+        });
+      }
+    }
+
+    if (args.description !== undefined) {
+      await deleteOrphanedAssets(
+        ctx,
+        task.description,
+        args.description,
+        args.taskId,
+      );
+      await notifyNewlyMentioned(ctx, {
+        oldContent: task.description,
+        newContent: args.description,
+        editorId: userId,
+        taskId: args.taskId,
+        taskTitle: task.title,
+        projectId: task.projectId,
+        workspaceId: project.workspaceId,
+      });
+    }
+
+    if (args.dueDate !== undefined && args.dueDate !== (task.dueDate ?? null)) {
+      await clearReminderState(ctx, args.taskId);
     }
   },
 });
@@ -393,6 +550,8 @@ export const deleteTask = mutation({
       await ctx.db.delete(row._id);
     }
 
+    await deleteAllTaskAssets(ctx, args.taskId);
+    await clearReminderState(ctx, args.taskId);
     await ctx.db.delete(args.taskId);
   },
 });

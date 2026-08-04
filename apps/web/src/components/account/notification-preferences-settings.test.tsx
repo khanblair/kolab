@@ -10,32 +10,11 @@ import { NotificationPreferencesSettings } from "./notification-preferences-sett
 
 const updatePreferences = vi.fn();
 const preferences = {
-  emailAddress: "mina@example.com",
-  emailEnabled: false,
-  ntfyEnabled: false,
-  ntfyConfigured: false,
-  ntfyServerUrl: null,
-  ntfyTopic: null,
-  ntfyTokenConfigured: false,
-  maskedNtfyToken: null,
-  gotifyEnabled: false,
-  gotifyConfigured: false,
-  gotifyServerUrl: null,
-  gotifyTokenConfigured: false,
-  maskedGotifyToken: null,
-  webhookEnabled: false,
-  webhookConfigured: false,
-  webhookUrl: null,
-  webhookSecretConfigured: false,
-  maskedWebhookSecret: null,
   taskAssignmentEnabled: true,
   taskCommentEnabled: true,
   taskStatusChangeEnabled: true,
   dueDateReminderEnabled: true,
   dueDateReminderLeadTimeMinutes: 1440,
-  workspaces: [],
-  createdAt: null,
-  updatedAt: null,
 };
 
 vi.mock("react-i18next", () => ({
@@ -52,10 +31,6 @@ vi.mock(
   }),
 );
 
-vi.mock("@/hooks/queries/workspace/use-get-workspaces", () => ({
-  default: () => ({ data: [] }),
-}));
-
 vi.mock(
   "@/hooks/mutations/notification-preferences/use-notification-preferences",
   () => ({
@@ -63,8 +38,6 @@ vi.mock(
       mutateAsync: updatePreferences,
       isPending: false,
     }),
-    useUpsertNotificationWorkspaceRule: () => ({ mutateAsync: vi.fn() }),
-    useDeleteNotificationWorkspaceRule: () => ({ mutateAsync: vi.fn() }),
   }),
 );
 
