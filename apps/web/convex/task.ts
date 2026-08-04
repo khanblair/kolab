@@ -114,6 +114,40 @@ export const updateStatus = mutation({
   },
 });
 
+// Drag-and-drop: reorder within a column (same columnId, new position) or
+// move across columns (new columnId). Takes a real columnId rather than a
+// status string, since the frontend always has the column doc already
+// rendered — this sidesteps the slug-vs-id ambiguity `updateStatus` has.
+export const updatePosition = mutation({
+  args: {
+    taskId: v.id("task"),
+    columnId: v.id("column"),
+    position: v.number(),
+  },
+  handler: async (ctx, args) => {
+    const { userId, task } = await requireTaskMember(ctx, args.taskId);
+    const column = await ctx.db.get(args.columnId);
+    if (!column || column.projectId !== task.projectId) {
+      throw new Error("Column does not belong to this task's project");
+    }
+    const oldStatus = task.status;
+    await ctx.db.patch(args.taskId, {
+      columnId: args.columnId,
+      status: column.slug,
+      position: args.position,
+      updatedAt: Date.now(),
+    });
+    if (column.slug !== oldStatus) {
+      await logActivity(ctx, {
+        taskId: args.taskId,
+        type: "status_changed",
+        userId,
+        eventData: { oldStatus, newStatus: column.slug },
+      });
+    }
+  },
+});
+
 export const updateAssignee = mutation({
   args: { taskId: v.id("task"), assigneeId: v.union(v.string(), v.null()) },
   handler: async (ctx, args) => {

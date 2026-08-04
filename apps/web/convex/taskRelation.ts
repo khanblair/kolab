@@ -77,12 +77,11 @@ export const list = query({
     const relations = [...asSource, ...asTarget];
     return await Promise.all(
       relations.map(async (relation) => {
-        const otherTaskId =
-          relation.sourceTaskId === args.taskId
-            ? relation.targetTaskId
-            : relation.sourceTaskId;
-        const otherTask = await ctx.db.get(otherTaskId);
-        return { ...relation, otherTask };
+        const [sourceTask, targetTask] = await Promise.all([
+          ctx.db.get(relation.sourceTaskId),
+          ctx.db.get(relation.targetTaskId),
+        ]);
+        return { ...relation, sourceTask, targetTask };
       }),
     );
   },

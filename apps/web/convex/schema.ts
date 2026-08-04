@@ -11,9 +11,14 @@ export default defineSchema({
     slug: v.string(),
   }).index("by_slug", ["slug"]),
 
+  // name/email are denormalized from the Supabase JWT at membership-creation
+  // time — Convex has no user table and can't read Supabase's user
+  // directory, so this is the only place assignee/member names come from.
   workspaceUser: defineTable({
     workspaceId: v.id("workspace"),
     userId: v.string(),
+    name: v.string(),
+    email: v.optional(v.string()),
     role: v.string(),
     joinedAt: v.number(),
   })

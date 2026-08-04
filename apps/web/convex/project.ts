@@ -1,6 +1,7 @@
 import { v } from "convex/values";
-import { mutation, query } from "./_generated/server";
-import { requireWorkspaceMember } from "./lib/auth";
+import type { Id } from "./_generated/dataModel";
+import { mutation, type QueryCtx, query } from "./_generated/server";
+import { requireProjectMember, requireWorkspaceMember } from "./lib/auth";
 
 // Mirrors apps/api/src/project/controllers/create-project.ts's
 // DEFAULT_PROJECT_COLUMNS. Convex mutations are transactional by default,
@@ -43,9 +44,42 @@ export const create = mutation({
   },
 });
 
-// NOTE: statistics (completion %, due date) from
-// apps/api/src/project/controllers/get-projects.ts are dropped for this
-// slice — they read from the task table, which isn't modeled yet.
+async function computeStatistics(ctx: QueryCtx, projectId: Id<"project">) {
+  const [columns, tasks] = await Promise.all([
+    ctx.db
+      .query("column")
+      .withIndex("by_project", (q) => q.eq("projectId", projectId))
+      .collect(),
+    ctx.db
+      .query("task")
+      .withIndex("by_project", (q) => q.eq("projectId", projectId))
+      .collect(),
+  ]);
+  const finalColumnIds = new Set(
+    columns.filter((c) => c.isFinal).map((c) => c._id),
+  );
+  const totalTasks = tasks.length;
+  const completedTasks = tasks.filter(
+    (t) => t.columnId && finalColumnIds.has(t.columnId),
+  ).length;
+  return {
+    totalTasks,
+    completionPercentage:
+      totalTasks === 0 ? 0 : Math.round((completedTasks / totalTasks) * 100),
+  };
+}
+
+export const get = query({
+  args: { projectId: v.id("project") },
+  handler: async (ctx, args) => {
+    const { project } = await requireProjectMember(ctx, args.projectId);
+    return {
+      ...project,
+      statistics: await computeStatistics(ctx, project._id),
+    };
+  },
+});
+
 export const list = query({
   args: {
     workspaceId: v.id("workspace"),
@@ -58,8 +92,15 @@ export const list = query({
       .withIndex("by_workspace", (q) => q.eq("workspaceId", args.workspaceId))
       .collect();
 
-    return args.includeArchived
+    const visible = args.includeArchived
       ? projects
       : projects.filter((p) => p.archivedAt === undefined);
+
+    return await Promise.all(
+      visible.map(async (project) => ({
+        ...project,
+        statistics: await computeStatistics(ctx, project._id),
+      })),
+    );
   },
 });
