@@ -1,31 +1,27 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import bulkOperation from "@/fetchers/task/bulk-operation";
-import deleteTask from "@/fetchers/task/delete-task";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
 export function useBulkOperations() {
-  const queryClientRef = useQueryClient();
-
-  const invalidateCommon = () => {
-    queryClientRef.invalidateQueries({ queryKey: ["tasks"] });
-    queryClientRef.invalidateQueries({ queryKey: ["projects"] });
-  };
+  const deleteTask = useConvexMutation(api.task.deleteTask);
+  const bulkUpdate = useConvexMutation(api.task.bulkUpdate);
 
   const bulkDelete = useMutation({
     mutationFn: async (taskIds: string[]) => {
-      await Promise.all(taskIds.map((id) => deleteTask(id)));
+      await Promise.all(
+        taskIds.map((id) => deleteTask({ taskId: id as Id<"task"> })),
+      );
     },
-    onSuccess: invalidateCommon,
   });
 
   const bulkArchive = useMutation({
     mutationFn: async (taskIds: string[]) => {
-      await bulkOperation({
-        taskIds,
+      await bulkUpdate({
+        taskIds: taskIds as Id<"task">[],
         operation: "updateStatus",
         value: "archived",
       });
     },
-    onSuccess: invalidateCommon,
   });
 
   const bulkChangeStatus = useMutation({
@@ -36,13 +32,12 @@ export function useBulkOperations() {
       taskIds: string[];
       status: string;
     }) => {
-      await bulkOperation({
-        taskIds,
+      await bulkUpdate({
+        taskIds: taskIds as Id<"task">[],
         operation: "updateStatus",
         value: status,
       });
     },
-    onSuccess: invalidateCommon,
   });
 
   const bulkAssign = useMutation({
@@ -53,24 +48,22 @@ export function useBulkOperations() {
       taskIds: string[];
       userId: string;
     }) => {
-      await bulkOperation({
-        taskIds,
+      await bulkUpdate({
+        taskIds: taskIds as Id<"task">[],
         operation: "updateAssignee",
         value: userId,
       });
     },
-    onSuccess: invalidateCommon,
   });
 
   const bulkMoveToBacklog = useMutation({
     mutationFn: async (taskIds: string[]) => {
-      await bulkOperation({
-        taskIds,
+      await bulkUpdate({
+        taskIds: taskIds as Id<"task">[],
         operation: "updateStatus",
         value: "planned",
       });
     },
-    onSuccess: invalidateCommon,
   });
 
   const bulkMoveToBoard = useMutation({
@@ -81,13 +74,12 @@ export function useBulkOperations() {
       taskIds: string[];
       status: string;
     }) => {
-      await bulkOperation({
-        taskIds,
+      await bulkUpdate({
+        taskIds: taskIds as Id<"task">[],
         operation: "updateStatus",
         value: status,
       });
     },
-    onSuccess: invalidateCommon,
   });
 
   const bulkPriority = useMutation({
@@ -98,13 +90,12 @@ export function useBulkOperations() {
       taskIds: string[];
       priority: string;
     }) => {
-      await bulkOperation({
-        taskIds,
+      await bulkUpdate({
+        taskIds: taskIds as Id<"task">[],
         operation: "updatePriority",
         value: priority,
       });
     },
-    onSuccess: invalidateCommon,
   });
 
   const bulkAddLabel = useMutation({
@@ -115,15 +106,11 @@ export function useBulkOperations() {
       taskIds: string[];
       labelId: string;
     }) => {
-      await bulkOperation({
-        taskIds,
+      await bulkUpdate({
+        taskIds: taskIds as Id<"task">[],
         operation: "addLabel",
         value: labelId,
       });
-    },
-    onSuccess: () => {
-      invalidateCommon();
-      queryClientRef.invalidateQueries({ queryKey: ["labels"] });
     },
   });
 
@@ -135,13 +122,12 @@ export function useBulkOperations() {
       taskIds: string[];
       dueDate: string | null;
     }) => {
-      await bulkOperation({
-        taskIds,
+      await bulkUpdate({
+        taskIds: taskIds as Id<"task">[],
         operation: "updateDueDate",
         value: dueDate,
       });
     },
-    onSuccess: invalidateCommon,
   });
 
   return {

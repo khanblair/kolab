@@ -1,9 +1,15 @@
 import { useMutation } from "@tanstack/react-query";
-import exportTasks from "@/fetchers/task/export-tasks";
+import { useConvex } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
 const useExportTasks = () => {
+  const convex = useConvex();
+
   return useMutation({
-    mutationFn: (projectId: string) => exportTasks(projectId),
+    mutationFn: (projectId: string) =>
+      convex.query(api.task.exportTasks, {
+        projectId: projectId as Id<"project">,
+      }),
   });
 };
 

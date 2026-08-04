@@ -27,6 +27,29 @@ async function findWorkspaceLabel(
   return labels.find((l) => l.taskId === undefined && l.name === name);
 }
 
+// Shared with task.bulkUpdate's "addLabel" operation: copies a label's
+// name/color onto a task as its own task-scoped row, idempotently — mirrors
+// label.create's task branch without requiring a full create() call.
+export async function ensureTaskLabelCopy(
+  ctx: MutationCtx,
+  taskId: Id<"task">,
+  workspaceId: Id<"workspace">,
+  name: string,
+  color: string,
+) {
+  const existing = await findTaskLabel(ctx, taskId, name);
+  if (existing) return existing._id;
+  const now = Date.now();
+  return await ctx.db.insert("label", {
+    name,
+    color,
+    taskId,
+    workspaceId,
+    createdAt: now,
+    updatedAt: now,
+  });
+}
+
 export const create = mutation({
   args: {
     name: v.string(),
