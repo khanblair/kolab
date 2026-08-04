@@ -283,7 +283,7 @@ function CreateTaskModal({
         }
 
         const targetColumn = draft.columns?.find(
-          (column) => column.id === task.status,
+          (column) => column.slug === task.status,
         );
         if (!targetColumn) return;
 
@@ -334,8 +334,8 @@ function CreateTaskModal({
       userId: assigneeId,
       priority,
       projectId: resolvedProjectId,
-      startDate: startDate ? startDate.toISOString() : undefined,
-      dueDate: dueDate ? dueDate.toISOString() : undefined,
+      startDate,
+      dueDate,
       status: draftStatus,
     }).then((task) => normalizeTask(task));
 
@@ -397,8 +397,8 @@ function CreateTaskModal({
               userId: assigneeId,
               priority,
               projectId: resolvedProjectId,
-              startDate: startDate ? startDate.toISOString() : undefined,
-              dueDate: dueDate ? dueDate.toISOString() : undefined,
+              startDate,
+              dueDate,
               status: taskStatus,
             }),
           );

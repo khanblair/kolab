@@ -1,19 +1,21 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import createTaskRelation from "@/fetchers/task-relation/create-task-relation";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
 function useCreateTaskRelation() {
-  const queryClient = useQueryClient();
+  const createRelation = useConvexMutation(api.taskRelation.create);
 
   return useMutation({
-    mutationFn: createTaskRelation,
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: ["task-relations", variables.sourceTaskId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["task-relations", variables.targetTaskId],
-      });
-    },
+    mutationFn: (variables: {
+      sourceTaskId: string;
+      targetTaskId: string;
+      relationType: string;
+    }) =>
+      createRelation({
+        sourceTaskId: variables.sourceTaskId as Id<"task">,
+        targetTaskId: variables.targetTaskId as Id<"task">,
+        relationType: variables.relationType,
+      }),
   });
 }
 

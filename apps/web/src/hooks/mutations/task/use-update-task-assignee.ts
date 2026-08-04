@@ -1,31 +1,16 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import updateTaskAssignee from "@/fetchers/task/update-task-assignee";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 import type Task from "@/types/task";
 
 export function useUpdateTaskAssignee() {
-  const queryClient = useQueryClient();
+  const updateAssignee = useConvexMutation(api.task.updateAssignee);
 
   return useMutation({
-    mutationFn: (task: Task) => updateTaskAssignee(task.id, task),
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: ["task", variables.id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["tasks", variables.projectId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["notifications"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["projects"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["activities", variables.id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["task-relations"],
-      });
-    },
+    mutationFn: (task: Task) =>
+      updateAssignee({
+        taskId: task.id as Id<"task">,
+        assigneeId: task.assigneeId || null,
+      }),
   });
 }

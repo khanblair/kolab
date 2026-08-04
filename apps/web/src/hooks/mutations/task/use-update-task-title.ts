@@ -1,28 +1,13 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import updateTaskTitle from "@/fetchers/task/update-task-title";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 import type Task from "@/types/task";
 
 export function useUpdateTaskTitle() {
-  const queryClient = useQueryClient();
+  const updateTitle = useConvexMutation(api.task.updateTitle);
 
   return useMutation({
-    mutationFn: (task: Task) => updateTaskTitle(task.id, task),
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: ["task", variables.id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["tasks", variables.projectId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["notifications"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["projects"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["activities", variables.id],
-      });
-    },
+    mutationFn: (task: Task) =>
+      updateTitle({ taskId: task.id as Id<"task">, title: task.title }),
   });
 }

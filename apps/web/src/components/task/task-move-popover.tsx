@@ -61,16 +61,16 @@ export default function TaskMovePopover({
 
   const destinationColumns = destinationProject?.columns ?? [];
   const canKeepCurrentStatus = destinationColumns.some(
-    (column) => column.id === task.status,
+    (column) => column.slug === task.status,
   );
-  const fallbackStatus = destinationColumns[0]?.id ?? "";
+  const fallbackStatus = destinationColumns[0]?.slug ?? "";
   const effectiveStatus = canKeepCurrentStatus
     ? task.status
     : selectedStatus || fallbackStatus;
 
   const selectedStatusLabel = useMemo(() => {
     if (!effectiveStatus || destinationColumns.length === 0) return null;
-    const column = destinationColumns.find((c) => c.id === effectiveStatus);
+    const column = destinationColumns.find((c) => c.slug === effectiveStatus);
     return column?.name || getStatusLabel(effectiveStatus) || null;
   }, [destinationColumns, effectiveStatus]);
 
@@ -202,8 +202,8 @@ export default function TaskMovePopover({
                   </SelectTrigger>
                   <SelectContent>
                     {destinationColumns.map((column) => (
-                      <SelectItem key={column.id} value={column.id}>
-                        {column.name || getStatusLabel(column.id)}
+                      <SelectItem key={column.id} value={column.slug}>
+                        {column.name || getStatusLabel(column.slug)}
                       </SelectItem>
                     ))}
                   </SelectContent>

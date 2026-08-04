@@ -91,7 +91,7 @@ export function ColumnHeader({ column }: ColumnHeaderProps) {
         open={isTaskModalOpen}
         onClose={() => setIsTaskModalOpen(false)}
         projectId={project?.id}
-        status={column.id}
+        status={column.slug}
       />
 
       <ArchiveTasksModal

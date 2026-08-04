@@ -1,16 +1,13 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import deleteTaskRelation from "@/fetchers/task-relation/delete-task-relation";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 
-function useDeleteTaskRelation(taskId: string) {
-  const queryClient = useQueryClient();
+function useDeleteTaskRelation(_taskId: string) {
+  const removeRelation = useConvexMutation(api.taskRelation.remove);
 
   return useMutation({
-    mutationFn: deleteTaskRelation,
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["task-relations", taskId],
-      });
-    },
+    mutationFn: (relationId: string) =>
+      removeRelation({ relationId: relationId as Id<"taskRelation"> }),
   });
 }
 

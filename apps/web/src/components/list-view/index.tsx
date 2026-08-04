@@ -202,12 +202,12 @@ function ListView({ project, disableDragDrop = false }: ListViewProps) {
         destinationColumn.tasks.forEach((t, index) => {
           updateTask({
             ...t,
-            status: destinationColumn.id,
+            status: destinationColumn.slug,
             position: index,
           });
         });
       } else {
-        task.status = destinationColumn.id;
+        task.status = destinationColumn.slug;
         const destinationIndex =
           overId === destinationColumn.id
             ? destinationColumn.tasks.length
@@ -218,7 +218,7 @@ function ListView({ project, disableDragDrop = false }: ListViewProps) {
         destinationColumn.tasks.forEach((t, index) => {
           updateTask({
             ...t,
-            status: destinationColumn.id,
+            status: destinationColumn.slug,
             position: index,
           });
         });
@@ -326,7 +326,7 @@ function ListView({ project, disableDragDrop = false }: ListViewProps) {
               type="button"
               onClick={() => {
                 setIsTaskModalOpen(true);
-                setActiveColumn(column.id);
+                setActiveColumn(column.slug);
               }}
               className="p-1 hover:bg-accent rounded text-muted-foreground hover:text-foreground transition-colors"
               title={t("tasks:listView.addTask")}

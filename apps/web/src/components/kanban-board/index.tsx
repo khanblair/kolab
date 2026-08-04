@@ -162,7 +162,7 @@ function KanbanBoard({ project, disableDragDrop = false }: KanbanBoardProps) {
           queryKey: ["projects", project.workspaceId],
         });
       } else {
-        task.status = destinationColumn.id;
+        task.status = destinationColumn.slug;
         const destinationIndex =
           overId === destinationColumn.id
             ? destinationColumn.tasks.length
@@ -171,7 +171,11 @@ function KanbanBoard({ project, disableDragDrop = false }: KanbanBoardProps) {
         destinationColumn.tasks.splice(destinationIndex, 0, task);
 
         destinationColumn.tasks.forEach((t, index) => {
-          updateTask({ ...t, status: destinationColumn.id, position: index });
+          updateTask({
+            ...t,
+            status: destinationColumn.slug,
+            position: index,
+          });
         });
 
         sourceColumn.tasks.forEach((t, index) => {

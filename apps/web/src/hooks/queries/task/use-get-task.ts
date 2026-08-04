@@ -1,14 +1,18 @@
-import { useQuery } from "@tanstack/react-query";
-import getTask from "@/fetchers/task/get-task";
+import { useQuery } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
+import { toTask } from "@/lib/to-task";
 
 function useGetTask(taskId: string) {
-  return useQuery({
-    queryKey: ["task", taskId],
-    queryFn: () => getTask(taskId),
-    enabled: Boolean(taskId),
-    refetchOnMount: "always",
-    staleTime: 0,
-  });
+  const task = useQuery(
+    api.task.get,
+    taskId ? { taskId: taskId as Id<"task"> } : "skip",
+  );
+
+  return {
+    data: task ? toTask(task) : undefined,
+    isLoading: Boolean(taskId) && task === undefined,
+    isError: false,
+  };
 }
 
 export default useGetTask;

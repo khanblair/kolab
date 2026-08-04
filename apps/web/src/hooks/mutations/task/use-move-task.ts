@@ -1,34 +1,34 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
 import { useTranslation } from "react-i18next";
-import moveTask from "@/fetchers/task/move-task";
+import { api, type Id } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 import { toast } from "@/lib/toast";
 
 export function useMoveTask() {
   const { t } = useTranslation();
-  const queryClient = useQueryClient();
+  const moveTask = useConvexMutation(api.task.move);
 
   return useMutation({
-    mutationFn: moveTask,
-    onSuccess: (result, variables) => {
+    mutationFn: async ({
+      taskId,
+      destinationProjectId,
+      destinationStatus,
+    }: {
+      taskId: string;
+      destinationProjectId: string;
+      destinationStatus?: string;
+    }) => {
+      const task = await moveTask({
+        taskId: taskId as Id<"task">,
+        destinationProjectId: destinationProjectId as Id<"project">,
+        destinationStatus,
+      });
+      if (!task) throw new Error("Failed to move task");
+      return { task: withId(task) };
+    },
+    onSuccess: () => {
       toast.success(t("tasks:move.success"));
-      queryClient.invalidateQueries({
-        queryKey: ["task", variables.taskId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["tasks", result.sourceProjectId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["tasks", result.destinationProjectId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["projects"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["activities", variables.taskId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["notifications"],
-      });
     },
     onError: (error) => {
       toast.error(

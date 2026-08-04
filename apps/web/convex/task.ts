@@ -232,8 +232,63 @@ export const updateDescription = mutation({
   },
 });
 
+// Generic multi-field update, mirroring the original app's "PUT the whole
+// task" endpoint — several views (backlog, gantt, list view, the kanban
+// board's drag-drop) update several fields together rather than through
+// one of the single-field mutations above. Matches the original's activity
+// behavior exactly: only a status change gets logged.
+export const patch = mutation({
+  args: {
+    taskId: v.id("task"),
+    title: v.optional(v.string()),
+    description: v.optional(v.string()),
+    status: v.optional(v.string()),
+    priority: v.optional(priorityValidator),
+    assigneeId: v.optional(v.union(v.string(), v.null())),
+    startDate: v.optional(v.union(v.number(), v.null())),
+    dueDate: v.optional(v.union(v.number(), v.null())),
+    position: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const { userId, task } = await requireTaskMember(ctx, args.taskId);
+
+    const updates: Record<string, unknown> = { updatedAt: Date.now() };
+    if (args.title !== undefined) updates.title = args.title;
+    if (args.description !== undefined) updates.description = args.description;
+    if (args.priority !== undefined) updates.priority = args.priority;
+    if (args.assigneeId !== undefined)
+      updates.assigneeId = args.assigneeId ?? undefined;
+    if (args.startDate !== undefined)
+      updates.startDate = args.startDate ?? undefined;
+    if (args.dueDate !== undefined) updates.dueDate = args.dueDate ?? undefined;
+    if (args.position !== undefined) updates.position = args.position;
+
+    const oldStatus = task.status;
+    if (args.status !== undefined) {
+      const column = await resolveColumn(ctx, task.projectId, args.status);
+      updates.status = args.status;
+      updates.columnId = column?._id;
+    }
+
+    await ctx.db.patch(args.taskId, updates);
+
+    if (args.status !== undefined && args.status !== oldStatus) {
+      await logActivity(ctx, {
+        taskId: args.taskId,
+        type: "status_changed",
+        userId,
+        eventData: { oldStatus, newStatus: args.status },
+      });
+    }
+  },
+});
+
 export const move = mutation({
-  args: { taskId: v.id("task"), destinationProjectId: v.id("project") },
+  args: {
+    taskId: v.id("task"),
+    destinationProjectId: v.id("project"),
+    destinationStatus: v.optional(v.string()),
+  },
   handler: async (ctx, args) => {
     const { userId, task } = await requireTaskMember(ctx, args.taskId);
     if (task.projectId === args.destinationProjectId) {
@@ -246,7 +301,7 @@ export const move = mutation({
     const column = await resolveColumn(
       ctx,
       args.destinationProjectId,
-      task.status,
+      args.destinationStatus ?? task.status,
     );
     const fallbackColumn =
       column ??

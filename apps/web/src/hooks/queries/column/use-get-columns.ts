@@ -1,10 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
-import getColumns from "@/fetchers/column/get-columns";
+import { useQuery } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
+import { withId } from "@/lib/convex-ids";
 
 export function useGetColumns(projectId: string) {
-  return useQuery({
-    queryKey: ["columns", projectId],
-    queryFn: () => getColumns(projectId),
-    enabled: !!projectId,
-  });
+  const columns = useQuery(
+    api.column.list,
+    projectId ? { projectId: projectId as Id<"project"> } : "skip",
+  );
+
+  return {
+    data: columns?.map(withId),
+    isLoading: Boolean(projectId) && columns === undefined,
+    isError: false,
+  };
 }

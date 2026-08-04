@@ -1,28 +1,23 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
-import updateTaskPriority from "@/fetchers/task/update-task-priority";
+import { useMutation } from "@tanstack/react-query";
+import { useMutation as useConvexMutation } from "convex/react";
+import { api, type Id } from "@/lib/convex-api";
 import type Task from "@/types/task";
 
 export function useUpdateTaskPriority() {
-  const queryClient = useQueryClient();
+  const updatePriority = useConvexMutation(api.task.updatePriority);
 
   return useMutation({
-    mutationFn: (task: Task) => updateTaskPriority(task.id, task),
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({
-        queryKey: ["task", variables.id],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["tasks", variables.projectId],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["notifications"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["projects"],
-      });
-      queryClient.invalidateQueries({
-        queryKey: ["activities", variables.id],
-      });
-    },
+    mutationFn: (task: Task) =>
+      updatePriority({
+        taskId: task.id as Id<"task">,
+        priority:
+          (task.priority as
+            | "no-priority"
+            | "low"
+            | "medium"
+            | "high"
+            | "urgent"
+            | null) ?? "no-priority",
+      }),
   });
 }
